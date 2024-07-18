@@ -1,0 +1,50 @@
+baseURL: https://waldy.id/
+languageCode: en-us
+title: Waldy's blog
+theme: "PaperMod"
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+    disableXML: true
+    minifyOutput: true
+
+
+params:
+    #env: production # to enable google analytics, opengraph, twitter-cards and schema.
+    title: Sofyan waldy's blog
+    description: welcome to waldy's personal blog, Where I share about my personal insights, ideas and thoughts on technology.
+    keyword: [personal blog, tech blog, portfolio]
+    author: Me 
+    ShowShareButton: true
+    ShowReadingTime: true
+    ShowBreadCrumbs: true
+    comments: true
+    homeInfoParams:
+        Title: "Hi there \U0001F44B"
+        Content: welcome to my blog
+
+    socialIcons:
+        - name: "linkedin"
+          url: "https://www.linkedin.com/in/sopyan-waldy/"
+        - name: "github"
+          url: "https://github.com/sofyanwaldy"
+
+menu:
+    main:
+        - identifier: Categories
+          name: categories 
+          url: /categories/
+
+#profileMode:
+#enabled: false
+#title: Hi I'm Waly
+# buttons:
+# - name: Post
+# url: post
+    
+
+
