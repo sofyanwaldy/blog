@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>blog.waldy.id/posts/unsubrek-medium/</loc>
+    <loc>https://blog.waldy.id/posts/unsubrek-medium/</loc>
     <lastmod>2024-07-18T17:21:38+07:00</lastmod>
   </url><url>
-    <loc>blog.waldy.id/posts/</loc>
+    <loc>https://blog.waldy.id/posts/</loc>
     <lastmod>2024-07-18T17:21:38+07:00</lastmod>
   </url><url>
-    <loc>blog.waldy.id/</loc>
+    <loc>https://blog.waldy.id/</loc>
     <lastmod>2024-07-18T17:21:38+07:00</lastmod>
   </url><url>
-    <loc>blog.waldy.id/archives/</loc>
+    <loc>https://blog.waldy.id/archives/</loc>
   </url><url>
-    <loc>blog.waldy.id/categories/</loc>
+    <loc>https://blog.waldy.id/categories/</loc>
   </url><url>
-    <loc>blog.waldy.id/tags/</loc>
+    <loc>https://blog.waldy.id/tags/</loc>
   </url>
 </urlset>
