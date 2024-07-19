@@ -13,7 +13,7 @@ minify:
   minifyOutput: true
 
 params:
-  #env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Sofyan waldy's blog
   description: welcome to waldy's personal blog, Where I share about my personal insights, ideas and thoughts on technology.
   keyword: [personal blog, tech blog, portfolio]
@@ -22,18 +22,30 @@ params:
   ShowReadingTime: true
   ShowBreadCrumbs: true
   comments: true
+  contact:
+    email: "sofyanwaldy@gmail.com"
   homeInfoParams:
-    Title: "Hi, \U0001F44B"
-    Content: I'm Waldy, a self-taught software engineer. I think a lot but don't talk much, so I created this blog to share my ideas and thoughts.
+    Title: "Hi, I'm Waldy\U0001F44B"
+    Content: I'm self-taught software engineer. I think a lot but don't talk much, so I created this blog to share my ideas and thoughts.
 
   socialIcons:
+    - name: "mastodon"
+      url: "https://mastodon.social/@swaldy"
     - name: "linkedin"
       url: "https://www.linkedin.com/in/sopyan-waldy/"
     - name: "github"
       url: "https://github.com/sofyanwaldy"
+    - name: "rss"
+      url: "/index.xml"
 
 menu:
   main:
-    - identifier: Archives
-      name: Archives
-      url: /archives/
+    - identifier: Stories
+      name: Stories
+      url: /stories/
+    - identifier: About
+      name: About
+      url: /about/
+    - identifier: Books
+      name: Books
+      url: /books
