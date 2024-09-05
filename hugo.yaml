@@ -18,6 +18,7 @@ params:
   title: Sofyan waldy's blog
   description: welcome to waldy's personal blog, Where I share about my personal insights, ideas and thoughts on technology.
   keyword: [personal blog, tech blog, portfolio]
+  comments: true
   author: Me
   ShowShareButton: true
   ShowReadingTime: true
@@ -50,3 +51,7 @@ menu:
     - identifier: Books
       name: Books
       url: /books
+
+services:
+  disqus:
+    shortname: waldy-id.disqus.com

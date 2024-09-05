@@ -2,34 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Waldy&#39;s blog</title>
-    <link>https://waldy.id/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Waldy&#39;s blog</description>
     <generator>Hugo -- 0.129.0</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jul 2024 17:21:38 +0700</lastBuildDate>
-    <atom:link href="https://waldy.id/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mengapa aku berhenti subscribe medium.com</title>
-      <link>https://waldy.id/posts/unsubrek-medium/</link>
+      <link>http://localhost:1313/posts/unsubrek-medium/</link>
       <pubDate>Thu, 18 Jul 2024 17:21:38 +0700</pubDate>
-      <guid>https://waldy.id/posts/unsubrek-medium/</guid>
+      <guid>http://localhost:1313/posts/unsubrek-medium/</guid>
       <description>Disclaimer sebelumnya disclaimer dulu, disini tidak ada ajakan untuk melakukan unsubscribe terhadap medium.com. ini merupakan murni pengalaman dan pendapat pribadi, bukan ajakan.
 Awal Berlangganan sebenarnya aku subscribe medium.com karena akhir-akhir ini sering melakukan research di internet untuk menemukan artikel yang bermanfaat baik itu mengenai teknologi, psikologi ataupun cerita dari orang-orang.
 namun, dikarekan sering berselancar di internet, kemudian sering ketemu dengan artikel yang berasal dari medium.com, tau sendiri kalau buka artikel yang ada label member-only akan sering muncul popup untuk subscribe, dan begitulah kejadiannya aku subrek ini medium.</description>
     </item>
     <item>
       <title>About Me</title>
-      <link>https://waldy.id/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://waldy.id/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>Hi, I’m Sofyan Waldy, a technology enthusiast who enjoy coding, writing, and continuous learning. I currently work at Sociolla, where I am actively involved in the development and operation of software development.
 In my professional journey, I have dived into various technologies and frameworks. My first programming language was C++, a challenging yet rewarding language that I am still learning to master it. Currently, I&amp;rsquo;m also delving into more low-level programming languages like C and C++ to deepen my understanding of computer systems and enhance my programming skills.</description>
     </item>
     <item>
       <title>Books</title>
-      <link>https://waldy.id/books/</link>
+      <link>http://localhost:1313/books/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://waldy.id/books/</guid>
+      <guid>http://localhost:1313/books/</guid>
       <description>Books</description>
     </item>
   </channel>
