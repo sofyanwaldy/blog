@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Books on Waldy&#39;s blog</title>
+    <link>http://localhost:1313/books/</link>
+    <description>Recent content in Books on Waldy&#39;s blog</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 24 Aug 2025 16:04:41 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/books/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Review buku: Range</title>
+      <link>http://localhost:1313/books/range/</link>
+      <pubDate>Sun, 24 Aug 2025 16:04:41 +0700</pubDate>
+      <guid>http://localhost:1313/books/range/</guid>
+      <description>&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/books/range-cover.jpg&#34;
+         alt=&#34;Sampul buku Range&#34; width=&#34;320px&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Range — David Epstein&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Menurut saya, Range adalah buku yang menarik untuk dibaca karena menawarkan sudut pandang berbeda dari kebiasaan umum di masyarakat, yaitu fokus mendalami satu keahlian saja. Buku ini justru menunjukkan bahwa dunia kita tidak didesain untuk hanya fokus pada satu bidang, melainkan menuntut pemahaman multidimensi.&lt;/p&gt;
+&lt;p&gt;Penulis menjelaskan bahwa ketika kita hanya fokus pada satu bidang, kita cenderung mempelajari pola yang sama berulang kali. Sebaliknya, dengan memahami berbagai disiplin ilmu, kita bisa mengenali beragam pola yang bahkan sebelumnya tidak pernah terbayangkan. Buku ini juga diperkaya dengan banyak analogi yang relevan dan menggambarkan kondisi nyata, sehingga pesan yang disampaikan terasa lebih jelas dan membumi.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

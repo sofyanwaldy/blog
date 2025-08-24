@@ -2,42 +2,85 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Waldy&#39;s blog</title>
-    <link>https://waldy.id/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Waldy&#39;s blog</description>
-    <generator>Hugo -- 0.129.0</generator>
+    <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Jul 2024 01:31:20 +0700</lastBuildDate>
-    <atom:link href="https://waldy.id/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Aug 2025 16:04:41 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Review buku: Range</title>
+      <link>http://localhost:1313/books/range/</link>
+      <pubDate>Sun, 24 Aug 2025 16:04:41 +0700</pubDate>
+      <guid>http://localhost:1313/books/range/</guid>
+      <description>&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/books/range-cover.jpg&#34;
+         alt=&#34;Sampul buku Range&#34; width=&#34;320px&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Range — David Epstein&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Menurut saya, Range adalah buku yang menarik untuk dibaca karena menawarkan sudut pandang berbeda dari kebiasaan umum di masyarakat, yaitu fokus mendalami satu keahlian saja. Buku ini justru menunjukkan bahwa dunia kita tidak didesain untuk hanya fokus pada satu bidang, melainkan menuntut pemahaman multidimensi.&lt;/p&gt;
+&lt;p&gt;Penulis menjelaskan bahwa ketika kita hanya fokus pada satu bidang, kita cenderung mempelajari pola yang sama berulang kali. Sebaliknya, dengan memahami berbagai disiplin ilmu, kita bisa mengenali beragam pola yang bahkan sebelumnya tidak pernah terbayangkan. Buku ini juga diperkaya dengan banyak analogi yang relevan dan menggambarkan kondisi nyata, sehingga pesan yang disampaikan terasa lebih jelas dan membumi.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Code Node.js Berantakan? Ini Cara Biar Rapi Pakai ESLint &#43; Prettier di TypeScript / Express</title>
+      <link>http://localhost:1313/posts/eslint-nodejs/</link>
+      <pubDate>Thu, 24 Jul 2025 17:21:38 +0700</pubDate>
+      <guid>http://localhost:1313/posts/eslint-nodejs/</guid>
+      <description>&lt;p&gt;Sebagai software developer yang terbiasa dengan JavaScript, kamu mungkin sering mengalami masalah seperti:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Penulisan kode tidak konsisten&lt;/li&gt;
+&lt;li&gt;Nama variabel berantakan&lt;/li&gt;
+&lt;li&gt;Lupa titik koma (&lt;code&gt;;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Gaya indentasi beda-beda&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Hal ini wajar karena JavaScript memang fleksibel. Tapi kalau proyekmu sudah mulai &lt;strong&gt;besar&lt;/strong&gt; dan melibatkan banyak developer, &lt;strong&gt;konsistensi penulisan kode jadi krusial&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Solusinya: gunakan &lt;strong&gt;ESLint&lt;/strong&gt;, &lt;strong&gt;Prettier&lt;/strong&gt;, &lt;strong&gt;Husky&lt;/strong&gt;, dan &lt;strong&gt;Lint-Staged&lt;/strong&gt;.
+Dengan ini, kamu bisa memastikan kode tetap rapi, mudah dibaca, dan konsisten di seluruh tim.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Ketergantungan Preprocessor CSS `Sass` itu bikin mumet kemudian.</title>
-      <link>https://waldy.id/posts/ketergantungan-sass/</link>
+      <link>http://localhost:1313/posts/ketergantungan-sass/</link>
       <pubDate>Sat, 20 Jul 2024 01:31:20 +0700</pubDate>
-      <guid>https://waldy.id/posts/ketergantungan-sass/</guid>
-      <description>Bagi front-end developer mungkin sudah tidak asing lagi dengan preprocessor css yang akan aku bahasa kali ini yaitu sass. tapi untuk yang belum familiar bisa lihat sendiri didokumentasi Sass. Jadi singkatnya kalian bisa menulis syntax css dengan fitur tambahan yang disediakan oleh sass, serperti nested, variables, modules, dan sebagainya. Namun yang namanya ketergantungan akan membuatmu candu, mau dilepaskan susah mau diteruskan gelisah.
-Note: ini pengalamaan pribadi ya, bisa jadi tidak semua developer relate dengan masalah yang ku alami&amp;hellip;</description>
+      <guid>http://localhost:1313/posts/ketergantungan-sass/</guid>
+      <description>&lt;p&gt;Bagi front-end developer mungkin sudah tidak asing lagi dengan preprocessor css yang akan aku bahasa kali ini yaitu &lt;code&gt;sass&lt;/code&gt;.
+tapi untuk yang belum familiar bisa lihat sendiri didokumentasi &lt;a href=&#34;https://sass-lang.com/&#34;&gt;Sass&lt;/a&gt;. Jadi singkatnya kalian bisa menulis syntax css dengan fitur tambahan yang disediakan oleh &lt;code&gt;sass&lt;/code&gt;, serperti nested, variables, modules, dan sebagainya. Namun yang namanya ketergantungan akan membuatmu candu, mau dilepaskan susah mau diteruskan gelisah.&lt;/p&gt;
+&lt;p&gt;Note: ini pengalamaan pribadi ya, bisa jadi tidak semua developer relate dengan masalah yang ku alami&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Nvim Configuration</title>
+      <link>http://localhost:1313/posts/nvim-configuration/</link>
+      <pubDate>Sat, 20 Jul 2024 01:29:13 +0700</pubDate>
+      <guid>http://localhost:1313/posts/nvim-configuration/</guid>
+      <description>&lt;p&gt;setup neovim
+test&lt;/p&gt;</description>
     </item>
     <item>
       <title>Mengapa aku berhenti subscribe medium.com</title>
-      <link>https://waldy.id/posts/unsubrek-medium/</link>
+      <link>http://localhost:1313/posts/unsubrek-medium/</link>
       <pubDate>Thu, 18 Jul 2024 17:21:38 +0700</pubDate>
-      <guid>https://waldy.id/posts/unsubrek-medium/</guid>
-      <description>Disclaimer sebelumnya disclaimer dulu, disini tidak ada ajakan untuk melakukan unsubscribe terhadap medium.com. ini merupakan murni pengalaman dan pendapat pribadi, bukan ajakan.
-Awal Berlangganan sebenarnya aku subscribe medium.com karena akhir-akhir ini sering melakukan research di internet untuk menemukan artikel yang bermanfaat baik itu mengenai teknologi, psikologi ataupun cerita dari orang-orang.
-namun, dikarekan sering berselancar di internet, kemudian sering ketemu dengan artikel yang berasal dari medium.com, tau sendiri kalau buka artikel yang ada label member-only akan sering muncul popup untuk subscribe, dan begitulah kejadiannya aku subrek ini medium.</description>
+      <guid>http://localhost:1313/posts/unsubrek-medium/</guid>
+      <description>&lt;h2 id=&#34;disclaimer&#34;&gt;Disclaimer&lt;/h2&gt;
+&lt;p&gt;sebelumnya disclaimer dulu, disini tidak ada ajakan untuk melakukan unsubscribe terhadap medium.com.
+ini merupakan murni pengalaman dan pendapat pribadi, bukan ajakan.&lt;/p&gt;
+&lt;h2 id=&#34;awal-berlangganan&#34;&gt;Awal Berlangganan&lt;/h2&gt;
+&lt;p&gt;sebenarnya aku subscribe medium.com karena akhir-akhir ini sering melakukan research di internet untuk menemukan artikel yang bermanfaat baik itu mengenai teknologi, psikologi ataupun cerita dari orang-orang.&lt;/p&gt;
+&lt;p&gt;namun, dikarekan sering berselancar di internet, kemudian sering ketemu dengan artikel yang berasal dari medium.com, tau sendiri kalau buka artikel yang ada label member-only akan sering muncul popup untuk subscribe, dan begitulah kejadiannya aku subrek ini medium.&lt;/p&gt;</description>
     </item>
     <item>
       <title>About Me</title>
-      <link>https://waldy.id/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://waldy.id/about/</guid>
-      <description>Hi, I’m Sofyan Waldy, a technology enthusiast who enjoy coding, writing, and continuous learning. I currently work at Sociolla, where I am actively involved in the development and operation of software development.
-In my professional journey, I have dived into various technologies and frameworks. My first programming language was C++, a challenging yet rewarding language that I am still learning to master it. Currently, I&amp;rsquo;m also delving into more low-level programming languages like C and C++ to deepen my understanding of computer systems and enhance my programming skills.</description>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;p&gt;Hi, I’m Sofyan Waldy, a technology enthusiast who enjoy coding, writing, and continuous learning. I currently work at Sociolla, where I am actively involved in the development and operation of software development.&lt;/p&gt;
+&lt;p&gt;In my professional journey, I have dived into various technologies and frameworks. My first programming language was C++, a challenging yet rewarding language that I am still learning to master it. Currently, I&amp;rsquo;m also delving into more low-level programming languages like C and C++ to deepen my understanding of computer systems and enhance my programming skills.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Books</title>
-      <link>https://waldy.id/books/</link>
+      <link>http://localhost:1313/books/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://waldy.id/books/</guid>
+      <guid>http://localhost:1313/books/</guid>
       <description>Books</description>
     </item>
   </channel>

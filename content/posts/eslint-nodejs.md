@@ -1,4 +1,8 @@
-# 🚀 Code Node.js Berantakan? Ini Cara Biar Rapi Pakai ESLint + Prettier di TypeScript / Express
++++
+title = 'Code Node.js Berantakan? Ini Cara Biar Rapi Pakai ESLint + Prettier di TypeScript / Express'
+date = 2025-07-24T17:21:38+07:00
+draft = false
++++
 
 Sebagai software developer yang terbiasa dengan JavaScript, kamu mungkin sering mengalami masalah seperti:
 
