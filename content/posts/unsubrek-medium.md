@@ -1,7 +1,7 @@
 +++
 title = 'Mengapa aku berhenti subscribe medium.com'
 date = 2024-07-18T17:21:38+07:00
-draft = false
+draft = true
 +++
 
 ## Disclaimer
