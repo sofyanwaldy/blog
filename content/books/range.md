@@ -1,10 +1,8 @@
----
-title: "Review buku: Range"
-date: 2025-08-24T16:04:41+07:00
-draft: false
----
-
-{{< figure src="/images/books/range-cover.jpg" alt="Sampul buku Range" caption="Range — David Epstein" width="320px">}}
++++
+title = 'Review buku: Range'
+date = 2025-08-24T16:04:41+07:00
+draft = false
++++
 
 Menurut saya, Range adalah buku yang menarik untuk dibaca karena menawarkan sudut pandang berbeda dari kebiasaan umum di masyarakat, yaitu fokus mendalami satu keahlian saja. Buku ini justru menunjukkan bahwa dunia kita tidak didesain untuk hanya fokus pada satu bidang, melainkan menuntut pemahaman multidimensi.
 

@@ -1,8 +1,8 @@
----
-title: "About Me"
-layout: "single"
-url: "/about"
----
++++
+title = "About Me"
+layout = "single"
+url = "/about"
++++
 
 Hi, I’m Sofyan Waldy, a technology enthusiast who enjoy coding, writing, and continuous learning. I currently work at Sociolla, where I am actively involved in the development and operation of software development.
 

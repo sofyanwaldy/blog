@@ -23,7 +23,7 @@ params:
   ShowShareButton: true
   ShowReadingTime: true
   ShowBreadCrumbs: true
-  mainSections: ["posts", "books", "stories"]
+  mainSections: ["posts", "stories", "books"]
   contact:
     email: "sofyanwaldy@gmail.com"
   homeInfoParams:
