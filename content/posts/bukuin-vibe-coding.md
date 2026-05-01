@@ -44,7 +44,7 @@ Total waktu dari ide sampai rilis pertama: **kurang lebih 3 bulan**.
 - **2 bulan** untuk development
 - **1 bulan** untuk proses masuk ke Play Store—karena ada kebijakan wajib 14 hari testing, ditambah terjadi perubahan di fase testing
 
-Perlu dicatat, ini dikerjakan di waktu kosong: Sabtu, Minggu, dan malam hari karena aku bekerja 9-5.
+Perlu dicatat, ini dikerjakan di waktu kosong: Sabtu, Minggu, dan malam hari karena bekerja di siang hari.
 
 ## Tantangan & Lessons Learned
 
