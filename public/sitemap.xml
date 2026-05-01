@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://waldy.id/books/</loc>
+    <lastmod>2025-08-24T16:04:41+07:00</lastmod>
+  </url><url>
     <loc>https://waldy.id/books/range/</loc>
     <lastmod>2025-08-24T16:04:41+07:00</lastmod>
   </url><url>
@@ -14,6 +17,9 @@
     <loc>https://waldy.id/posts/</loc>
     <lastmod>2025-07-24T17:21:38+07:00</lastmod>
   </url><url>
+    <loc>https://waldy.id/posts/bukuin-vibe-coding/</loc>
+    <lastmod>2025-05-01T23:30:00+07:00</lastmod>
+  </url><url>
     <loc>https://waldy.id/posts/ketergantungan-sass/</loc>
     <lastmod>2024-07-20T01:31:20+07:00</lastmod>
   </url><url>
@@ -21,8 +27,6 @@
     <lastmod>2024-07-18T17:21:38+07:00</lastmod>
   </url><url>
     <loc>https://waldy.id/about/</loc>
-  </url><url>
-    <loc>https://waldy.id/books/</loc>
   </url><url>
     <loc>https://waldy.id/categories/</loc>
   </url><url>
