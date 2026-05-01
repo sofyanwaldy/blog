@@ -6,8 +6,17 @@
     <description>Recent content on Waldy&#39;s blog</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Aug 2025 16:04:41 +0700</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2026 23:30:00 +0700</lastBuildDate>
     <atom:link href="https://waldy.id/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Membuat Aplikasi Catatan Keuangan (Bukuin) dengan Vibe Coding</title>
+      <link>https://waldy.id/posts/bukuin-vibe-coding/</link>
+      <pubDate>Fri, 01 May 2026 23:30:00 +0700</pubDate>
+      <guid>https://waldy.id/posts/bukuin-vibe-coding/</guid>
+      <description>&lt;p&gt;Akhir-akhir ini lagi rame istilah &amp;ldquo;vibe coding&amp;rdquo; di media sosial, apalagi Threads (soalnya udah ga make Twitter, hehe). Walaupun sudah banyak disebutkan bahwa coding dengan pakai AI tidak semerta-merta disebut vibe coding, hal ini juga disebutkan oleh bang &lt;a href=&#34;https://www.threads.com/@ariya114/post/DHpes5WxFqR&#34;&gt;@ariya di Thread-nya&lt;/a&gt; dengan mengambil referensi dari Simon Willison: &lt;a href=&#34;https://simonw.substack.com/p/not-all-ai-assisted-programming-is&#34;&gt;Not All AI-Assisted Programming is Vibe Coding&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;latar-belakang&#34;&gt;Latar Belakang&lt;/h2&gt;
+&lt;p&gt;Jadi aku mencoba membuat aplikasi keuangan yang kuberi nama &lt;strong&gt;Bukuin&lt;/strong&gt; (&lt;a href=&#34;https://bukuin.id&#34;&gt;bukuin.id&lt;/a&gt;). Awalnya tujuanku adalah untuk penggunaan pribadi agar mempermudah lacak pengeluaran/pendapatan—karena sebelumnya melakukan pencatatan di Obsidian.md dan masih belum membentuk kebiasaanku untuk mencatat.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Review buku: Range</title>
       <link>https://waldy.id/books/range/</link>
@@ -31,15 +40,6 @@
 &lt;p&gt;Hal ini wajar karena JavaScript memang fleksibel. Tapi kalau proyekmu sudah mulai &lt;strong&gt;besar&lt;/strong&gt; dan melibatkan banyak developer, &lt;strong&gt;konsistensi penulisan kode jadi krusial&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Solusinya: gunakan &lt;strong&gt;ESLint&lt;/strong&gt;, &lt;strong&gt;Prettier&lt;/strong&gt;, &lt;strong&gt;Husky&lt;/strong&gt;, dan &lt;strong&gt;Lint-Staged&lt;/strong&gt;.
 Dengan ini, kamu bisa memastikan kode tetap rapi, mudah dibaca, dan konsisten di seluruh tim.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Membuat Aplikasi Catatan Keuangan (Bukuin) dengan Vibe Coding</title>
-      <link>https://waldy.id/posts/bukuin-vibe-coding/</link>
-      <pubDate>Thu, 01 May 2025 23:30:00 +0700</pubDate>
-      <guid>https://waldy.id/posts/bukuin-vibe-coding/</guid>
-      <description>&lt;p&gt;Akhir-akhir ini lagi rame istilah &amp;ldquo;vibe coding&amp;rdquo; di media sosial, apalagi Threads (soalnya udah ga make Twitter, hehe). Walaupun sudah banyak disebutkan bahwa coding dengan pakai AI tidak semerta-merta disebut vibe coding, hal ini juga disebutkan oleh bang &lt;a href=&#34;https://www.threads.com/@ariya114/post/DHpes5WxFqR&#34;&gt;@ariya di Thread-nya&lt;/a&gt; dengan mengambil referensi dari Simon Willison: &lt;a href=&#34;https://simonw.substack.com/p/not-all-ai-assisted-programming-is&#34;&gt;Not All AI-Assisted Programming is Vibe Coding&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;latar-belakang&#34;&gt;Latar Belakang&lt;/h2&gt;
-&lt;p&gt;Jadi aku mencoba membuat aplikasi keuangan yang kuberi nama &lt;strong&gt;Bukuin&lt;/strong&gt; (&lt;a href=&#34;https://bukuin.id&#34;&gt;bukuin.id&lt;/a&gt;). Awalnya tujuanku adalah untuk penggunaan pribadi agar mempermudah lacak pengeluaran/pendapatan—karena sebelumnya melakukan pencatatan di Obsidian.md dan masih belum membentuk kebiasaanku untuk mencatat.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Ketergantungan Preprocessor CSS `Sass` itu bikin mumet kemudian.</title>

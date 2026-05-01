@@ -1,6 +1,6 @@
 +++
 title = 'Membuat Aplikasi Catatan Keuangan (Bukuin) dengan Vibe Coding'
-date = 2025-05-01T23:30:00+07:00
+date = 2026-05-01T23:30:00+07:00
 draft = false
 +++
 
@@ -10,11 +10,11 @@ Akhir-akhir ini lagi rame istilah "vibe coding" di media sosial, apalagi Threads
 
 Jadi aku mencoba membuat aplikasi keuangan yang kuberi nama **Bukuin** ([bukuin.id](https://bukuin.id)). Awalnya tujuanku adalah untuk penggunaan pribadi agar mempermudah lacak pengeluaran/pendapatan—karena sebelumnya melakukan pencatatan di Obsidian.md dan masih belum membentuk kebiasaanku untuk mencatat.
 
-Seperti yang dikatakan James Clear di buku *Atomic Habits*, ada poin menarik di "4 Laws of Behavior Change", salah satunya adalah **make it easy**.
+Seperti yang dikatakan James Clear di buku _Atomic Habits_, ada poin menarik di "4 Laws of Behavior Change", salah satunya adalah **make it easy**.
 
 ## Tech Stack
 
-Aplikasi ini dibangun menggunakan **Flutter**. Walaupun aku tidak terlalu pro dalam menggunakan Flutter, tapi aku memahami dasarnya—dan dengan bantuan AI, proses development jadi lebih accessible.
+Aplikasi ini dibangun menggunakan **Flutter**. Walaupun aku tidak terlalu pro dalam menggunakan Flutter, tapi aku memahami dasarnya, dan dengan bantuan AI, proses development jadi lebih accessible.
 
 ## Fase Development
 
@@ -24,19 +24,19 @@ Kemudian masuk ke fase development:
 
 2. **Design** — Masih brainstorming, tapi aku lanjut dengan prompt untuk design mulai dari color-schema, font, dan UI-nya. Dan seperti kebanyakan orang, awal-awal biasanya direkomendasikan warna ungu.
 
-![Onboarding Screen](/images/bukuin/onboardscreen.png)
+<img src="/images/bukuin/onboardscreen.png" alt="Onboarding Screen" width="300">
 
 3. **Eksekusi** — Aku minta dia define color, design, dan screens.
 
-![Home Screen](/images/bukuin/homescreen.png)
+<img src="/images/bukuin/homescreen.png" alt="Home Screen" width="300">
 
 4. **Testing** — Suruh nulis test untuk setiap function yang dia buat, terutama fitur-fitur utama.
 
-5. **Validasi** — Validasi hasil dengan cara manual testing, lalu prompt, dan begitulah terus mengulang sampai hasilnya seperti saat ini. Jadi sepertinya *Human-in-the-Loop* relevan sampai di sini.
+5. **Validasi** — Validasi hasil dengan cara manual testing, lalu prompt, dan begitulah terus mengulang sampai hasilnya seperti saat ini. Jadi sepertinya _Human-in-the-Loop_ relevan sampai di sini.
 
-![Transaction Screen](/images/bukuin/transactionscreen.png)
+<img src="/images/bukuin/transactionscreen.png" alt="Transaction Screen" width="300">
 
-![Insight Screen](/images/bukuin/insightscreen.png)
+<img src="/images/bukuin/insightscreen.png" alt="Insight Screen" width="300">
 
 ## Durasi Development
 
