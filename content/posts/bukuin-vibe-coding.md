@@ -24,19 +24,18 @@ Kemudian masuk ke fase development:
 
 2. **Design** — Masih brainstorming, tapi aku lanjut dengan prompt untuk design mulai dari color-schema, font, dan UI-nya. Dan seperti kebanyakan orang, awal-awal biasanya direkomendasikan warna ungu.
 
-<img src="/images/bukuin/onboardscreen.png" alt="Onboarding Screen" width="300">
+<div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 20px 0;">
+  <img src="/images/bukuin/onboardscreen.png" alt="Onboarding Screen" width="150">
+  <img src="/images/bukuin/homescreen.png" alt="Home Screen" width="150">
+  <img src="/images/bukuin/transactionscreen.png" alt="Transaction Screen" width="150">
+  <img src="/images/bukuin/insightscreen.png" alt="Insight Screen" width="150">
+</div>
 
 3. **Eksekusi** — Aku minta dia define color, design, dan screens.
-
-<img src="/images/bukuin/homescreen.png" alt="Home Screen" width="300">
 
 4. **Testing** — Suruh nulis test untuk setiap function yang dia buat, terutama fitur-fitur utama.
 
 5. **Validasi** — Validasi hasil dengan cara manual testing, lalu prompt, dan begitulah terus mengulang sampai hasilnya seperti saat ini. Jadi sepertinya _Human-in-the-Loop_ relevan sampai di sini.
-
-<img src="/images/bukuin/transactionscreen.png" alt="Transaction Screen" width="300">
-
-<img src="/images/bukuin/insightscreen.png" alt="Insight Screen" width="300">
 
 ## Durasi Development
 

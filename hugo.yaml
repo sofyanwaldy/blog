@@ -13,6 +13,11 @@ minify:
   disableXML: true
   minifyOutput: true
 
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
 params:
   env: development # to enable google analytics, opengraph, twitter-cards and schema.
   title: Sofyan waldy's blog
