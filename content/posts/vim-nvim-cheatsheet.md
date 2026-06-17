@@ -1,521 +1,518 @@
 ---
-title: "Vim / Neovim Complete Cheatsheet"
-description: "A practical Vim and Neovim cheatsheet for daily coding, navigation, editing, buffers, windows, macros, search, LSP, terminal, and productivity workflows."
+title: "Cheatsheet Lengkap Vim / Neovim"
+description: "Cheatsheet praktis Vim dan Neovim untuk coding harian, navigasi, edit teks, buffer, window, macro, search, LSP, terminal, dan workflow produktivitas."
 date: 2026-06-17
 tags: ["vim", "neovim", "nvim", "cheatsheet", "developer-tools"]
 url: /vim
 draft: false
 ---
 
-# Vim / Neovim Complete Cheatsheet
+# Cheatsheet Lengkap Vim / Neovim
 
-Vim and Neovim are modal editors. Instead of using the mouse for everything, you combine **modes**, **motions**, **operators**, and **text objects** to edit text quickly.
+Vim dan Neovim itu editor modal. Jadi alih-alih pakai mouse untuk semua hal, kamu bakal mengombinasikan **mode**, **motion**, **operator**, dan **text object** buat edit teks dengan cepat.
 
-This cheatsheet is designed for daily development work and can be published directly as a blog post.
-
----
+Cheatsheet ini didesain buat kerjaan development sehari-hari — panduan praktis yang bisa kamu bookmark dan buka lagi kapan saja.
 
 ---
 
+## Konsep Utama
 
-## Core Idea
-
-Vim commands are usually built like this:
+Perintah Vim biasanya dibangun dengan pola seperti ini:
 
 ```text
 operator + motion
 ```
 
-Examples:
+Contohnya:
 
 ```vim
-dw      " delete word
-d$      " delete until end of line
-ciw     " change inside word
-yap     " yank around paragraph
+dw      " hapus kata (delete word)
+d$      " hapus sampai akhir baris
+ciw     " ubah kata tempat kursor berada (change inside word)
+yap     " salin satu paragraf (yank around paragraph)
 ```
 
-You can also add a count:
+Kamu juga bisa menambahkan jumlah (count):
 
 ```vim
-3w      " move forward 3 words
-d3w     " delete 3 words
-5j      " move down 5 lines
+3w      " maju 3 kata
+d3w     " hapus 3 kata
+5j      " turun 5 baris
 ```
 
-The most important mindset:
+Mindset paling penting:
 
-> Do not memorize everything at once. Learn motions first, then operators, then text objects.
+> Jangan dihafal semuanya sekaligus. Pelajari motion dulu, lalu operator, baru kemudian text object.
 
 ---
 
-## Modes
+## Mode
 
-| Mode | Meaning | How to Enter | How to Exit |
+| Mode | Arti | Cara Masuk | Cara Keluar |
 |---|---|---|---|
-| Normal | Move and run commands | `Esc` | - |
-| Insert | Type text | `i`, `a`, `o` | `Esc` |
-| Visual | Select text | `v` | `Esc` |
-| Visual Line | Select full lines | `V` | `Esc` |
-| Visual Block | Select block/column | `Ctrl-v` | `Esc` |
-| Command-line | Run Ex commands | `:` | `Enter` / `Esc` |
-| Replace | Replace existing text | `R` | `Esc` |
-| Terminal Normal | Control terminal buffer | `Ctrl-\ Ctrl-n` | - |
+| Normal | Navigasi dan jalankan perintah | `Esc` | - |
+| Insert | Ketik teks | `i`, `a`, `o` | `Esc` |
+| Visual | Pilih/blok teks | `v` | `Esc` |
+| Visual Line | Pilih seluruh baris | `V` | `Esc` |
+| Visual Block | Pilih kolom/blok vertikal | `Ctrl-v` | `Esc` |
+| Command-line | Jalankan perintah Ex | `:` | `Enter` / `Esc` |
+| Replace | Timpa teks yang ada | `R` | `Esc` |
+| Terminal Normal | Kontrol buffer terminal | `Ctrl-\\ Ctrl-n` | - |
 
 ---
 
-## Basic Movement
+## Navigasi Dasar
 
-| Key | Action |
+| Tombol | Aksi |
 |---|---|
-| `h` | Move left |
-| `j` | Move down |
-| `k` | Move up |
-| `l` | Move right |
-| `gj` | Move down by visual/wrapped line |
-| `gk` | Move up by visual/wrapped line |
+| `h` | Geser ke kiri |
+| `j` | Geser ke bawah |
+| `k` | Geser ke atas |
+| `l` | Geser ke kanan |
+| `gj` | Geser ke bawah berdasarkan baris visual (saat line wrap aktif) |
+| `gk` | Geser ke atas berdasarkan baris visual (saat line wrap aktif) |
 
-Use counts:
+Gunakan count:
 
 ```vim
-10j     " move down 10 lines
-5l      " move right 5 characters
+10j     " turun 10 baris
+5l      " geser ke kanan 5 karakter
 ```
 
 ---
 
-## Word Movement
+## Navigasi Kata
 
-| Key | Action |
+| Tombol | Aksi |
 |---|---|
-| `w` | Jump to start of next word |
-| `W` | Jump to start of next WORD, separated by whitespace |
-| `e` | Jump to end of current/next word |
-| `E` | Jump to end of current/next WORD |
-| `b` | Jump backward to start of word |
-| `B` | Jump backward to start of WORD |
-| `ge` | Jump backward to end of previous word |
-| `gE` | Jump backward to end of previous WORD |
+| `w` | Lompat ke awal kata berikutnya |
+| `W` | Lompat ke awal WORD berikutnya (dipisahkan oleh spasi) |
+| `e` | Lompat ke akhir kata berikutnya |
+| `E` | Lompat ke akhir WORD berikutnya |
+| `b` | Lompat mundur ke awal kata |
+| `B` | Lompat mundur ke awal WORD |
+| `ge` | Lompat mundur ke akhir kata sebelumnya |
+| `gE` | Lompat mundur ke akhir WORD sebelumnya |
 
-Difference between `word` and `WORD`:
+Perbedaan antara `word` dan `WORD`:
 
 ```text
 hello.world example
 ```
 
-- `w` treats punctuation as a separator.
-- `W` treats only whitespace as a separator.
+- `w` menganggap tanda baca (seperti titik) sebagai pemisah kata.
+- `W` hanya menganggap spasi sebagai pemisah kata.
 
 ---
 
-## Line Movement
+## Navigasi Baris
 
-| Key | Action |
+| Tombol | Aksi |
 |---|---|
-| `0` | Start of line |
-| `^` | First non-blank character |
-| `$` | End of line |
-| `g_` | Last non-blank character |
-| `+` | First non-blank character of next line |
-| `-` | First non-blank character of previous line |
-| `gg` | Start of file |
-| `G` | End of file |
-| `42G` | Go to line 42 |
-| `:42` | Go to line 42 |
+| `0` | Lompat ke awal baris (kolom pertama) |
+| `^` | Lompat ke karakter pertama yang bukan spasi |
+| `$` | Lompat ke akhir baris |
+| `g_` | Lompat ke karakter terakhir yang bukan spasi |
+| `+` | Lompat ke awal baris berikutnya yang bukan spasi |
+| `-` | Lompat ke awal baris sebelumnya yang bukan spasi |
+| `gg` | Lompat ke awal file |
+| `G` | Lompat ke akhir file |
+| `42G` | Lompat ke baris nomor 42 |
+| `:42` | Lompat ke baris nomor 42 |
 
 ---
 
-## Screen Movement
+## Navigasi Layar
 
-| Key | Action |
+| Tombol | Aksi |
 |---|---|
-| `Ctrl-d` | Move half page down |
-| `Ctrl-u` | Move half page up |
-| `Ctrl-f` | Move full page down |
-| `Ctrl-b` | Move full page up |
-| `zt` | Move current line to top |
-| `zz` | Move current line to center |
-| `zb` | Move current line to bottom |
-| `H` | Move to top of screen |
-| `M` | Move to middle of screen |
-| `L` | Move to bottom of screen |
+| `Ctrl-d` | Turun setengah halaman |
+| `Ctrl-u` | Naik setengah halaman |
+| `Ctrl-f` | Turun satu halaman penuh |
+| `Ctrl-b` | Naik satu halaman penuh |
+| `zt` | Posisikan baris aktif di paling atas layar |
+| `zz` | Posisikan baris aktif di tengah layar |
+| `zb` | Posisikan baris aktif di paling bawah layar |
+| `H` | Lompat ke baris paling atas layar (High) |
+| `M` | Lompat ke baris tengah layar (Middle) |
+| `L` | Lompat ke baris paling bawah layar (Low) |
 
 ---
 
-## Search Movement
+## Pencarian dan Navigasi Hasil
 
-| Key | Action |
+| Tombol | Aksi |
 |---|---|
-| `/text` | Search forward for `text` |
-| `?text` | Search backward for `text` |
-| `n` | Next search result |
-| `N` | Previous search result |
-| `*` | Search word under cursor forward |
-| `#` | Search word under cursor backward |
-| `g*` | Search partial word under cursor forward |
-| `g#` | Search partial word under cursor backward |
+| `/teks` | Cari `teks` ke arah depan |
+| `?teks` | Cari `teks` ke arah belakang |
+| `n` | Lompat ke hasil pencarian berikutnya |
+| `N` | Lompat ke hasil pencarian sebelumnya |
+| `*` | Cari kata di bawah kursor ke arah depan |
+| `#` | Cari kata di bawah kursor ke arah belakang |
+| `g*` | Cari kata parsial di bawah kursor ke arah depan |
+| `g#` | Cari kata parsial di bawah kursor ke arah belakang |
 
-Useful options:
+Opsi pencarian yang berguna:
 
 ```vim
-:set ignorecase      " case-insensitive search
-:set smartcase       " case-sensitive if uppercase is used
-:set hlsearch        " highlight search results
-:set nohlsearch      " hide highlights
-:noh                 " clear current highlight
+:set ignorecase      " cari tanpa sensitif huruf besar/kecil
+:set smartcase       " jadi sensitif kalau kamu ngetik huruf kapital
+:set hlsearch        " aktifkan highlight hasil pencarian
+:set nohlsearch      " matikan highlight hasil pencarian
+:noh                 " hapus highlight pencarian aktif saat ini
 ```
 
 ---
 
-## Character Search: `f`, `F`, `t`, `T`
+## Pencarian Karakter: `f`, `F`, `t`, `T`
 
-Character search is very powerful for moving inside a line.
+Pencarian karakter ini berguna banget buat navigasi cepat dalam satu baris.
 
-| Key | Action |
+| Tombol | Aksi |
 |---|---|
-| `f<char>` | Move forward onto character |
-| `F<char>` | Move backward onto character |
-| `t<char>` | Move forward until before character |
-| `T<char>` | Move backward until after character |
-| `;` | Repeat latest `f`, `F`, `t`, or `T` |
-| `,` | Repeat latest `f`, `F`, `t`, or `T` in reverse |
+| `f<char>` | Lompat maju **ke** karakter yang dituju |
+| `F<char>` | Lompat mundur **ke** karakter yang dituju |
+| `t<char>` | Lompat maju **sampai sebelum** karakter yang dituju (till) |
+| `T<char>` | Lompat mundur **sampai setelah** karakter yang dituju |
+| `;` | Ulangi pencarian `f`, `F`, `t`, atau `T` sebelumnya |
+| `,` | Ulangi pencarian sebelumnya tapi dengan arah berlawanan |
 
-Example line:
+Contoh baris kode:
 
 ```js
 const user = { name: "Pian", age: 31 };
 ```
 
-### Move to `{`
+### Lompat ke `{`
 
 ```vim
 f{
 ```
 
-This moves the cursor forward **onto** `{`.
+Ini bakal mindahin kursor maju **tepat di atas** karakter `{`.
 
-### Move before `{`
+### Lompat sebelum `{`
 
 ```vim
 t{
 ```
 
-This moves the cursor forward **until before** `{`.
+Ini bakal mindahin kursor maju **satu karakter sebelum** `{`.
 
-### Delete until before `{`
+### Hapus sampai sebelum `{`
 
 ```vim
 dt{
 ```
 
-Before:
+Sebelum:
 
 ```js
 const user = { name: "Pian", age: 31 };
 ```
 
-After:
+Sesudah:
 
 ```js
 { name: "Pian", age: 31 };
 ```
 
-### Delete including `{`
+### Hapus termasuk `{`
 
 ```vim
 df{
 ```
 
-This deletes from the cursor position through `{`.
+Ini bakal menghapus teks dari posisi kursor sampai karakter `{`.
 
-### Change text inside braces
+### Ubah teks di dalam kurung kurawal
 
 ```vim
 ci{
 ```
 
-This changes the content inside `{ ... }`.
+Ini bakal menghapus isi di dalam `{ ... }` dan langsung masuk ke mode Insert.
 
-### Delete around braces
+### Hapus beserta kurung kurawal
 
 ```vim
 da{
 ```
 
-This deletes the braces and their content.
+Ini bakal menghapus `{ ... }` beserta seluruh isinya.
 
 ---
 
-## Operators
+## Operator
 
-Operators perform an action. They usually need a motion or text object.
+Operator adalah aksi yang dijalankan. Biasanya butuh motion atau text object setelahnya.
 
-| Operator | Meaning |
+| Operator | Arti |
 |---|---|
-| `d` | Delete / cut |
-| `c` | Change / delete then enter Insert mode |
-| `y` | Yank / copy |
-| `v` | Visually select |
-| `>` | Indent right |
-| `<` | Indent left |
-| `=` | Auto-format / reindent |
-| `gq` | Format text |
-| `gu` | Lowercase |
-| `gU` | Uppercase |
-| `~` | Toggle case |
+| `d` | Hapus / potong (delete/cut) |
+| `c` | Ubah / hapus lalu masuk ke mode Insert (change) |
+| `y` | Salin (yank/copy) |
+| `v` | Blok teks secara visual (visual select) |
+| `>` | Geser indentasi ke kanan |
+| `<` | Geser indentasi ke kiri |
+| `=` | Auto-format indentasi |
+| `gq` | Format teks (wrap text) |
+| `gu` | Ubah ke huruf kecil semua |
+| `gU` | Ubah ke huruf besar semua |
+| `~` | Toggle huruf besar/kecil (lowercase <-> uppercase) |
 
-Repeated operators usually apply to the current line:
+Kalau operator diketik dua kali, aksinya bakal diterapkan ke baris aktif saat ini:
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `dd` | Delete line |
-| `cc` | Change line |
-| `yy` | Yank line |
-| `>>` | Indent line right |
-| `<<` | Indent line left |
-| `==` | Auto-indent line |
-| `gUU` | Uppercase line |
-| `guu` | Lowercase line |
+| `dd` | Hapus satu baris |
+| `cc` | Ubah satu baris |
+| `yy` | Salin satu baris |
+| `>>` | Geser indentasi baris ke kanan |
+| `<<` | Geser indentasi baris ke kiri |
+| `==` | Auto-format indentasi baris aktif |
+| `gUU` | Ubah satu baris jadi huruf besar |
+| `guu` | Ubah satu baris jadi huruf kecil |
 
 ---
 
-## Operator + Motion Examples
+## Contoh Kombinasi Operator + Motion
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `dw` | Delete word |
-| `dW` | Delete WORD |
-| `de` | Delete until end of word |
-| `db` | Delete backward to start of word |
-| `d$` | Delete to end of line |
-| `d0` | Delete to start of line |
-| `d^` | Delete to first non-blank character |
-| `dgg` | Delete from cursor to top of file |
-| `dG` | Delete from cursor to end of file |
-| `cw` | Change word |
-| `c$` | Change to end of line |
-| `ciw` | Change inside word |
-| `ci"` | Change inside double quotes |
-| `ci'` | Change inside single quotes |
-| `ci(` | Change inside parentheses |
-| `ci{` | Change inside braces |
-| `y$` | Yank to end of line |
-| `yG` | Yank from cursor to end of file |
-| `gUiw` | Uppercase current word |
-| `guw` | Lowercase next word |
+| `dw` | Hapus sampai awal kata berikutnya |
+| `dW` | Hapus sampai awal WORD berikutnya |
+| `de` | Hapus sampai akhir kata aktif |
+| `db` | Hapus mundur sampai awal kata |
+| `d$` | Hapus sampai akhir baris |
+| `d0` | Hapus mundur sampai awal baris |
+| `d^` | Hapus mundur sampai karakter pertama yang bukan spasi |
+| `dgg` | Hapus dari kursor sampai awal file |
+| `dG` | Hapus dari kursor sampai akhir file |
+| `cw` | Ubah sampai awal kata berikutnya |
+| `c$` | Ubah sampai akhir baris |
+| `ciw` | Ubah kata tempat kursor berada |
+| `ci"` | Ubah teks di dalam tanda kutip dua |
+| `ci'` | Ubah teks di dalam tanda kutip satu |
+| `ci(` | Ubah teks di dalam tanda kurung |
+| `ci{` | Ubah teks di dalam kurung kurawal |
+| `y$` | Salin sampai akhir baris |
+| `yG` | Salin dari kursor sampai akhir file |
+| `gUiw` | Ubah kata aktif jadi huruf besar |
+| `guw` | Ubah kata berikutnya jadi huruf kecil |
 
 ---
 
-## Text Objects
+## Text Object
 
-Text objects let you work with meaningful structures.
+Text object memungkinkan kamu buat memanipulasi struktur teks yang bermakna.
 
 ```text
 operator + i/a + object
 ```
 
-- `i` means **inside**.
-- `a` means **around**, including surrounding characters or whitespace.
+- `i` berarti **inside** (di dalam objek saja).
+- `a` berarti **around** (termasuk karakter pembungkus atau spasi di sekitarnya).
 
-| Text Object | Meaning |
+| Text Object | Arti |
 |---|---|
-| `iw` | Inside word |
-| `aw` | Around word |
-| `is` | Inside sentence |
-| `as` | Around sentence |
-| `ip` | Inside paragraph |
-| `ap` | Around paragraph |
-| `i"` | Inside double quotes |
-| `a"` | Around double quotes |
-| `i'` | Inside single quotes |
-| `a'` | Around single quotes |
-| `` i` `` | Inside backticks |
-| `` a` `` | Around backticks |
-| `i(` or `ib` | Inside parentheses |
-| `a(` or `ab` | Around parentheses |
-| `i[` | Inside square brackets |
-| `a[` | Around square brackets |
-| `i{` or `iB` | Inside braces |
-| `a{` or `aB` | Around braces |
-| `it` | Inside HTML/XML tag |
-| `at` | Around HTML/XML tag |
+| `iw` | Di dalam kata (inside word) |
+| `aw` | Seluruh kata beserta spasinya (around word) |
+| `is` | Di dalam kalimat (inside sentence) |
+| `as` | Seluruh kalimat (around sentence) |
+| `ip` | Di dalam paragraf (inside paragraph) |
+| `ap` | Seluruh paragraf (around paragraph) |
+| `i"` | Di dalam tanda kutip dua |
+| `a"` | Seluruh tanda kutip dua beserta isinya |
+| `i'` | Di dalam tanda kutip satu |
+| `a'` | Seluruh tanda kutip satu beserta isinya |
+| `` i` `` | Di dalam backticks |
+| `` a` `` | Seluruh backticks beserta isinya |
+| `i(` atau `ib` | Di dalam tanda kurung |
+| `a(` atau `ab` | Seluruh tanda kurung beserta isinya |
+| `i[` | Di dalam kurung siku |
+| `a[` | Seluruh kurung siku beserta isinya |
+| `i{` or `iB` | Di dalam kurung kurawal |
+| `a{` or `aB` | Seluruh kurung kurawal beserta isinya |
+| `it` | Di dalam tag HTML/XML (inside tag) |
+| `at` | Seluruh tag HTML/XML beserta isinya |
 
-Examples:
+Contoh penggunaan:
 
 ```vim
-ciw     " change inside word
-daw     " delete around word
-yi"     " copy inside double quotes
-da"     " delete around double quotes
-ci{     " change inside braces
-ya(     " copy around parentheses
-vit     " visually select inside HTML tag
+ciw     " ubah kata tempat kursor berada
+daw     " hapus kata beserta spasinya
+yi"     " salin isi di dalam kutip dua
+da"     " hapus kutip dua beserta seluruh isinya
+ci{     " ubah isi di dalam kurung kurawal
+ya(     " salin seluruh kurung beserta isinya
+vit     " blok visual isi di dalam tag HTML
 ```
 
-Example:
+Contoh kasus:
 
 ```js
 const message = "Hello world";
 ```
 
-Run:
+Jalankan perintah ini saat kursor di dalam kata "Hello":
 
 ```vim
 ci"
 ```
 
-Result:
+Hasilnya:
 
 ```js
 const message = "|";
 ```
 
-The cursor enters Insert mode between the quotes.
+Kursor kamu langsung masuk ke mode Insert di dalam tanda kutip.
 
 ---
 
-## Insert Mode Shortcuts
+## Shortcut Mode Insert
 
-| Key | Action |
+| Tombol | Aksi |
 |---|---|
-| `i` | Insert before cursor |
-| `I` | Insert at first non-blank character |
-| `a` | Append after cursor |
-| `A` | Append at end of line |
-| `o` | Open new line below |
-| `O` | Open new line above |
-| `s` | Delete character and insert |
-| `S` | Delete line and insert |
-| `C` | Change to end of line |
-| `r<char>` | Replace one character |
-| `R` | Enter Replace mode |
+| `i` | Masuk mode Insert sebelum posisi kursor |
+| `I` | Masuk mode Insert di awal baris (karakter non-spasi pertama) |
+| `a` | Masuk mode Insert setelah posisi kursor (append) |
+| `A` | Masuk mode Insert di akhir baris |
+| `o` | Buka baris baru di bawah baris aktif lalu masuk mode Insert |
+| `O` | Buka baris baru di atas baris aktif lalu masuk mode Insert |
+| `s` | Hapus satu karakter di kursor lalu masuk mode Insert |
+| `S` | Hapus seluruh baris lalu masuk mode Insert |
+| `C` | Hapus sampai akhir baris lalu masuk mode Insert |
+| `r<char>` | Ganti satu karakter di kursor dengan karakter baru |
+| `R` | Masuk mode Replace (menimpa teks) |
 
-Inside Insert mode:
+Ketika berada di dalam mode Insert:
 
-| Key | Action |
+| Kombinasi | Aksi |
 |---|---|
-| `Ctrl-h` | Backspace |
-| `Ctrl-w` | Delete previous word |
-| `Ctrl-u` | Delete to start of line |
-| `Ctrl-o` | Run one Normal mode command, then return to Insert mode |
-| `Ctrl-r <register>` | Insert content from register |
-| `Ctrl-n` | Next completion candidate |
-| `Ctrl-p` | Previous completion candidate |
+| `Ctrl-h` | Backspace (hapus satu karakter ke belakang) |
+| `Ctrl-w` | Hapus satu kata ke belakang |
+| `Ctrl-u` | Hapus sampai awal baris |
+| `Ctrl-o` | Jalankan satu perintah mode Normal, lalu otomatis balik ke mode Insert |
+| `Ctrl-r <register>` | Tempel/paste isi dari register tertentu |
+| `Ctrl-n` | Autocomplete kata berikutnya |
+| `Ctrl-p` | Autocomplete kata sebelumnya |
 
-Example:
+Contoh penggunaan:
 
 ```vim
 Ctrl-o zz
 ```
 
-While in Insert mode, this centers the current line and returns to Insert mode.
+Saat lagi ngetik di mode Insert, perintah ini bakal memposisikan baris aktif ke tengah layar tanpa perlu keluar dari mode Insert.
 
 ---
 
-## Editing Text
+## Mengedit Teks
 
-| Command | Action |
+| Tombol | Aksi |
 |---|---|
-| `x` | Delete character under cursor |
-| `X` | Delete character before cursor |
-| `s` | Substitute character and enter Insert mode |
-| `S` | Substitute entire line |
-| `r<char>` | Replace one character |
-| `J` | Join current line with next line |
-| `gJ` | Join lines without adding space |
-| `.` | Repeat last change |
+| `x` | Hapus karakter di bawah kursor |
+| `X` | Hapus karakter di belakang kursor |
+| `s` | Hapus karakter di kursor lalu masuk mode Insert |
+| `S` | Hapus satu baris penuh lalu masuk mode Insert |
+| `r<char>` | Timpa satu karakter di kursor |
+| `J` | Gabungkan baris aktif dengan baris di bawahnya |
+| `gJ` | Gabungkan baris tanpa menambahkan spasi pemisah |
+| `.` | Ulangi aksi perubahan terakhir |
+| `u` | Undo (batalkan aksi) |
+| `Ctrl-r` | Redo (ulangi aksi yang dibatalkan) |
+
+Contoh penggunaan:
+
+```vim
+ciwhello<Esc>   " ganti kata aktif jadi 'hello'
+A;<Esc>         " tambahkan titik koma di akhir baris
+J               " gabungkan baris berikutnya ke baris aktif
+```
+
+---
+
+## Copy, Cut, dan Paste
+
+| Tombol | Aksi |
+|---|---|
+| `y` | Salin (yank) dengan motion |
+| `yy` | Salin satu baris aktif |
+| `Y` | Salin sampai akhir baris (di kebanyakan konfigurasi; di Vim/Neovim modern defaultnya sama dengan `yy` kecuali diubah) |
+| `d` | Hapus/potong (delete/cut) dengan motion |
+| `dd` | Hapus/potong satu baris aktif |
+| `p` | Tempel (paste) setelah kursor atau di bawah baris aktif |
+| `P` | Tempel (paste) sebelum kursor atau di atas baris aktif |
+| `gp` | Tempel teks lalu taruh kursor setelah teks tempelan tersebut |
+| `gP` | Tempel teks sebelum kursor lalu taruh kursor setelah teks tempelan tersebut |
+
+Contoh penggunaan:
+
+```vim
+yy      " salin baris aktif
+3yy     " salin 3 baris
+dd      " hapus baris aktif
+3dd     " hapus 3 baris
+p       " tempel di bawah
+P       " tempel di atas
+```
+
+---
+
+## Register
+
+Register itu tempat penyimpanan sementara buat teks yang kamu salin atau hapus.
+
+| Register | Arti |
+|---|---|
+| `"` | Register default (unnamed register) |
+| `0` | Register hasil salin (yank) terakhir |
+| `1`-`9` | Register riwayat penghapusan (delete history) |
+| `+` | Clipboard sistem operasi |
+| `*` | Clipboard seleksi sistem (di beberapa OS) |
+| `_` | Register lubang hitam (black hole); hapus tanpa menyimpannya ke clipboard |
+| `%` | Nama file aktif saat ini |
+| `.` | Teks terakhir yang dimasukkan |
+| `:` | Perintah command-line terakhir yang dijalankan |
+
+Cara pakai register:
+
+```vim
+"+y     " salin teks ke clipboard sistem OS
+"+p     " tempel teks dari clipboard sistem OS
+"_d     " hapus teks tanpa menimpa register default
+"0p     " tempel teks hasil salinan terakhir, bukan hasil hapusan terakhir
+```
+
+Contoh praktis:
+
+```vim
+"+yy    " salin baris aktif ke clipboard komputer kamu
+"_dd    " hapus satu baris tanpa merusak teks yang udah kamu salin sebelumnya
+"0p     " tempel teks yang terakhir kamu salin (bukan teks yang terakhir kamu hapus)
+```
+
+---
+
+## Undo dan Redo
+
+| Tombol | Aksi |
+|---|---|
 | `u` | Undo |
 | `Ctrl-r` | Redo |
+| `U` | Kembalikan baris aktif ke kondisi awal sebelum kursor pindah |
+| `:earlier 5m` | Kembalikan file ke kondisi 5 menit yang lalu |
+| `:later 5m` | Majukan file ke kondisi 5 menit setelahnya |
 
-Examples:
-
-```vim
-ciwhello<Esc>   " replace current word with hello
-A;<Esc>         " add semicolon at end of line
-J               " join next line into current line
-```
-
----
-
-## Copy, Cut, and Paste
-
-| Command | Action |
-|---|---|
-| `y` | Yank / copy with motion |
-| `yy` | Yank current line |
-| `Y` | Yank to end of line in many Vim configs; in modern Vim/Neovim usually same as `yy` unless remapped |
-| `d` | Delete / cut with motion |
-| `dd` | Delete current line |
-| `p` | Paste after cursor or below line |
-| `P` | Paste before cursor or above line |
-| `gp` | Paste and move cursor after pasted text |
-| `gP` | Paste before and move cursor after pasted text |
-
-Examples:
-
-```vim
-yy      " copy line
-3yy     " copy 3 lines
-dd      " cut line
-3dd     " cut 3 lines
-p       " paste below
-P       " paste above
-```
-
----
-
-## Registers
-
-Registers are storage locations for copied/deleted text.
-
-| Register | Meaning |
-|---|---|
-| `"` | Default unnamed register |
-| `0` | Last yank register |
-| `1`-`9` | Delete history registers |
-| `+` | System clipboard |
-| `*` | Selection clipboard on some systems |
-| `_` | Black hole register; delete without saving |
-| `%` | Current file name |
-| `.` | Last inserted text |
-| `:` | Last command-line command |
-
-Use registers:
-
-```vim
-"+y     " yank to system clipboard
-"+p     " paste from system clipboard
-"_d     " delete without affecting default register
-"0p     " paste last yanked text
-```
-
-Practical examples:
-
-```vim
-"+yy    " copy current line to system clipboard
-"_dd    " delete line without replacing your copied text
-"0p     " paste last yanked value, not last deleted value
-```
-
----
-
-## Undo and Redo
-
-| Command | Action |
-|---|---|
-| `u` | Undo |
-| `Ctrl-r` | Redo |
-| `U` | Restore current line to original state before cursor moved away |
-| `:earlier 5m` | Go to file state from 5 minutes earlier |
-| `:later 5m` | Go to file state from 5 minutes later |
-
-Persistent undo in config:
+Aktifkan riwayat undo yang persisten di konfigurasi:
 
 ```vim
 set undofile
 ```
 
-Neovim Lua:
+Neovim dengan Lua:
 
 ```lua
 vim.opt.undofile = true
@@ -523,149 +520,149 @@ vim.opt.undofile = true
 
 ---
 
-## Visual Mode
+## Mode Visual
 
-| Command | Action |
+| Tombol | Aksi |
 |---|---|
-| `v` | Start character-wise visual selection |
-| `V` | Start line-wise visual selection |
-| `Ctrl-v` | Start block-wise visual selection |
-| `o` | Move cursor to other end of selection |
-| `gv` | Reselect latest visual selection |
-| `y` | Yank selected text |
-| `d` | Delete selected text |
-| `c` | Change selected text |
-| `>` | Indent selected text |
-| `<` | Unindent selected text |
-| `=` | Auto-indent selected text |
+| `v` | Blok teks per karakter |
+| `V` | Blok teks per baris |
+| `Ctrl-v` | Blok teks secara kolom/vertikal (block-wise) |
+| `o` | Pindahkan kursor ke ujung blok seleksi lainnya |
+| `gv` | Blok ulang area seleksi visual terakhir |
+| `y` | Salin area yang diblok |
+| `d` | Hapus area yang diblok |
+| `c` | Ubah area yang diblok |
+| `>` | Geser indentasi area blok ke kanan |
+| `<` | Geser indentasi area blok ke kiri |
+| `=` | Auto-format indentasi area blok |
 
-Visual block examples:
+Contoh penggunaan Visual Block:
 
 ```vim
 Ctrl-v
-j/j/k/k to select lines
+j/j/k/k untuk memblok beberapa baris ke bawah
 I// <Esc>
 ```
 
-This inserts `//` at the beginning of multiple selected lines.
+Ini bakal menambahkan komentar `//` di awal semua baris yang diblok secara bersamaan.
 
-Append to multiple lines:
+Menambahkan sesuatu di akhir baris secara masal:
 
 ```vim
 Ctrl-v
-select lines
+blok beberapa baris
 A; <Esc>
 ```
 
-This appends `;` to multiple selected lines.
+Ini bakal menambahkan karakter `;` di akhir semua baris yang diblok secara bersamaan.
 
 ---
 
-## Indentation
+## Indentasi
 
-| Command | Action |
+| Tombol | Aksi |
 |---|---|
-| `>>` | Indent current line right |
-| `<<` | Indent current line left |
-| `>}` | Indent until next paragraph |
-| `<}` | Unindent until next paragraph |
-| `=}` | Auto-indent until next paragraph |
-| `gg=G` | Auto-indent whole file |
+| `>>` | Geser indentasi baris aktif ke kanan |
+| `<<` | Geser indentasi baris aktif ke kiri |
+| `>}` | Geser indentasi sampai paragraf berikutnya |
+| `<}` | Kurangi indentasi sampai paragraf berikutnya |
+| `=}` | Auto-format indentasi sampai paragraf berikutnya |
+| `gg=G` | Auto-format indentasi seluruh file dari atas sampai bawah |
 
-In Visual mode:
+Di Mode Visual:
 
 ```vim
->       " indent selection
-<       " unindent selection
-=       " auto-indent selection
+>       " geser indentasi seleksi ke kanan
+<       " geser indentasi seleksi ke kiri
+=       " auto-format indentasi seleksi
 ```
 
 ---
 
-## Comments
+## Komentar Code
 
-Vim does not have one universal built-in comment shortcut for all languages by default. Common approaches:
+Secara default, Vim gak punya shortcut komentar bawaan yang otomatis paham semua bahasa pemrograman. Berikut cara mengakalinya:
 
-### Built-in manual way
+### Cara manual bawaan Vim
 
 ```vim
-I// <Esc>       " add // at start of line
+I// <Esc>       " tambah // di awal baris aktif
 ```
 
-For multiple lines:
+Untuk banyak baris sekaligus:
 
 ```vim
 Ctrl-v
-select lines
+blok baris yang mau dikomentari
 I// <Esc>
 ```
 
-### With popular plugins
+### Menggunakan Plugin
 
-Many Neovim users use comment plugins such as `numToStr/Comment.nvim` or similar.
+Kebanyakan pengguna Neovim menggunakan plugin komentar seperti `numToStr/Comment.nvim` atau sejenisnya.
 
-Common plugin mappings:
+Shortcut bawaan plugin yang umum:
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `gcc` | Toggle comment line |
-| `gc` in Visual mode | Toggle comment selection |
-| `gc{motion}` | Toggle comment by motion |
+| `gcc` | Pasang/lepas komentar pada baris aktif |
+| `gc` (Mode Visual) | Pasang/lepas komentar pada teks yang diblok |
+| `gc{motion}` | Pasang/lepas komentar berdasarkan motion |
 
-Examples:
+Contoh:
 
 ```vim
-gcc     " comment/uncomment current line
-gcip    " comment/uncomment inside paragraph
+gcc     " komentari/uncomment baris aktif saat ini
+gcip    " komentari/uncomment seluruh isi paragraf
 ```
 
 ---
 
-## Search and Replace
+## Cari dan Ganti (Search & Replace)
 
-Basic substitute:
-
-```vim
-:s/old/new/
-```
-
-Replace first match on current line.
-
-Replace all matches on current line:
+Format dasar penggantian teks:
 
 ```vim
-:s/old/new/g
+:s/teks_lama/teks_baru/
 ```
 
-Replace in whole file:
+Ini bakal mengganti kecocokan pertama di baris aktif saja.
+
+Ganti semua kecocokan di baris aktif saja:
 
 ```vim
-:%s/old/new/g
+:s/teks_lama/teks_baru/g
 ```
 
-Replace with confirmation:
+Ganti semua kecocokan di seluruh file:
 
 ```vim
-:%s/old/new/gc
+:%s/teks_lama/teks_baru/g
 ```
 
-Replace only selected lines:
+Ganti dengan konfirmasi satu per satu:
 
 ```vim
-:'<,'>s/old/new/g
+:%s/teks_lama/teks_baru/gc
 ```
 
-Common flags:
+Ganti hanya pada baris yang diblok saja:
 
-| Flag | Meaning |
+```vim
+:'<,'>s/teks_lama/teks_baru/g
+```
+
+Flag yang sering digunakan:
+
+| Flag | Arti |
 |---|---|
-| `g` | Replace all matches in each line |
-| `c` | Confirm each replacement |
-| `i` | Ignore case |
-| `I` | Case-sensitive |
-| `n` | Count matches, do not replace |
+| `g` | Ganti semua kecocokan di setiap baris (global) |
+| `c` | Minta konfirmasi sebelum mengganti (confirm) |
+| `i` | Abaikan sensitivitas huruf kapital (ignore case) |
+| `I` | Paksa sensitif huruf kapital (case-sensitive) |
+| `n` | Hitung jumlah kecocokan tanpa mengganti teksnya |
 
-Examples:
+Contoh kasus:
 
 ```vim
 :%s/console.log/logger.info/g
@@ -673,16 +670,16 @@ Examples:
 :%s/foo/bar/gn
 ```
 
-Special replacement symbols:
+Karakter spesial saat mengganti teks:
 
-| Symbol | Meaning |
+| Simbol | Arti |
 |---|---|
-| `&` | Whole matched text |
-| `\1`, `\2` | Capture groups |
-| `\r` | New line in replacement |
-| `\=` | Expression replacement |
+| `&` | Seluruh teks yang cocok |
+| `\1`, `\2` | Capture group hasil regex pencarian |
+| `\r` | Membuat baris baru (newline) pada teks pengganti |
+| `\=` | Menggunakan ekspresi evaluasi teks pengganti |
 
-Example with capture group:
+Contoh pakai capture group:
 
 ```vim
 :%s/\(first\)_\(name\)/\1Name/g
@@ -690,53 +687,53 @@ Example with capture group:
 
 ---
 
-## Global Command
+## Perintah Global (`:g`)
 
-The global command runs an Ex command on all matching lines.
+Perintah global menjalankan perintah Ex pada semua baris yang cocok dengan pola pencarian.
 
 ```vim
-:g/pattern/command
+:g/pola/perintah
 ```
 
-Examples:
+Contoh:
 
 ```vim
-:g/TODO/p          " print all lines containing TODO
-:g/TODO/d          " delete all lines containing TODO
-:g/^$/d            " delete empty lines
+:g/TODO/p          " cetak semua baris yang ada tulisan TODO
+:g/TODO/d          " hapus semua baris yang ada tulisan TODO
+:g/^$/d            " hapus semua baris kosong
 :g/import/s/foo/bar/g
-:v/TODO/d          " delete all lines that do NOT contain TODO
+:v/TODO/d          " hapus semua baris yang GAK ada tulisan TODO
 ```
 
-Useful pattern examples:
+Contoh pola praktis:
 
 ```vim
-:g/^import/normal A;      " add semicolon to all import lines
-:g/console.log/d          " delete lines containing console.log
-:g/TODO/t$                " copy TODO lines to end of file
+:g/^import/normal A;      " tambahkan titik koma di akhir semua baris import
+:g/console.log/d          " hapus semua baris yang berisi console.log
+:g/TODO/t$                " salin semua baris TODO ke bagian paling bawah file
 ```
 
 ---
 
-## Files
+## File dan Buffer
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:e file` | Edit/open file |
-| `:edit file` | Edit/open file |
-| `:w` | Save |
-| `:w file` | Save as file |
-| `:wa` | Save all buffers |
-| `:q` | Quit |
-| `:q!` | Quit without saving |
-| `:wq` | Save and quit |
-| `:x` | Save and quit if changed |
-| `ZZ` | Save and quit |
-| `ZQ` | Quit without saving |
-| `:r file` | Read file content into current buffer |
-| `:r !cmd` | Insert command output into current buffer |
+| `:e file` | Edit / buka file baru |
+| `:edit file` | Edit / buka file baru |
+| `:w` | Simpan file (write) |
+| `:w nama_file` | Simpan sebagai nama file baru |
+| `:wa` | Simpan semua buffer aktif (write all) |
+| `:q` | Keluar (quit) |
+| `:q!` | Keluar paksa tanpa menyimpan perubahan |
+| `:wq` | Simpan perubahan lalu keluar |
+| `:x` | Simpan jika ada perubahan, lalu keluar |
+| `ZZ` | Simpan jika ada perubahan, lalu keluar (mode Normal) |
+| `ZQ` | Keluar tanpa simpan (mode Normal) |
+| `:r file` | Baca isi file lain dan masukkan ke baris aktif |
+| `:r !cmd` | Jalankan perintah bash lalu masukkan hasilnya ke baris aktif |
 
-Examples:
+Contoh penggunaan:
 
 ```vim
 :e src/index.ts
@@ -749,22 +746,22 @@ Examples:
 
 ---
 
-## Buffers
+## Buffer
 
-A buffer is an open file in memory.
+Buffer adalah file yang sedang terbuka di memori.
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:ls` or `:buffers` | List buffers |
-| `:bnext` or `:bn` | Next buffer |
-| `:bprevious` or `:bp` | Previous buffer |
-| `:buffer 3` or `:b 3` | Go to buffer number 3 |
-| `:b filename` | Go to buffer by name |
-| `:bd` | Delete/close buffer |
-| `:bd!` | Force delete buffer |
-| `:bufdo command` | Run command on all buffers |
+| `:ls` or `:buffers` | Tampilkan daftar buffer yang terbuka |
+| `:bnext` or `:bn` | Pindah ke buffer berikutnya |
+| `:bprevious` or `:bp` | Pindah ke buffer sebelumnya |
+| `:buffer 3` or `:b 3` | Pindah ke buffer nomor 3 |
+| `:b nama_file` | Pindah ke buffer berdasarkan nama filenya |
+| `:bd` | Tutup buffer aktif (buffer delete) |
+| `:bd!` | Tutup paksa buffer aktif |
+| `:bufdo command` | Jalankan perintah ke semua buffer yang terbuka |
 
-Useful mappings you may add:
+Shortcut mapping yang direkomendasikan di config:
 
 ```vim
 nnoremap <leader>bn :bnext<CR>
@@ -772,7 +769,7 @@ nnoremap <leader>bp :bprevious<CR>
 nnoremap <leader>bd :bd<CR>
 ```
 
-Neovim Lua:
+Di Neovim menggunakan Lua:
 
 ```lua
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>")
@@ -784,30 +781,30 @@ vim.keymap.set("n", "<leader>bd", ":bd<CR>")
 
 ## Windows / Splits
 
-A window is a view into a buffer.
+Window adalah area visual untuk melihat isi buffer.
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:split` or `:sp` | Horizontal split |
-| `:vsplit` or `:vsp` | Vertical split |
-| `Ctrl-w s` | Horizontal split |
-| `Ctrl-w v` | Vertical split |
-| `Ctrl-w h` | Move to left split |
-| `Ctrl-w j` | Move to lower split |
-| `Ctrl-w k` | Move to upper split |
-| `Ctrl-w l` | Move to right split |
-| `Ctrl-w w` | Cycle windows |
-| `Ctrl-w q` | Close current window |
-| `Ctrl-w o` | Close other windows |
-| `Ctrl-w =` | Equalize split sizes |
-| `Ctrl-w _` | Maximize height |
-| `Ctrl-w |` | Maximize width |
-| `Ctrl-w +` | Increase height |
-| `Ctrl-w -` | Decrease height |
-| `Ctrl-w >` | Increase width |
-| `Ctrl-w <` | Decrease width |
+| `:split` or `:sp` | Bagi layar secara horizontal |
+| `:vsplit` or `:vsp` | Bagi layar secara vertikal |
+| `Ctrl-w s` | Bagi layar secara horizontal |
+| `Ctrl-w v` | Bagi layar secara vertikal |
+| `Ctrl-w h` | Pindah fokus ke split sebelah kiri |
+| `Ctrl-w j` | Pindah fokus ke split bagian bawah |
+| `Ctrl-w k` | Pindah fokus ke split bagian atas |
+| `Ctrl-w l` | Pindah fokus ke split sebelah kanan |
+| `Ctrl-w w` | Pindah fokus antar split secara bergantian |
+| `Ctrl-w q` | Tutup split yang aktif saat ini |
+| `Ctrl-w o` | Tutup split lainnya, sisakan split aktif (only) |
+| `Ctrl-w =` | Buat ukuran semua split sama rata |
+| `Ctrl-w _` | Maksimalkan tinggi split aktif |
+| `Ctrl-w |` | Maksimalkan lebar split aktif |
+| `Ctrl-w +` | Perbesar tinggi split aktif |
+| `Ctrl-w -` | Perkecil tinggi split aktif |
+| `Ctrl-w >` | Perlebar split aktif |
+| `Ctrl-w <` | Persempit split aktif |
 
-Open file in split:
+Membuka file langsung di split baru:
 
 ```vim
 :sp src/index.ts
@@ -816,118 +813,118 @@ Open file in split:
 
 ---
 
-## Tabs
+## Tab
 
-In Vim, tabs are layouts of windows, not file tabs like many IDEs.
+Di Vim, tab itu kumpulan susunan window, bukan file tab seperti pada IDE modern.
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:tabnew` | New tab |
-| `:tabnew file` | Open file in new tab |
-| `:tabnext` or `gt` | Next tab |
-| `:tabprevious` or `gT` | Previous tab |
-| `:tabclose` | Close current tab |
-| `:tabonly` | Close other tabs |
-| `:tabs` | List tabs |
+| `:tabnew` | Buka tab baru |
+| `:tabnew file` | Buka file di tab baru |
+| `:tabnext` or `gt` | Pindah ke tab berikutnya |
+| `:tabprevious` or `gT` | Pindah ke tab sebelumnya |
+| `:tabclose` | Tutup tab aktif |
+| `:tabonly` | Tutup tab lainnya |
+| `:tabs` | Daftar semua tab yang terbuka |
 
 ---
 
-## Marks
+## Mark
 
-Marks let you jump back to important positions.
+Mark membantumu menandai posisi penting agar bisa lompat ke sana lagi dengan cepat.
 
-| Command | Action |
+| Tombol | Aksi |
 |---|---|
-| `ma` | Set local mark `a` |
-| `` `a `` | Jump to exact position of mark `a` |
-| `'a` | Jump to line of mark `a` |
-| `mA` | Set global mark `A` |
-| `` `A `` | Jump to global mark `A` |
-| `:marks` | List marks |
-| `` `. `` | Jump to last change |
-| `` `" `` | Jump to last position in file |
-| `` `[ `` | Start of last changed/yanked text |
-| `` `] `` | End of last changed/yanked text |
+| `ma` | Tandai posisi saat ini sebagai mark lokal `a` |
+| `` `a `` | Lompat tepat ke posisi mark `a` |
+| `'a` | Lompat ke awal baris mark `a` |
+| `mA` | Tandai posisi saat ini sebagai mark global `A` |
+| `` `A `` | Lompat ke mark global `A` (bisa antar file) |
+| `:marks` | Tampilkan semua daftar mark |
+| `` `. `` | Lompat ke lokasi perubahan terakhir |
+| `` `\" `` | Lompat ke posisi kursor terakhir saat file ditutup |
+| `` `[ `` | Lompat ke awal teks yang terakhir diubah/disalin |
+| `` `] `` | Lompat ke akhir teks yang terakhir diubah/disalin |
 
-Practical use:
+Contoh penggunaan:
 
 ```vim
-ma      " save current position as mark a
-G       " go to bottom of file
-`a      " jump back to exact saved position
+ma      " simpan posisi saat ini ke mark a
+G       " lompat ke baris paling bawah file
+`a      " lompat balik ke posisi awal tadi secara presisi
 ```
 
 ---
 
-## Jumps and Change List
+## Jumps dan List Perubahan (Change List)
 
-| Command | Action |
+| Tombol | Aksi |
 |---|---|
-| `Ctrl-o` | Jump backward in jump list |
-| `Ctrl-i` | Jump forward in jump list |
-| `:jumps` | Show jump list |
-| `g;` | Go to previous change |
-| `g,` | Go to next change |
-| `:changes` | Show change list |
+| `Ctrl-o` | Lompat mundur di daftar riwayat lompatan (jump list) |
+| `Ctrl-i` | Lompat maju di daftar riwayat lompatan |
+| `:jumps` | Tampilkan riwayat lompatan |
+| `g;` | Lompat mundur ke riwayat perubahan teks sebelumnya |
+| `g,` | Lompat maju ke riwayat perubahan teks berikutnya |
+| `:changes` | Tampilkan riwayat perubahan teks |
 
-Useful after searching, jumping to definitions, or moving across files.
+Berguna banget setelah kamu selesai nyari teks, cari definisi fungsi, atau pindah-pindah file.
 
 ---
 
-## Macros
+## Macro
 
-Macros record and replay actions.
+Macro digunakan untuk merekam serangkaian aksi lalu memutarnya kembali secara otomatis.
 
-| Command | Action |
+| Tombol | Aksi |
 |---|---|
-| `qa` | Start recording into register `a` |
-| `q` | Stop recording |
-| `@a` | Play macro from register `a` |
-| `@@` | Repeat latest macro |
-| `10@a` | Run macro `a` ten times |
+| `qa` | Mulai merekam ke register `a` |
+| `q` | Berhenti merekam |
+| `@a` | Jalankan macro dari register `a` |
+| `@@` | Jalankan ulang macro yang terakhir kali dipakai |
+| `10@a` | Jalankan macro `a` sebanyak 10 kali |
 
-Example: add semicolon to multiple lines.
+Contoh kasus: menambahkan titik koma `;` di akhir baris berurutan.
 
-1. Put cursor on first line.
-2. Record macro:
+1. Taruh kursor di baris pertama.
+2. Rekam macro:
 
 ```vim
 qaA;<Esc>jq
 ```
 
-3. Replay 10 times:
+3. Jalankan 10 kali ke baris berikutnya:
 
 ```vim
 10@a
 ```
 
-Explanation:
+Penjelasan langkah perekaman:
 
-| Part | Meaning |
+| Langkah | Arti |
 |---|---|
-| `qa` | Record into register `a` |
-| `A;` | Append `;` at end of line |
-| `<Esc>` | Return to Normal mode |
-| `j` | Move to next line |
-| `q` | Stop recording |
+| `qa` | Mulai rekam ke register `a` |
+| `A;` | Masuk ke akhir baris lalu ketik `;` |
+| `<Esc>` | Kembali ke mode Normal |
+| `j` | Pindah ke baris di bawahnya |
+| `q` | Berhenti merekam |
 
 ---
 
-## Folds
+## Folds (Melipat Teks)
 
-Folds hide sections of text.
+Folds digunakan untuk menyembunyikan/melipat bagian teks biar kode terlihat lebih rapi.
 
-| Command | Action |
+| Tombol | Aksi |
 |---|---|
-| `za` | Toggle fold |
-| `zo` | Open fold |
-| `zc` | Close fold |
-| `zR` | Open all folds |
-| `zM` | Close all folds |
-| `zj` | Move to next fold |
-| `zk` | Move to previous fold |
+| `za` | Toggle lipatan (buka/tutup lipatan) |
+| `zo` | Buka lipatan (open) |
+| `zc` | Tutup lipatan (close) |
+| `zR` | Buka seluruh lipatan di file (open all) |
+| `zM` | Tutup seluruh lipatan di file (close all) |
+| `zj` | Pindah ke lipatan berikutnya |
+| `zk` | Pindah ke lipatan sebelumnya |
 
-Fold methods:
+Mengatur metode pelipatan (fold method):
 
 ```vim
 :set foldmethod=indent
@@ -935,10 +932,10 @@ Fold methods:
 :set foldmethod=marker
 ```
 
-Marker example:
+Contoh metode marker:
 
 ```js
-// {{{ Auth helpers
+// {{{ Helper Auth
 function login() {}
 function logout() {}
 // }}}
@@ -946,38 +943,38 @@ function logout() {}
 
 ---
 
-## Quickfix and Location List
+## Quickfix dan Location List
 
-Quickfix is useful for project-wide errors, grep results, and compiler output.
+Quickfix berguna untuk melacak error se-project, hasil pencarian grep, atau output compiler.
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:copen` | Open quickfix list |
-| `:cclose` | Close quickfix list |
-| `:cnext` or `:cn` | Next quickfix item |
-| `:cprevious` or `:cp` | Previous quickfix item |
-| `:cfirst` | First quickfix item |
-| `:clast` | Last quickfix item |
-| `:colder` | Older quickfix list |
-| `:cnewer` | Newer quickfix list |
+| `:copen` | Buka jendela quickfix list |
+| `:cclose` | Tutup jendela quickfix list |
+| `:cnext` or `:cn` | Pindah ke item quickfix berikutnya |
+| `:cprevious` or `:cp` | Pindah ke item quickfix sebelumnya |
+| `:cfirst` | Pindah ke item quickfix pertama |
+| `:clast` | Pindah ke item quickfix terakhir |
+| `:colder` | Tampilkan daftar quickfix yang lebih lama |
+| `:cnewer` | Tampilkan daftar quickfix yang lebih baru |
 
-Location list is window-local:
+Location list mirip quickfix tapi bersifat lokal per window:
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:lopen` | Open location list |
-| `:lclose` | Close location list |
-| `:lnext` | Next location item |
-| `:lprevious` | Previous location item |
+| `:lopen` | Buka location list |
+| `:lclose` | Tutup location list |
+| `:lnext` | Pindah ke item location list berikutnya |
+| `:lprevious` | Pindah ke item location list sebelumnya |
 
-Search project with built-in grep:
+Mencari di dalam project dengan grep bawaan:
 
 ```vim
 :grep TODO **/*.ts
 :copen
 ```
 
-If using ripgrep:
+Kalau pakai ripgrep:
 
 ```vim
 :set grepprg=rg\ --vimgrep
@@ -987,35 +984,35 @@ If using ripgrep:
 
 ---
 
-## Diff Mode
+## Mode Diff (Komparasi File)
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `vimdiff file1 file2` | Open files in diff mode |
-| `:diffsplit file` | Diff current file with another file |
-| `]c` | Next change |
-| `[c` | Previous change |
-| `do` | Diff obtain: get change from other window |
-| `dp` | Diff put: send change to other window |
-| `:diffupdate` | Refresh diff |
-| `:diffoff` | Turn off diff mode |
+| `vimdiff file1 file2` | Buka file langsung dalam mode komparasi |
+| `:diffsplit file` | Bandingkan file aktif dengan file lain |
+| `]c` | Lompat ke perbedaan berikutnya |
+| `[c` | Lompat ke perbedaan sebelumnya |
+| `do` | Ambil perubahan dari split sebelah (diff obtain) |
+| `dp` | Terapkan perubahan aktif ke split sebelah (diff put) |
+| `:diffupdate` | Refresh tampilan komparasi |
+| `:diffoff` | Matikan mode komparasi |
 
 ---
 
-## Spell Checking
+## Pemeriksaan Ejaan (Spell Checking)
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:set spell` | Enable spell check |
-| `:set nospell` | Disable spell check |
-| `]s` | Next spelling mistake |
-| `[s` | Previous spelling mistake |
-| `z=` | Show suggestions |
-| `zg` | Add word to dictionary |
-| `zw` | Mark word as wrong |
-| `zug` | Undo `zg` |
+| `:set spell` | Aktifkan spell check |
+| `:set nospell` | Matikan spell check |
+| `]s` | Lompat ke ejaan salah berikutnya |
+| `[s` | Lompat ke ejaan salah sebelumnya |
+| `z=` | Tampilkan saran ejaan |
+| `zg` | Masukkan kata ke kamus (good word) |
+| `zw` | Tandai kata sebagai salah (wrong word) |
+| `zug` | Batalkan aksi `zg` |
 
-Set language:
+Mengatur bahasa spell check:
 
 ```vim
 :set spelllang=en_us
@@ -1023,36 +1020,36 @@ Set language:
 
 ---
 
-## Formatting
+## Formatting Teks / Kode
 
-| Command | Action |
+| Tombol | Aksi |
 |---|---|
-| `=` | Auto-indent operator |
-| `==` | Auto-indent current line |
-| `gg=G` | Auto-indent whole file |
-| `gq` | Format text to text width |
-| `gqap` | Format around paragraph |
+| `=` | Operator auto-indent |
+| `==` | Auto-indent baris aktif |
+| `gg=G` | Auto-indent seluruh isi file |
+| `gq` | Format bungkus teks sesuai lebar batas kolom |
+| `gqap` | Format bungkus teks untuk seluruh paragraf aktif |
 
-Set text width:
+Mengatur lebar batas kolom:
 
 ```vim
 :set textwidth=80
 ```
 
-Format selected text:
+Format teks yang diblok saja:
 
 ```vim
-v select text
+v blok teksnya
 =
 ```
 
-Neovim LSP formatting:
+Format menggunakan LSP Neovim:
 
 ```vim
 :lua vim.lsp.buf.format()
 ```
 
-Recommended mapping:
+Rekomendasi mapping di config:
 
 ```lua
 vim.keymap.set("n", "<leader>f", function()
@@ -1062,51 +1059,51 @@ end)
 
 ---
 
-## Terminal
+## Terminal Bawaan
 
-### Vim / Neovim terminal
+### Membuka terminal di dalam Vim / Neovim
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:terminal` | Open terminal |
-| `:term` | Open terminal |
-| `i` | Enter terminal input mode |
-| `Ctrl-\ Ctrl-n` | Leave terminal input mode |
-| `:bd!` | Close terminal buffer |
+| `:terminal` | Buka jendela terminal baru |
+| `:term` | Buka jendela terminal baru |
+| `i` | Masuk ke mode ketik di terminal |
+| `Ctrl-\\ Ctrl-n` | Keluar dari mode ketik terminal (kembali ke mode Normal) |
+| `:bd!` | Tutup paksa buffer terminal |
 
-Open terminal in split:
+Membuka terminal langsung dengan split layar:
 
 ```vim
 :split | terminal
 :vsplit | terminal
 ```
 
-Neovim Lua mapping example:
+Contoh mapping di Neovim Lua agar keluar terminal lebih gampang dengan `Esc`:
 
 ```lua
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+vim.keymap.set("t", "<Esc>", [[<C-\\><C-n>]])
 ```
 
 ---
 
-## Neovim LSP
+## Neovim LSP (Language Server Protocol)
 
-Neovim has built-in LSP support. Your exact keymaps may depend on your config, but these are common actions.
+Neovim sudah punya dukungan LSP bawaan. Walaupun konfigurasinya bisa berbeda-beda tiap user, berikut perintah umum yang sering dipakai.
 
-| Action | Lua Command |
+| Aksi | Perintah Lua |
 |---|---|
-| Go to definition | `vim.lsp.buf.definition()` |
-| Go to declaration | `vim.lsp.buf.declaration()` |
-| Go to implementation | `vim.lsp.buf.implementation()` |
-| Go to type definition | `vim.lsp.buf.type_definition()` |
-| Show hover docs | `vim.lsp.buf.hover()` |
-| Signature help | `vim.lsp.buf.signature_help()` |
-| Rename symbol | `vim.lsp.buf.rename()` |
-| Code action | `vim.lsp.buf.code_action()` |
-| Format | `vim.lsp.buf.format()` |
-| References | `vim.lsp.buf.references()` |
+| Lompat ke definisi fungsi | `vim.lsp.buf.definition()` |
+| Lompat ke deklarasi fungsi | `vim.lsp.buf.declaration()` |
+| Lompat ke implementasi | `vim.lsp.buf.implementation()` |
+| Lompat ke definisi tipe data | `vim.lsp.buf.type_definition()` |
+| Tampilkan dokumentasi hover | `vim.lsp.buf.hover()` |
+| Bantuan parameter fungsi | `vim.lsp.buf.signature_help()` |
+| Ubah nama variabel se-project | `vim.lsp.buf.rename()` |
+| Jalankan Code Action | `vim.lsp.buf.code_action()` |
+| Format kode | `vim.lsp.buf.format()` |
+| Lihat daftar referensi variabel | `vim.lsp.buf.references()` |
 
-Common keymaps:
+Mapping tombol yang umum dipakai:
 
 ```lua
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
@@ -1123,16 +1120,16 @@ end)
 
 ---
 
-## Neovim Diagnostics
+## Diagnostics Neovim (Error / Warning)
 
-| Action | Lua Command |
+| Aksi | Perintah Lua |
 |---|---|
-| Open diagnostic float | `vim.diagnostic.open_float()` |
-| Go to next diagnostic | `vim.diagnostic.goto_next()` |
-| Go to previous diagnostic | `vim.diagnostic.goto_prev()` |
-| Send diagnostics to location list | `vim.diagnostic.setloclist()` |
+| Buka jendela diagnostik detail | `vim.diagnostic.open_float()` |
+| Lompat ke diagnostik berikutnya | `vim.diagnostic.goto_next()` |
+| Lompat ke diagnostik sebelumnya | `vim.diagnostic.goto_prev()` |
+| Kirim info diagnostik ke location list | `vim.diagnostic.setloclist()` |
 
-Common keymaps:
+Mapping tombol yang umum dipakai:
 
 ```lua
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
@@ -1143,28 +1140,28 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 ---
 
-## Useful Ex Commands
+## Perintah Ex yang Sering Berguna
 
-| Command | Action |
+| Perintah | Aksi |
 |---|---|
-| `:set number` | Show line numbers |
-| `:set relativenumber` | Show relative line numbers |
-| `:set nonumber` | Hide line numbers |
-| `:set wrap` | Enable line wrap |
-| `:set nowrap` | Disable line wrap |
-| `:set list` | Show invisible characters |
-| `:set nolist` | Hide invisible characters |
-| `:set paste` | Enable paste mode in older Vim workflows |
-| `:set nopaste` | Disable paste mode |
-| `:syntax on` | Enable syntax highlighting |
-| `:filetype plugin indent on` | Enable filetype plugins and indent |
-| `:checkhealth` | Neovim health check |
-| `:messages` | Show messages |
-| `:version` | Show version info |
-| `:h topic` | Open help for topic |
-| `:h key-notation` | Help for key notation |
+| `:set number` | Tampilkan nomor baris |
+| `:set relativenumber` | Tampilkan nomor baris relatif |
+| `:set nonumber` | Sembunyikan nomor baris |
+| `:set wrap` | Aktifkan line wrap (teks otomatis melipat ke baris baru di layar) |
+| `:set nowrap` | Matikan line wrap |
+| `:set list` | Tampilkan karakter tak terlihat (spasi, tab, newline) |
+| `:set nolist` | Sembunyikan karakter tak terlihat |
+| `:set paste` | Aktifkan mode tempel teks (berguna untuk Vim jadul agar format rapi) |
+| `:set nopaste` | Matikan mode tempel teks |
+| `:syntax on` | Aktifkan pewarnaan kode (syntax highlighting) |
+| `:filetype plugin indent on` | Aktifkan deteksi jenis file dan aturan indentasinya |
+| `:checkhealth` | Jalankan cek kesehatan konfigurasi Neovim |
+| `:messages` | Tampilkan pesan log sistem |
+| `:version` | Lihat informasi versi Vim/Neovim |
+| `:h topik` | Buka bantuan dokumentasi tentang topik tersebut |
+| `:h key-notation` | Lihat format tombol konfigurasi di dokumentasi |
 
-Help examples:
+Contoh membuka dokumentasi bantuan:
 
 ```vim
 :h motion.txt
@@ -1176,19 +1173,19 @@ Help examples:
 
 ---
 
-## Practical Workflows
+## Workflow Praktis Sehari-hari
 
-### 1. Rename a variable in one file
+### 1. Rename variabel dalam satu file
 
 ```vim
-:%s/oldName/newName/gc
+:%s/namaLama/namaBaru/gc
 ```
 
-Use `c` so you can confirm each replacement.
+*Pakai flag `c` biar kamu bisa memverifikasi perubahannya satu per satu.*
 
 ---
 
-### 2. Delete all debug logs
+### 2. Hapus semua log debugging (console.log)
 
 ```vim
 :g/console.log/d
@@ -1196,7 +1193,7 @@ Use `c` so you can confirm each replacement.
 
 ---
 
-### 3. Copy text inside quotes
+### 3. Salin teks di dalam tanda kutip
 
 ```vim
 yi"
@@ -1204,7 +1201,7 @@ yi"
 
 ---
 
-### 4. Replace text inside braces
+### 4. Ganti semua isi di dalam kurung kurawal
 
 ```vim
 ci{
@@ -1212,47 +1209,47 @@ ci{
 
 ---
 
-### 5. Move to a character quickly
+### 5. Lompat ke suatu karakter dengan cepat
 
 ```vim
 f{
 ```
 
-Move forward to `{` on the current line.
+*Lompat ke depan tepat pada posisi `{` di baris yang sama.*
 
 ```vim
 t{
 ```
 
-Move forward until before `{`.
+*Lompat ke depan tepat satu karakter sebelum `{`.*
 
 ---
 
-### 6. Delete function arguments
+### 6. Ganti isi argumen sebuah fungsi
 
-Example:
+Contoh baris kode:
 
 ```js
 sendEmail(user, subject, body)
 ```
 
-Put cursor inside the parentheses and run:
+Taruh kursor di dalam tanda kurung fungsi tersebut, lalu jalankan:
 
 ```vim
 ci(
 ```
 
-Result:
+Hasilnya:
 
 ```js
-sendEmail()
+sendEmail(|)
 ```
 
-Now you are in Insert mode inside the parentheses.
+*Kursor kamu otomatis berada di dalam tanda kurung dan langsung siap mengetik.*
 
 ---
 
-### 7. Select inside HTML tag
+### 7. Blok teks di dalam tag HTML
 
 ```html
 <div class="card">
@@ -1260,29 +1257,29 @@ Now you are in Insert mode inside the parentheses.
 </div>
 ```
 
-Put cursor inside the tag content and run:
+Taruh kursor di dalam teks isi tag, lalu ketik:
 
 ```vim
 vit
 ```
 
-Then you can use:
+Setelah terblok, kamu bisa melakukan:
 
 ```vim
-d       " delete selection
-c       " change selection
-y       " copy selection
+d       " hapus area blok tersebut
+c       " ubah isi area blok tersebut
+y       " salin area blok tersebut
 ```
 
 ---
 
-### 8. Format whole file
+### 8. Perbaiki indentasi satu file penuh
 
 ```vim
 gg=G
 ```
 
-For Neovim LSP formatting:
+*Untuk Neovim yang sudah terpasang LSP:*
 
 ```vim
 :lua vim.lsp.buf.format()
@@ -1290,32 +1287,32 @@ For Neovim LSP formatting:
 
 ---
 
-### 9. Record repeated edit with macro
+### 9. Rekam perubahan berulang menggunakan Macro
 
 ```vim
 qaA;<Esc>jq
 10@a
 ```
 
-This adds a semicolon to 10 lines.
+*Ini bakal menambahkan karakter `;` di akhir 10 baris ke bawah.*
 
 ---
 
-### 10. Delete without replacing clipboard
+### 10. Hapus teks tanpa merusak isi clipboard utama
 
 ```vim
 "_dd
 ```
 
-This deletes the line into the black hole register.
+*Ini membuang baris teks ke register lubang hitam (black hole register).*
 
 ---
 
-## Recommended Practice Plan
+## Rencana Latihan 7 Hari
 
-### Day 1: Movement
+### Hari 1: Navigasi Dasar
 
-Practice:
+Latihan tombol berikut:
 
 ```vim
 h j k l
@@ -1325,13 +1322,13 @@ gg G
 Ctrl-d Ctrl-u
 ```
 
-Goal: move without arrow keys.
+**Target:** Navigasi file tanpa menyentuh tombol panah (arrow keys) atau mouse.
 
 ---
 
-### Day 2: Operators
+### Hari 2: Operator Dasar
 
-Practice:
+Latihan kombinasi berikut:
 
 ```vim
 dw
@@ -1344,13 +1341,13 @@ u
 Ctrl-r
 ```
 
-Goal: edit using operator + motion.
+**Target:** Edit teks menggunakan rumus `operator + motion`.
 
 ---
 
-### Day 3: Character Search
+### Hari 3: Karakter Search
 
-Practice:
+Latihan tombol pencarian satu baris:
 
 ```vim
 f{
@@ -1361,13 +1358,13 @@ t)
 ,
 ```
 
-Goal: move quickly inside a line.
+**Target:** Lompat secara instan di dalam baris kode.
 
 ---
 
-### Day 4: Text Objects
+### Hari 4: Text Object
 
-Practice:
+Latihan manipulasi blok:
 
 ```vim
 ci"
@@ -1378,47 +1375,47 @@ dap
 yiw
 ```
 
-Goal: edit meaningful blocks, not individual characters.
+**Target:** Edit kode berdasarkan struktur logisnya, bukan karakter per karakter.
 
 ---
 
-### Day 5: Buffers, Splits, and Search
+### Hari 5: Buffer, Split, dan Pencarian File
 
-Practice:
+Latihan manajemen file:
 
 ```vim
-:e file
+:e nama_file
 :ls
 :bn
 :bp
 :vsp
 Ctrl-w h/j/k/l
-/text
+/teks
 n
 N
 ```
 
-Goal: navigate files like a real development workflow.
+**Target:** Pindah-pindah file dan mengelola split window dengan lancar.
 
 ---
 
-### Day 6: Search and Replace
+### Hari 6: Cari dan Ganti Teks
 
-Practice:
+Latihan pengeditan massal:
 
 ```vim
-:%s/old/new/gc
-:g/pattern/d
+:%s/lama/baru/gc
+:g/pola_teks/d
 :noh
 ```
 
-Goal: perform project cleanup faster.
+**Target:** Beres-beres kode kotor atau refactoring file dengan cepat.
 
 ---
 
-### Day 7: Macros and Registers
+### Hari 7: Macro dan Register
 
-Practice:
+Latihan otomatisasi aksi:
 
 ```vim
 qa ... q
@@ -1429,75 +1426,74 @@ qa ... q
 "_d
 ```
 
-Goal: automate repetitive editing.
+**Target:** Otomatisasi pekerjaan edit teks yang berulang-ulang.
 
 ---
 
-## Mini Cheat Table
+## Tabel Rangkuman Singkat
 
-| Goal | Command |
+| Target Aksi | Perintah |
 |---|---|
-| Save | `:w` |
-| Quit | `:q` |
-| Save and quit | `:wq` |
-| Force quit | `:q!` |
-| Move to next word | `w` |
-| Move to previous word | `b` |
-| Move to end of line | `$` |
-| Move to start of line | `0` |
-| Move to first non-blank | `^` |
-| Go to top of file | `gg` |
-| Go to bottom of file | `G` |
-| Search | `/text` |
-| Next search result | `n` |
-| Previous search result | `N` |
-| Clear search highlight | `:noh` |
-| Move to `{` | `f{` |
-| Move before `{` | `t{` |
-| Delete word | `dw` |
-| Change word | `cw` |
-| Change inside word | `ciw` |
-| Change inside quotes | `ci"` |
-| Change inside braces | `ci{` |
-| Delete line | `dd` |
-| Copy line | `yy` |
-| Paste below | `p` |
-| Paste above | `P` |
+| Simpan | `:w` |
+| Keluar | `:q` |
+| Simpan dan keluar | `:wq` |
+| Keluar tanpa simpan | `:q!` |
+| Lompat ke awal kata berikutnya | `w` |
+| Lompat mundur ke awal kata sebelumnya | `b` |
+| Lompat ke akhir baris | `$` |
+| Lompat ke awal baris | `0` |
+| Lompat ke karakter pertama bukan spasi | `^` |
+| Pergi ke bagian paling atas file | `gg` |
+| Pergi ke bagian paling bawah file | `G` |
+| Cari teks | `/teks` |
+| Hasil pencarian berikutnya | `n` |
+| Hasil pencarian sebelumnya | `N` |
+| Bersihkan highlight pencarian | `:noh` |
+| Lompat tepat ke `{` | `f{` |
+| Lompat sebelum `{` | `t{` |
+| Hapus satu kata | `dw` |
+| Ubah kata | `cw` |
+| Ubah kata aktif saat ini | `ciw` |
+| Ubah isi di dalam tanda kutip dua | `ci"` |
+| Ubah isi di dalam kurung kurawal | `ci{` |
+| Hapus satu baris | `dd` |
+| Salin satu baris | `yy` |
+| Tempel di bawah | `p` |
+| Tempel di atas | `P` |
 | Undo | `u` |
 | Redo | `Ctrl-r` |
-| Visual select | `v` |
-| Visual line | `V` |
-| Visual block | `Ctrl-v` |
-| Open file | `:e file` |
-| List buffers | `:ls` |
-| Next buffer | `:bn` |
-| Previous buffer | `:bp` |
-| Vertical split | `:vsp` |
-| Horizontal split | `:sp` |
-| Move between splits | `Ctrl-w h/j/k/l` |
-| Record macro | `qa` |
-| Stop macro | `q` |
-| Play macro | `@a` |
-| Repeat latest change | `.` |
+| Blok visual biasa | `v` |
+| Blok visual per baris | `V` |
+| Blok visual kolom (blok vertikal) | `Ctrl-v` |
+| Buka file | `:e nama_file` |
+| Lihat daftar buffer | `:ls` |
+| Pindah ke buffer berikutnya | `:bn` |
+| Pindah ke buffer sebelumnya | `:bp` |
+| Layar split vertikal | `:vsp` |
+| Layar split horizontal | `:sp` |
+| Pindah antar split layar | `Ctrl-w h/j/k/l` |
+| Rekam macro ke register `a` | `qa` |
+| Stop rekaman macro | `q` |
+| Putar/jalankan macro `a` | `@a` |
+| Ulangi aksi pengeditan terakhir | `.` |
 
 ---
 
-## Final Notes
+## Catatan Penutup
 
-The commands that give the biggest productivity improvement are:
+Beberapa perintah yang paling sering memberikan peningkatan produktivitas yang drastis adalah:
 
 ```vim
-f{      " move to character
-ciw     " change inside word
-ci"     " change inside quotes
-ci{     " change inside braces
-.       " repeat last change
-:%s     " search and replace
-:g      " run command on matching lines
-qa/@a   " record and replay macro
+f{      " lompat tepat ke suatu karakter
+ciw     " ubah isi kata tempat kursor berada
+ci"     " ubah isi teks di dalam kutip dua
+ci{     " ubah isi teks di dalam kurung kurawal
+.       " ulangi aksi pengeditan terakhir
+:%s     " cari dan ganti teks massal
+:g      " jalankan perintah Ex pada baris yang cocok
+qa/@a   " rekam dan putar ulang macro otomatis
 ```
 
-If you are still new to Vim or Neovim, start with this simple daily rule:
+Kalau kamu masih baru belajar Vim atau Neovim, coba terapkan aturan harian sederhana ini:
 
-> Every time you reach for the mouse or arrow keys, pause and try to find the Vim motion for that action.
-
+> Tiap kali kamu reflek mau menggerakkan mouse atau tombol panah keyboard, berhenti sejenak, lalu cari motion Vim apa yang bisa menggantikan aksi tersebut.

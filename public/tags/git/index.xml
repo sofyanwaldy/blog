@@ -9,11 +9,11 @@
     <lastBuildDate>Wed, 17 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://waldy.id/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Git Complete Cheatsheet</title>
+      <title>Cheatsheet Lengkap Git</title>
       <link>https://waldy.id/git/</link>
       <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
       <guid>https://waldy.id/git/</guid>
-      <description>A practical Git cheatsheet for daily development — commands, branching, merging, rebasing, stashing, logging, undoing mistakes, and collaboration workflows.</description>
+      <description>Cheatsheet praktis Git untuk development sehari-hari — command, branching, merging, rebasing, stashing, logging, undo, dan workflow kolaborasi.</description>
     </item>
   </channel>
 </rss>

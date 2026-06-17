@@ -9,25 +9,25 @@
     <lastBuildDate>Wed, 17 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://waldy.id/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Git Complete Cheatsheet</title>
+      <title>Cheatsheet Lengkap Git</title>
       <link>https://waldy.id/git/</link>
       <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
       <guid>https://waldy.id/git/</guid>
-      <description>A practical Git cheatsheet for daily development — commands, branching, merging, rebasing, stashing, logging, undoing mistakes, and collaboration workflows.</description>
+      <description>Cheatsheet praktis Git untuk development sehari-hari — command, branching, merging, rebasing, stashing, logging, undo, dan workflow kolaborasi.</description>
     </item>
     <item>
-      <title>Regex Complete Cheatsheet</title>
+      <title>Cheatsheet Lengkap Regex</title>
       <link>https://waldy.id/regex/</link>
       <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
       <guid>https://waldy.id/regex/</guid>
-      <description>A practical regular expressions cheatsheet for daily coding — syntax, quantifiers, groups, lookahead, common patterns, and real-world examples in JavaScript, Python, and Vim.</description>
+      <description>Cheatsheet praktis regular expressions (regex) untuk coding harian — sintaks, quantifier, group, lookahead, pola umum, dan contoh di JavaScript, Python, dan Vim.</description>
     </item>
     <item>
-      <title>Vim / Neovim Complete Cheatsheet</title>
+      <title>Cheatsheet Lengkap Vim / Neovim</title>
       <link>https://waldy.id/vim/</link>
       <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
       <guid>https://waldy.id/vim/</guid>
-      <description>A practical Vim and Neovim cheatsheet for daily coding, navigation, editing, buffers, windows, macros, search, LSP, terminal, and productivity workflows.</description>
+      <description>Cheatsheet praktis Vim dan Neovim untuk coding harian, navigasi, edit teks, buffer, window, macro, search, LSP, terminal, dan workflow produktivitas.</description>
     </item>
     <item>
       <title>Penulis Favoritku: Agatha Christie</title>

@@ -1,698 +1,612 @@
 ---
-title: "Regex Complete Cheatsheet"
-description: "A practical regular expressions cheatsheet for daily coding — syntax, quantifiers, groups, lookahead, common patterns, and real-world examples in JavaScript, Python, and Vim."
+title: "Cheatsheet Lengkap Regex"
+description: "Cheatsheet praktis regular expressions (regex) untuk coding harian — sintaks, quantifier, group, lookahead, pola umum, dan contoh di JavaScript, Python, dan Vim."
 date: 2026-06-17
 tags: ["regex", "regular-expressions", "cheatsheet", "developer-tools"]
 url: /regex
 draft: false
 ---
 
-# Regex Complete Cheatsheet
+# Cheatsheet Lengkap Regex
 
-Regular expressions are pattern-matching tools built into nearly every programming language, editor, and command-line tool. They let you search, validate, extract, and transform text with a concise pattern language.
+Regular Expressions (regex) itu alat pencocokan pola (pattern-matching) yang ada di hampir semua bahasa pemrograman, text editor, dan command-line tool. Regex membantumu mencari, memvalidasi, mengekstrak, dan mengubah teks dengan bahasa pola yang ringkas.
 
-This cheatsheet is designed as a daily reference — not just a list of syntax, but practical examples you'll actually use when parsing logs, validating input, refactoring code, or searching through a codebase.
-
----
+Cheatsheet ini didesain sebagai referensi harian kamu — tidak cuma berisi daftar sintaks, tapi juga contoh-contoh praktis yang bakal benar-benar kamu pakai saat memparsing log, memvalidasi input, merefaktorkan kode, atau mencari teks di dalam codebase.
 
 ---
 
-## What is Regex
+## Apa itu Regex?
 
-A regular expression (regex) is a sequence of characters that defines a search pattern. You give the engine a pattern, and it finds text that matches.
+Regular Expression (regex) adalah urutan karakter yang membentuk suatu pola pencarian. Kamu memberikan pola tersebut ke engine regex, dan dia bakal mencarikan teks yang cocok dengan pola itu.
 
 ```text
-Pattern:  \d{3}-\d{4}
-Matches:  "555-1234" in "Call 555-1234 for info"
+Pola (Pattern):  \d{3}-\d{4}
+Teks Cocok:      "555-1234" di dalam kalimat "Hubungi 555-1234 untuk info"
 ```
 
-Regex is used everywhere:
+Regex dipakai di mana-mana:
 
-- **Validation** — check if an email address or phone number is well-formed
-- **Search** — find all URLs in a document
-- **Extract** — pull dates out of log lines
-- **Replace** — rename variables across a codebase
-- **Split** — break a CSV line into fields
+- **Validasi** — cek apakah format email atau nomor telepon sudah benar
+- **Pencarian (Search)** — temukan semua URL di dalam sebuah dokumen
+- **Ekstraksi (Extract)** — ambil data tanggal dari baris log
+- **Penggantian (Replace)** — ubah nama variabel di seluruh codebase
+- **Pemisahan (Split)** — pecah baris data CSV menjadi kolom-kolom
 
-The syntax is mostly standard across languages (PCRE-compatible), but Vim has its own dialect. This cheatsheet covers both.
+Sintaks regex sebagian besar standar di berbagai bahasa pemrograman (kompatibel dengan PCRE), tapi Vim punya dialeknya sendiri. Cheatsheet ini membahas keduanya.
 
 ---
 
-## Basic Matching
+## Pencocokan Dasar (Basic Matching)
 
-At the simplest level, a regex is just a literal string. The pattern `error` matches the substring "error" wherever it appears.
+Di tingkat paling sederhana, regex itu cuma berupa string biasa. Pola `error` bakal mencocokkan potongan kata "error" di mana pun kata itu muncul.
 
 ```text
-Pattern:  error
-Text:     "An error occurred in the server"
-Match:    "error" (position 3-7)
+Pola (Pattern):  error
+Teks:            "Terjadi error pada server"
+Hasil Cocok:     "error" (posisi karakter ke 8-12)
 ```
 
-### Case Sensitivity
+### Sensitivitas Huruf (Case Sensitivity)
 
-By default, regex is **case-sensitive**:
+Secara default, pencarian regex itu **sensitif huruf kapital** (case-sensitive):
 
 ```text
-Pattern:  Error
-Text:     "error" → no match
-Text:     "Error" → match
-Text:     "ERROR" → no match
+Pola (Pattern):  Error
+Teks:            "error" → tidak cocok
+Teks:            "Error" → cocok
+Teks:            "ERROR" → tidak cocok
 ```
 
-To match case-insensitively, use the `i` flag (covered in [Common Flags](#common-flags)):
+Untuk mencari tanpa memedulikan huruf besar/kecil, gunakan flag `i` (dibahas di bagian [Flag Umum](#flag-umum)):
 
 ```text
-Pattern:  /error/i
-Matches:  "error", "Error", "ERROR", "eRrOr"
+Pola (Pattern):  /error/i
+Teks Cocok:      "error", "Error", "ERROR", "eRrOr"
 ```
 
-### Matching Multiple Characters in Sequence
+### Mencocokkan Karakter Berurutan
 
-Patterns are matched left-to-right, character by character:
+Pola dicocokkan dari kiri ke kanan, karakter demi karakter:
 
 ```text
-Pattern:  404
-Text:     "HTTP 404 Not Found"
-Match:    "404" (position 5-7)
+Pola (Pattern):  404
+Teks:            "HTTP 404 Not Found"
+Hasil Cocok:     "404" (posisi karakter ke 5-7)
 ```
 
 ```text
-Pattern:  not found
-Text:     "HTTP 404 Not Found" → no match (case-sensitive)
-Pattern:  /not found/i → matches "Not Found"
+Pola (Pattern):  not found
+Teks:            "HTTP 404 Not Found" → tidak cocok (karena beda huruf kapital)
+Pola (Pattern):  /not found/i → cocok dengan "Not Found"
 ```
 
 ---
 
-## Metacharacters
+## Karakter Khusus (Metacharacters)
 
-These characters have special meaning in regex. If you want to match them literally, you must escape them with a backslash `\`.
+Karakter-karakter ini punya arti khusus di regex. Kalau kamu mau mencari karakter ini secara harfiah, kamu harus menambah garis miring terbalik (backslash) `\` di depannya (escape).
 
-| Metachar | Meaning | Example | Matches |
+| Karakter | Arti | Contoh | Teks Cocok |
 |----------|---------|---------|---------|
-| `.` | Any character (except newline) | `c.t` | "cat", "cut", "c9t" |
-| `^` | Start of string/line | `^From:` | "From:" at line start |
-| `$` | End of string/line | `\.js$` | "app.js" at line end |
-| `\|` | Alternation (OR) | `cat\|dog` | "cat" or "dog" |
-| `\` | Escape character | `\.` | literal "." |
-| `(` `)` | Grouping | `(ab)+` | "ab", "abab" |
-| `[` `]` | Character class | `[aeiou]` | any vowel |
-| `{` `}` | Quantifier range | `\d{3}` | three digits |
-| `*` | Zero or more | `bo*` | "b", "bo", "boo" |
-| `+` | One or more | `bo+` | "bo", "boo", "booo" |
-| `?` | Zero or one | `colou?r` | "color", "colour" |
+| `.` | Karakter apa saja (kecuali baris baru) | `c.t` | "cat", "cut", "c9t" |
+| `^` | Awal baris/string | `^Dari:` | "Dari:" di awal baris |
+| `$` | Akhir baris/string | `\.js$` | "app.js" di akhir baris |
+| `\|` | Pilihan (ATAU / OR) | `cat\|dog` | "cat" atau "dog" |
+| `\` | Karakter escape (untuk mencari simbol literal) | `\.` | karakter titik "." literal |
+| `(` `)` | Pengelompokan (Grouping) | `(ab)+` | "ab", "abab" |
+| `[` `]` | Kelas karakter (Character class) | `[aeiou]` | semua huruf vokal |
+| `{` `}` | Batasan jumlah (Quantifier range) | `\d{3}` | tiga digit angka |
+| `*` | Nol kali atau lebih | `bo*` | "b", "bo", "boo" |
+| `+` | Satu kali atau lebih | `bo+` | "bo", "boo", "booo" |
+| `?` | Nol atau satu kali | `colou?r` | "color", "colour" |
 
-### Escaping Metacharacters
+### Cara Meng-escape Karakter Khusus
 
-When you need to match a literal metacharacter, prefix it with `\`:
+Kalau kamu butuh mencari karakter khusus secara harfiah, taruh `\` di depannya:
 
 ```text
-Pattern:  \$100\.00
-Text:     "Price: $100.00"
-Match:    "$100.00"
+Pola (Pattern):  \$100\.00
+Teks:            "Harga: $100.00"
+Hasil Cocok:     "$100.00"
 ```
 
 ```text
-Pattern:  index\.html
-Text:     "Serve index.html from /var/www"
-Match:    "index.html"
+Pola (Pattern):  index\.html
+Teks:            "Buka index.html dari folder /var/www"
+Hasil Cocok:     "index.html"
 ```
 
 ```text
-Pattern:  file\[0\]
-Text:     "Access file[0] in the array"
-Match:    "file[0]"
+Pola (Pattern):  file\[0\]
+Teks:            "Akses variabel file[0] di array"
+Hasil Cocok:     "file[0]"
 ```
 
-### The Dot `.`
+### Karakter Titik `.`
 
-The dot matches any single character **except a newline** (unless the `s` flag is set):
+Titik mencocokkan satu karakter apa saja **kecuali baris baru** (kecuali flag `s` aktif):
 
 ```text
-Pattern:  192\.168\.0\..
-Text:     "192.168.0.1" → match
-Text:     "192.168.0.A" → match
-Text:     "192x168.0.1" → no match (the first "." is escaped, expects literal dot)
+Pola (Pattern):  192\.168\.0\..
+Teks:            "192.168.0.1" → cocok
+Teks:            "192.168.0.A" → cocok
+Teks:            "192x168.0.1" → tidak cocok (karena titik pertama di-escape, jadi wajib karakter titik asli)
 ```
 
-A common mistake is using `.` when you mean a literal dot — always escape it in URLs, IPs, and filenames:
+Kesalahan umum adalah lupa meng-escape karakter titik saat ingin mencari titik asli — selalu escape di URL, alamat IP, dan nama file:
 
 ```text
-Wrong:    192.168.0.1     → also matches "192x168y0z1"
-Right:    192\.168\.0\.1  → only matches "192.168.0.1"
+Salah:    192.168.0.1     → juga bakal cocok dengan "192x168y0z1"
+Benar:    192\.168\.0\.1  → hanya cocok dengan "192.168.0.1"
 ```
 
 ---
 
-## Character Classes
+## Kelas Karakter (Character Classes)
 
-Character classes match **one character** from a defined set.
+Kelas karakter mencocokkan **satu karakter** dari kumpulan yang sudah ditentukan.
 
-### Basic Character Classes
-
-```text
-[abc]     → matches "a", "b", or "c"
-[0123]    → matches "0", "1", "2", or "3"
-[aeiou]   → matches any lowercase vowel
-```
-
-### Ranges
+### Kumpulan Dasar
 
 ```text
-[a-z]     → any lowercase letter
-[A-Z]     → any uppercase letter
-[0-9]     → any digit
-[a-zA-Z]  → any letter
-[a-zA-Z0-9] → any alphanumeric character
+[abc]     → cocok dengan "a", "b", atau "c"
+[0123]    → cocok dengan "0", "1", "2", atau "3"
+[aeiou]   → cocok dengan huruf vokal kecil
 ```
 
-### Negation
-
-A caret `^` inside brackets negates the class:
+### Rentang Karakter (Ranges)
 
 ```text
-[^0-9]    → any character that is NOT a digit
-[^aeiou]  → any character that is NOT a lowercase vowel
-[^ ]      → any character that is NOT a space
+[a-z]     → huruf kecil dari a sampai z
+[A-Z]     → huruf besar dari A sampai Z
+[0-9]     → angka dari 0 sampai 9
+[a-zA-Z]  → huruf apa saja (besar maupun kecil)
+[a-zA-Z0-9] → huruf atau angka (alfanumerik)
 ```
 
-### Shorthand Character Classes
+### Negasi (Pengecualian)
 
-| Shorthand | Equivalent | Meaning |
+Tanda caret `^` di dalam kurung siku berarti negasi (mencocokkan karakter yang tidak ada di daftar):
+
+```text
+[^0-9]    → karakter apa saja yang BUKAN angka
+[^aeiou]  → karakter apa saja yang BUKAN huruf vokal kecil
+[^ ]      → karakter apa saja yang BUKAN spasi
+```
+
+### Singkatan Kelas Karakter
+
+| Singkatan | Setara Dengan | Arti |
 |-----------|------------|---------|
-| `\d` | `[0-9]` | Digit |
-| `\D` | `[^0-9]` | Non-digit |
-| `\w` | `[a-zA-Z0-9_]` | Word character |
-| `\W` | `[^a-zA-Z0-9_]` | Non-word character |
-| `\s` | `[ \t\r\n\f]` | Whitespace |
-| `\S` | `[^ \t\r\n\f]` | Non-whitespace |
+| `\d` | `[0-9]` | Digit angka |
+| `\D` | `[^0-9]` | Selain digit angka |
+| `\w` | `[a-zA-Z0-9_]` | Karakter kata (huruf, angka, underscore) |
+| `\W` | `[^a-zA-Z0-9_]` | Selain karakter kata |
+| `\s` | `[ \t\r\n\f]` | Karakter spasi (spasi, tab, baris baru, dll) |
+| `\S` | `[^ \t\r\n\f]` | Selain karakter spasi |
 
-### Practical Examples
+### Contoh Praktis
 
-Match a hex color code:
-
-```text
-Pattern:  #[0-9a-fA-F]{6}
-Matches:  "#ff5733", "#00AABB", "#123def"
-No match: "#xyz", "#12"
-```
-
-Match a CSS class name (starts with letter or underscore):
+Mencocokkan kode warna hex CSS:
 
 ```text
-Pattern:  [a-zA-Z_][\w-]*
-Matches:  "nav-bar", "_hidden", "Container"
+Pola (Pattern):  #[0-9a-fA-F]{6}
+Teks Cocok:      "#ff5733", "#00AABB", "#123def"
+Tidak Cocok:     "#xyz", "#12"
 ```
 
-Match a username (alphanumeric, underscore, 3-16 characters):
+Mencocokkan nama class CSS (harus diawali huruf atau underscore):
 
 ```text
-Pattern:  ^[a-zA-Z0-9_]{3,16}$
-Matches:  "john_doe", "user42", "dev"
-No match: "ab", "user name", "this_is_way_too_long_username"
+Pola (Pattern):  [a-zA-Z_][\w-]*
+Teks Cocok:      "nav-bar", "_hidden", "Container"
 ```
 
-### Special Characters Inside Classes
+Mencocokkan username (alfanumerik, underscore, panjang 3-16 karakter):
 
-Inside `[ ]`, most metacharacters lose their special meaning. Only these are special:
+```text
+Pola (Pattern):  ^[a-zA-Z0-9_]{3,16}$
+Teks Cocok:      "john_doe", "user42", "dev"
+Tidak Cocok:     "ab", "user name", "username_yang_kepanjangan_banget"
+```
 
-| Character | Rule |
+### Karakter Khusus di Dalam Kelas Karakter
+
+Di dalam `[ ]`, sebagian besar karakter khusus kehilangan makna magisnya. Hanya karakter berikut yang punya arti khusus:
+
+| Karakter | Aturan |
 |-----------|------|
-| `]` | Close the class — escape as `\]` or put it first `[]abc]` |
-| `\` | Escape character — still works as escape |
-| `^` | Negation — only special when it's the first character |
-| `-` | Range — escape as `\-` or put it first/last `[-abc]` or `[abc-]` |
+| `]` | Penutup kelas — escape menjadi `\]` atau letakkan di paling awal `[]abc]` |
+| `\` | Karakter escape — tetap berfungsi untuk meng-escape |
+| `^` | Negasi — hanya berfungsi jika ditaruh di karakter pertama setelah `[` |
+| `-` | Rentang — escape menjadi `\-` atau letakkan di paling awal/akhir `[-abc]` atau `[abc-]` |
 
 ```text
-Pattern:  [$@#!]
-Matches:  any one of "$", "@", "#", "!" — no escaping needed
+Pola (Pattern):  [$@#!]
+Teks Cocok:      salah satu dari "$", "@", "#", "!" — tidak perlu di-escape
 ```
 
-### POSIX Character Classes (Shell/grep)
+### Kelas Karakter POSIX (Terminal / grep)
 
-| POSIX | Equivalent | Meaning |
+| POSIX | Setara Dengan | Arti |
 |-------|------------|---------|
-| `[:alpha:]` | `[a-zA-Z]` | Letters |
-| `[:digit:]` | `[0-9]` | Digits |
-| `[:alnum:]` | `[a-zA-Z0-9]` | Alphanumeric |
-| `[:space:]` | `[ \t\r\n\f\v]` | Whitespace |
-| `[:upper:]` | `[A-Z]` | Uppercase |
-| `[:lower:]` | `[a-z]` | Lowercase |
-| `[:punct:]` | Punctuation characters | Symbols |
+| `[:alpha:]` | `[a-zA-Z]` | Huruf |
+| `[:digit:]` | `[0-9]` | Angka |
+| `[:alnum:]` | `[a-zA-Z0-9]` | Alfanumerik |
+| `[:space:]` | `[ \t\r\n\f\v]` | Spasi dan sejenisnya |
+| `[:upper:]` | `[A-Z]` | Huruf besar |
+| `[:lower:]` | `[a-z]` | Huruf kecil |
+| `[:punct:]` | Simbol tanda baca | Karakter simbol |
 
-Used inside brackets: `[[:digit:]]` — note the double brackets.
+Digunakan di dalam kurung siku: `[[:digit:]]` — perhatikan kurung sikunya double.
 
 ---
 
-## Quantifiers
+## Quantifiers (Penentu Jumlah)
 
-Quantifiers control **how many times** the preceding element must appear.
+Quantifiers mengatur **berapa kali** elemen sebelumnya boleh muncul.
 
-| Quantifier | Meaning | Example | Matches |
+| Quantifier | Arti | Contoh | Teks Cocok |
 |------------|---------|---------|---------|
-| `*` | 0 or more | `https?://.*` | Any URL starting with http or https |
-| `+` | 1 or more | `\d+` | "1", "42", "99999" |
-| `?` | 0 or 1 | `colou?r` | "color", "colour" |
-| `{n}` | Exactly n | `\d{4}` | "2026", "1999" |
-| `{n,}` | n or more | `\w{8,}` | Words with 8+ characters |
-| `{n,m}` | Between n and m | `\d{1,3}` | "1", "42", "255" |
+| `*` | 0 kali atau lebih | `https?://.*` | URL apa saja yang diawali http atau https |
+| `+` | 1 kali atau lebih | `\d+` | "1", "42", "99999" |
+| `?` | 0 atau 1 kali | `colou?r` | "color", "colour" |
+| `{n}` | Tepat n kali | `\d{4}` | "2026", "1999" |
+| `{n,}` | Minimal n kali atau lebih | `\w{8,}` | Kata dengan 8 karakter atau lebih |
+| `{n,m}` | Antara n sampai m kali | `\d{1,3}` | "1", "42", "255" |
 
-### Greedy vs. Lazy (Non-Greedy)
+### Rakus (Greedy) vs. Malas (Lazy / Non-Greedy)
 
-By default, quantifiers are **greedy** — they match as much text as possible:
-
-```text
-Pattern:  ".+"
-Text:     He said "hello" and "goodbye"
-Greedy:   "hello" and "goodbye"   ← matches the entire span
-```
-
-Add `?` after a quantifier to make it **lazy** — match as little as possible:
+Secara default, quantifiers itu bersifat **greedy** (rakus) — mereka bakal mencocokkan teks sebanyak mungkin yang bisa diambil:
 
 ```text
-Pattern:  ".+?"
-Text:     He said "hello" and "goodbye"
-Lazy:     "hello"  and  "goodbye"  ← two separate matches
+Pola (Pattern):  ".+"
+Teks:            Dia berkata "halo" dan "dadah"
+Greedy (Rakus):  "halo" dan "dadah"   ← mencocokkan dari kutip pertama sampai kutip terakhir
 ```
 
-| Greedy | Lazy | Meaning |
+Tambahkan tanda `?` setelah quantifier untuk membuatnya bersifat **lazy** (malas) — mencocokkan teks sesedikit mungkin:
+
+```text
+Pola (Pattern):  ".+?"
+Teks:            Dia berkata "halo" dan "dadah"
+Lazy (Malas):    "halo"  dan  "dadah"  ← menghasilkan dua kecocokan terpisah
+```
+
+| Greedy (Rakus) | Lazy (Malas) | Arti |
 |--------|------|---------|
-| `*` | `*?` | 0 or more (shortest) |
-| `+` | `+?` | 1 or more (shortest) |
-| `?` | `??` | 0 or 1 (prefer 0) |
-| `{n,m}` | `{n,m}?` | Between n and m (shortest) |
+| `*` | `*?` | 0 kali atau lebih (paling pendek) |
+| `+` | `+?` | 1 kali atau lebih (paling pendek) |
+| `?` | `??` | 0 atau 1 kali (pilih yang 0 jika bisa) |
+| `{n,m}` | `{n,m}?` | Antara n sampai m kali (paling pendek) |
 
-### Real-World Greedy vs. Lazy
+### Contoh Kasus Greedy vs. Lazy
 
-**Extracting HTML tag content:**
+**Mengambil isi tag HTML:**
 
 ```text
 Greedy:   <.+>
-Text:     <span>Hello</span>
-Match:    <span>Hello</span>   ← matches everything between first < and last >
+Teks:     <span>Halo</span>
+Cocok:    <span>Halo</span>   ← mencocokkan dari < pertama sampai > terakhir
 
 Lazy:     <.+?>
-Text:     <span>Hello</span>
-Matches:  <span>  and  </span>  ← two separate matches
+Teks:     <span>Halo</span>
+Cocok:    <span>  dan  </span>  ← dua kecocokan terpisah
 ```
 
-**Extracting JSON values:**
+**Mengambil nilai JSON:**
 
 ```text
 Greedy:   "value": "(.+)"
-Text:     "value": "hello", "other": "world"
-Match:    hello", "other": "world    ← too greedy
+Teks:     "value": "halo", "other": "dunia"
+Cocok:    halo", "other": "dunia    ← terlalu rakus memakan tanda kutip berikutnya
 
 Lazy:     "value": "(.+?)"
-Text:     "value": "hello", "other": "world"
-Match:    hello   ← correct
+Teks:     "value": "halo", "other": "dunia"
+Cocok:    halo   ← benar
 ```
-
-### Possessive Quantifiers (where supported)
-
-Possessive quantifiers (`*+`, `++`, `?+`) are like greedy but **never backtrack**. They're faster when you know backtracking won't help:
-
-```text
-Pattern:  \w++\.txt
-Text:     "report.txt"
-```
-
-Supported in Java, PCRE, and Python's `regex` module (not the built-in `re`).
 
 ---
 
-## Anchors
+## Anchors (Jangkar Posisi)
 
-Anchors don't match characters — they match **positions** in the string.
+Anchors tidak mencocokkan karakter — melainkan mencocokkan **posisi** di dalam teks.
 
-| Anchor | Meaning | Example |
+| Anchor | Arti | Contoh |
 |--------|---------|---------|
-| `^` | Start of string (or line with `m` flag) | `^#!/bin/bash` |
-| `$` | End of string (or line with `m` flag) | `\.py$` |
-| `\b` | Word boundary | `\berror\b` |
-| `\B` | Non-word boundary | `\Berror\B` |
+| `^` | Awal string (atau awal baris jika flag `m` aktif) | `^#!/bin/bash` |
+| `$` | Akhir string (atau akhir baris jika flag `m` aktif) | `\.py$` |
+| `\b` | Batas kata (word boundary) | `\berror\b` |
+| `\B` | Selain batas kata | `\Berror\B` |
 
-### Start `^` and End `$`
+### Awal `^` dan Akhir `$`
 
 ```text
-Pattern:  ^#
-Text:     "# This is a heading" → match (starts with #)
-Text:     "Not a # heading"    → no match
+Pola (Pattern):  ^#
+Teks:            "# Ini heading"  → cocok (karena diawali #)
+Teks:            "Bukan # heading" → tidak cocok
 
-Pattern:  ;$
-Text:     "let x = 5;"    → match (ends with ;)
-Text:     "let x = 5"     → no match
+Pola (Pattern):  ;$
+Teks:            "let x = 5;"    → cocok (karena diakhiri ;)
+Teks:            "let x = 5"     → tidak cocok
 ```
 
-Combine both for full-string validation:
+Kombinasikan keduanya untuk validasi teks utuh:
 
 ```text
-Pattern:  ^\d{5}$
-Matches:  "90210" (exactly 5 digits, nothing else)
-No match: "ZIP: 90210" (extra text)
+Pola (Pattern):  ^\d{5}$
+Teks Cocok:      "90210" (tepat 5 digit angka saja, tanpa teks lain)
+Tidak Cocok:     "KODE: 90210" (ada teks tambahan di depannya)
 ```
 
-### Word Boundary `\b`
+### Batas Kata `\b`
 
-A word boundary is the position between a word character `\w` and a non-word character `\W` (or start/end of string):
+Batas kata adalah posisi di antara karakter kata `\w` dan karakter non-kata `\W` (atau awal/akhir string):
 
 ```text
-Pattern:  \berror\b
-Text:     "An error occurred"    → matches "error"
-Text:     "RuntimeError thrown"  → no match ("error" is inside "Error")
-Text:     "error_code is set"   → no match ("error" is part of "error_code")
+Pola (Pattern):  \berror\b
+Teks:            "An error occurred"    → cocok dengan "error"
+Teks:            "RuntimeError thrown"  → tidak cocok ("error" ada di dalam kata lain)
+Teks:            "error_code is set"   → tidak cocok (karena "_" dianggap karakter kata)
 ```
 
-This is incredibly useful for searching code without false positives:
+Ini berguna banget buat mencari kata kunci di file kode agar tidak salah deteksi:
 
 ```text
-Pattern:  \bclass\b
-Matches:  "class User"         (the keyword)
-No match: "className"          (part of another word)
-No match: "subclass"           (part of another word)
+Pola (Pattern):  \bclass\b
+Teks Cocok:      "class User"         (keyword class asli)
+Tidak Cocok:     "className"          (bagian dari kata lain)
+Tidak Cocok:     "subclass"           (bagian dari kata lain)
 ```
 
 ```text
-Pattern:  \buser_id\b
-Matches:  "SELECT user_id FROM" (exact variable name)
-No match: "user_id_backup"     (underscore is a word character)
-```
-
-### Non-Word Boundary `\B`
-
-Matches a position that is NOT a word boundary:
-
-```text
-Pattern:  \Bport\B
-Text:     "transportation" → matches "port" (inside a word)
-Text:     "port 8080"     → no match (word boundary before "port")
+Pola (Pattern):  \buser_id\b
+Teks Cocok:      "SELECT user_id FROM" (nama variabel presisi)
+Tidak Cocok:     "user_id_backup"     (karena tersambung underscore)
 ```
 
 ---
 
-## Groups and Capturing
+## Groups dan Capturing (Pengelompokan & Penangkapan)
 
-Parentheses `()` create groups. Groups serve two purposes: **grouping** patterns for quantifiers/alternation, and **capturing** matched text for later use.
+Tanda kurung `()` membuat grup. Grup punya dua fungsi: **mengelompokkan** pola (buat quantifier/pilihan) dan **menangkap** teks hasil pencocokan untuk dipakai kembali nanti.
 
-### Basic Capturing Groups
-
-```text
-Pattern:  (\d{4})-(\d{2})-(\d{2})
-Text:     "Date: 2026-06-17"
-Group 0:  "2026-06-17"  (entire match)
-Group 1:  "2026"        (year)
-Group 2:  "06"          (month)
-Group 3:  "17"          (day)
-```
-
-### Non-Capturing Groups `(?:...)`
-
-When you need grouping but don't need to capture:
+### Capturing Group Dasar
 
 ```text
-Pattern:  (?:https?|ftp)://[\w.-]+
-Text:     "Visit https://example.com"
-Match:    "https://example.com"
+Pola (Pattern):  (\d{4})-(\d{2})-(\d{2})
+Teks:            "Tanggal: 2026-06-17"
+Grup 0:          "2026-06-17"  (seluruh teks cocok)
+Grup 1:          "2026"        (tahun)
+Grup 2:          "06"          (bulan)
+Grup 3:          "17"          (hari)
 ```
 
-The `(?:...)` syntax groups `https?` and `ftp` for alternation without creating a capture group. This is slightly faster and keeps your group numbering clean.
+### Non-Capturing Group `(?:...)`
 
-### Named Capturing Groups `(?P<name>...)` or `(?<name>...)`
+Digunakan saat kamu butuh mengelompokkan pola tapi tidak perlu menangkap hasilnya:
 
-Named groups make your regex self-documenting:
+```text
+Pola (Pattern):  (?:https?|ftp)://[\w.-]+
+Teks:            "Buka https://example.com"
+Hasil Cocok:     "https://example.com"
+```
+
+Sintaks `(?:...)` mengelompokkan `https?` dan `ftp` untuk pilihan (ATAU) tanpa membuat tangkapan grup baru. Ini lebih cepat dan menjaga urutan index grup kamu tetap rapi.
+
+### Named Capturing Group (Tangkapan Grup Bernama)
+
+Membuat grup tangkapan punya nama khusus agar regex kamu lebih mudah dibaca:
 
 ```python
-# Python syntax
-Pattern:  (?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})
+# Sintaks Python
+Pola:  (?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})
 
-# JavaScript syntax
-Pattern:  (?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})
+# Sintaks JavaScript
+Pola:  (?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})
 ```
 
 ```text
-Text:     "2026-06-17"
+Teks:     "2026-06-17"
 year  →   "2026"
 month →   "06"
 day   →   "17"
 ```
 
-### Backreferences `\1`, `\2`
+### Backreferences (Referensi Balik) `\1`, `\2`
 
-Refer back to a previously captured group within the same regex:
+Merujuk kembali hasil tangkapan grup sebelumnya di dalam pola regex yang sama:
 
 ```text
-Pattern:  <(\w+)>.*?</\1>
-Text:     "<div>Hello</div>"
-Group 1:  "div"
-\1:       matches "div" again in the closing tag
-Match:    "<div>Hello</div>"
+Pola (Pattern):  <(\w+)>.*?</\1>
+Teks:            "<div>Halo</div>"
+Grup 1:          "div"
+\1:              bakal mencocokkan kata "div" lagi di tag penutupnya
+Hasil Cocok:     "<div>Halo</div>"
 ```
 
-This ensures the opening and closing tags match:
+Ini memastikan tag pembuka dan penutupnya sama persis:
 
 ```text
-Pattern:  <(\w+)>.*?</\1>
-Text:     "<div>Hello</span>" → no match (div ≠ span)
+Pola (Pattern):  <(\w+)>.*?</\1>
+Teks:            "<div>Halo</span>" → tidak cocok (karena div ≠ span)
 ```
 
-**Finding repeated words** (a classic use case):
+**Mencari kata yang ditulis double** (contoh kasus klasik):
 
 ```text
-Pattern:  \b(\w+)\s+\1\b
-Text:     "the the quick brown fox"
-Match:    "the the"
-```
-
-### Grouping for Quantifiers
-
-```text
-Pattern:  (ha)+
-Matches:  "ha", "haha", "hahaha"
-
-Pattern:  (\d{1,3}\.){3}\d{1,3}
-Matches:  "192.168.1.1" (simplified IP match)
+Pola (Pattern):  \b(\w+)\s+\1\b
+Teks:            "hari ini ini saya belajar"
+Hasil Cocok:     "ini ini"
 ```
 
 ---
 
-## Alternation
+## Alternation (Pilihan / OR)
 
-The pipe `|` acts as OR. It has the **lowest precedence** of all regex operators, so it applies to everything on either side:
+Simbol pipa `|` berfungsi sebagai ATAU. Simbol ini punya **prioritas paling rendah** di antara semua operator regex, jadi dia bakal membagi seluruh pola di sebelah kiri dan kanannya seutuhnya:
 
 ```text
-Pattern:  cat|dog
-Matches:  "cat" or "dog"
+Pola (Pattern):  cat|dog
+Teks Cocok:      "cat" atau "dog"
 
-Pattern:  error|warning|info
-Matches:  "error", "warning", or "info"
+Pola (Pattern):  error|warning|info
+Teks Cocok:      "error", "warning", atau "info"
 ```
 
-### Alternation with Grouping
+### Alternation dengan Pengelompokan
 
-Without grouping, `|` applies to the entire expression on each side:
+Jika tidak dikelompokkan, `|` bakal membagi seluruh pola. Gunakan kurung untuk membatasinya:
 
 ```text
-Pattern:  gray|grey        → matches "gray" or "grey"
-Better:   gr(a|e)y         → same result, more explicit
-Even:     gr[ae]y          → same result, best for single chars
+Pola (Pattern):  gray|grey        → cocok dengan "gray" atau "grey"
+Lebih Rapi:      gr(a|e)y         → hasil sama, lebih spesifik batasnya
+Bahkan:          gr[ae]y          → hasil sama, terbaik jika cuma 1 karakter beda
 ```
 
-### Practical Example: Matching File Extensions
+### Contoh Praktis: Ekstensi File
 
 ```text
-Pattern:  \.(js|ts|jsx|tsx)$
-Matches:  "App.tsx", "index.js", "utils.ts"
-No match: "style.css", "README.md"
+Pola (Pattern):  \.(js|ts|jsx|tsx)$
+Teks Cocok:      "App.tsx", "index.js", "utils.ts"
+Tidak Cocok:     "style.css", "README.md"
 ```
 
-### Practical Example: Log Level Parsing
+### Urutan Pilihan itu Penting
+
+Engine regex mencoba pilihan dari kiri ke kanan dan bakal berhenti di kecocokan pertama:
 
 ```text
-Pattern:  \[(ERROR|WARN|INFO|DEBUG)\]
-Text:     "[ERROR] Database connection failed"
-Match:    "[ERROR]"
-Group 1:  "ERROR"
-```
+Pola (Pattern):  http|https
+Teks:            "https://example.com"
+Hasil Cocok:     "http"  ← berhenti di sini, tidak pernah mencoba "https"
 
-### Order Matters
-
-The regex engine tries alternatives left to right and stops at the first match:
-
-```text
-Pattern:  http|https
-Text:     "https://example.com"
-Match:    "http"  ← stops here, never tries "https"
-
-Fix:      https?          ← better approach
-Or:       https|http      ← put the longer alternative first
+Solusi:          https?          ← pendekatan lebih baik
+Atau:            https|http      ← taruh pilihan yang lebih panjang di kiri
 ```
 
 ---
 
-## Lookahead and Lookbehind
+## Lookahead dan Lookbehind (Peneropongan Posisi)
 
-Lookarounds are **zero-width assertions** — they check if a pattern exists ahead or behind the current position, without consuming characters. The matched text is not included in the result.
+Lookarounds adalah **zero-width assertions** — mereka mengecek apakah ada pola lain di depan atau di belakang posisi aktif saat ini, tanpa memakan karakter teks tersebut. Hasil peneropongan tidak akan masuk ke output kecocokan teks.
 
 ### Positive Lookahead `(?=...)`
 
-"Match X only if followed by Y":
+"Cocokkan X hanya jika di depannya ada Y":
 
 ```text
-Pattern:  \d+(?= dollars)
-Text:     "Price is 100 dollars"
-Match:    "100"  (the " dollars" part is asserted but not consumed)
+Pola (Pattern):  \d+(?= rupiah)
+Teks:            "Harganya 100 rupiah"
+Hasil Cocok:     "100"  (kata " rupiah" cuma diteropong saja, tidak ikut diambil)
 ```
 
 ```text
-Pattern:  \w+(?=\()
-Text:     "Call getData() here"
-Match:    "getData"  (word followed by an opening parenthesis — matches function names)
+Pola (Pattern):  \w+(?=\()
+Teks:            "Jalankan fungsi getData() di sini"
+Hasil Cocok:     "getData"  (kata yang di depannya langsung diikuti tanda kurung buka)
 ```
 
 ### Negative Lookahead `(?!...)`
 
-"Match X only if NOT followed by Y":
+"Cocokkan X hanya jika di depannya BUKAN Y":
 
 ```text
-Pattern:  \d{3}(?!-)
-Text:     "555-1234 and 9990"
-Match:    "999"  (three digits NOT followed by a dash)
-No match: "555"  (followed by a dash)
-```
-
-```text
-Pattern:  const \w+(?! =)
-Text:     "const x = 5" → no match (followed by " =")
-Text:     "const y;"    → matches "const y"
+Pola (Pattern):  \d{3}(?!-)
+Teks:            "555-1234 dan 9990"
+Hasil Cocok:     "999"  (tiga digit yang di depannya bukan tanda strip)
+Tidak Cocok:     "555"  (karena di depannya ada strip)
 ```
 
 ### Positive Lookbehind `(?<=...)`
 
-"Match X only if preceded by Y":
+"Cocokkan X hanya jika di belakangnya ada Y":
 
 ```text
-Pattern:  (?<=\$)\d+(\.\d{2})?
-Text:     "Total: $49.99"
-Match:    "49.99"  (digits preceded by $, but $ is not in the match)
-```
-
-```text
-Pattern:  (?<=@)\w+\.\w+
-Text:     "Email: user@example.com"
-Match:    "example.com"  (domain after @)
+Pola (Pattern):  (?<=\$)\d+(\.\d{2})?
+Teks:            "Total: $49.99"
+Hasil Cocok:     "49.99"  (angka yang di belakangnya ada simbol $, tapi $ tidak ikut diambil)
 ```
 
 ### Negative Lookbehind `(?<!...)`
 
-"Match X only if NOT preceded by Y":
+"Cocokkan X hanya jika di belakangnya BUKAN Y":
 
 ```text
-Pattern:  (?<!un)happy
-Text:     "I am happy"   → matches "happy"
-Text:     "I am unhappy"  → no match ("happy" preceded by "un")
+Pola (Pattern):  (?<!un)happy
+Teks:            "I am happy"   → cocok dengan "happy"
+Teks:            "I am unhappy"  → tidak cocok (karena di belakang "happy" ada kata "un")
 ```
+
+### Mengombinasikan Lookarounds
+
+**Validasi Password** — harus ada minimal satu angka, satu huruf besar, satu huruf kecil, dan panjang minimal 8 karakter:
 
 ```text
-Pattern:  (?<!\.)com\b
-Text:     "dot com boom"  → matches "com"
-Text:     "example.com"   → no match (preceded by ".")
+Pola (Pattern):  ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$
 ```
 
-### Combining Lookarounds
+Penjelasan:
+- `(?=.*\d)` — di depan sana, wajib ada angka
+- `(?=.*[a-z])` — di depan sana, wajib ada huruf kecil
+- `(?=.*[A-Z])` — di depan sana, wajib ada huruf besar
+- `.{8,}` — total panjang minimal 8 karakter apa saja
 
-**Password validation** — must contain at least one digit, one uppercase, one lowercase, minimum 8 chars:
+### Tabel Rangkuman Peneropongan
 
-```text
-Pattern:  ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$
-```
-
-Breaking it down:
-- `(?=.*\d)` — somewhere ahead, there's a digit
-- `(?=.*[a-z])` — somewhere ahead, there's a lowercase letter
-- `(?=.*[A-Z])` — somewhere ahead, there's an uppercase letter
-- `.{8,}` — at least 8 characters total
-
-**Match a number not inside quotes:**
-
-```text
-Pattern:  (?<!")\b\d+\b(?!")
-Text:     Value is 42 and "99"
-Match:    "42" only
-```
-
-### Lookaround Summary Table
-
-| Syntax | Name | Meaning |
+| Sintaks | Nama | Arti |
 |--------|------|---------|
-| `(?=...)` | Positive lookahead | Followed by ... |
-| `(?!...)` | Negative lookahead | NOT followed by ... |
-| `(?<=...)` | Positive lookbehind | Preceded by ... |
-| `(?<!...)` | Negative lookbehind | NOT preceded by ... |
+| `(?=...)` | Positive lookahead | Di depannya ada ... |
+| `(?!...)` | Negative lookahead | Di depannya BUKAN ... |
+| `(?<=...)` | Positive lookbehind | Di belakangnya ada ... |
+| `(?<!...)` | Negative lookbehind | Di belakangnya BUKAN ... |
 
 ---
 
-## Common Flags
+## Flag Umum
 
-Flags modify how the regex engine interprets the pattern.
+Flag mengubah cara engine regex menafsirkan pola pencarian.
 
-| Flag | Name | Effect |
+| Flag | Nama | Efek |
 |------|------|--------|
-| `g` | Global | Find all matches, not just the first |
-| `i` | Case-insensitive | `a` matches "a" and "A" |
-| `m` | Multiline | `^` and `$` match line starts/ends, not just string |
-| `s` | Dotall / Single-line | `.` also matches newline characters |
-| `u` | Unicode | Treat pattern as Unicode (JS) |
-| `x` | Extended / Verbose | Ignore whitespace, allow comments (Python, PCRE) |
+| `g` | Global | Cari semua kecocokan, jangan berhenti di hasil pertama |
+| `i` | Case-insensitive | Mengabaikan sensitivitas huruf besar/kecil |
+| `m` | Multiline | Membuat `^` dan `$` berlaku per awal/akhir baris baru, bukan seluruh file |
+| `s` | Dotall / Single-line | Membuat karakter titik `.` bisa mencocokkan baris baru (`\n`) |
+| `u` | Unicode | Menangani karakter Unicode (pada JS) |
+| `x` | Extended / Verbose | Mengabaikan spasi kosong di pola dan membolehkan komentar (Python, PCRE) |
 
-### Global Flag `g`
+### Flag Global `g`
 
 ```javascript
-// Without g — only first match
+// Tanpa g — cuma dapat kecocokan pertama
 "aaa".match(/a/)        // ["a"]
 
-// With g — all matches
+// Pakai g — dapat semua kecocokan
 "aaa".match(/a/g)       // ["a", "a", "a"]
 ```
 
-### Multiline Flag `m`
+### Flag Multiline `m`
 
 ```text
-Text:
-  "Line 1\nLine 2\nLine 3"
+Teks:
+  "Baris 1\nBaris 2\nBaris 3"
 
-Without m:
-  ^Line   → matches only "Line 1" (start of string)
+Tanpa m:
+  ^Baris   → hanya cocok dengan "Baris 1" di awal teks utama
 
-With m:
-  ^Line   → matches "Line 1", "Line 2", "Line 3" (start of each line)
-```
-
-### Extended/Verbose Flag `x`
-
-Allows you to write readable regex with comments and whitespace (Python, PCRE):
-
-```python
-pattern = re.compile(r"""
-    ^                   # start of string
-    (?P<year>\d{4})     # 4-digit year
-    -                   # separator
-    (?P<month>\d{2})    # 2-digit month
-    -                   # separator
-    (?P<day>\d{2})      # 2-digit day
-    $                   # end of string
-""", re.VERBOSE)
+Pakai m:
+  ^Baris   → cocok dengan "Baris 1", "Baris 2", dan "Baris 3" (awal tiap baris)
 ```
 
 ---
 
-## Practical Patterns
+## Pola Praktis yang Sering Dipakai
 
-These are real-world patterns you'll reach for frequently. Each one is tested against common valid and invalid inputs.
-
-### Email Address (simplified)
+### Email (versi simpel)
 
 ```text
-Pattern:  ^[\w.+-]+@[\w-]+\.[\w.-]+$
+Pola (Pattern):  ^[\w.+-]+@[\w-]+\.[\w.-]+$
 ```
 
 ```text
@@ -704,1208 +618,398 @@ Pattern:  ^[\w.+-]+@[\w-]+\.[\w.-]+$
 ✗  user@.com
 ```
 
-> **Note:** Fully RFC 5322-compliant email validation with regex is impractical (the spec allows quoted strings, comments, and other rarely-used syntax). For production, validate the format loosely with regex, then verify with a confirmation email.
-
 ### URL
 
 ```text
-Pattern:  https?://[^\s/$.?#].[^\s]*
-```
-
-A more structured version:
-
-```text
-Pattern:  https?://[\w.-]+(?::\d+)?(?:/[\w./?%&=~#-]*)?
+Pola (Pattern):  https?://[\w.-]+(?::\d+)?(?:/[\w./?%&=~#-]*)?
 ```
 
 ```text
 ✓  https://example.com
 ✓  http://api.example.com:8080/v1/users?page=2
 ✓  https://en.wikipedia.org/wiki/Regular_expression
-✗  ftp://files.example.com (use (?:https?|ftp) to include ftp)
-✗  example.com (no protocol)
+✗  ftp://files.example.com (butuh (?:https?|ftp) jika ingin mendukung ftp)
+✗  example.com (tidak ada protokol http/https)
 ```
 
-### IPv4 Address
+### Alamat IPv4
 
 ```text
-Simple:   \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}
-
-Strict (0-255 per octet):
+Ketat (0-255 per segmen):
 (?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.(?:25[0-5]|2[0-4]\d|[01]?\d\d?)
 ```
 
 ```text
 ✓  192.168.1.1
 ✓  10.0.0.255
-✓  0.0.0.0
-✗  256.1.1.1    (strict version rejects)
-✗  192.168.1    (missing octet)
+✗  256.1.1.1    (versi ketat menolak angka di atas 255)
+✗  192.168.1    (kurang satu oktet)
 ```
 
-### Phone Number (US format)
+### Tanggal (YYYY-MM-DD)
 
 ```text
-Pattern:  ^(\+1[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}$
-```
-
-```text
-✓  555-123-4567
-✓  (555) 123-4567
-✓  +1-555-123-4567
-✓  5551234567
-✓  555.123.4567
-✗  123-45-6789 (wrong grouping)
-```
-
-### Date (YYYY-MM-DD)
-
-```text
-Pattern:  ^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$
+Pola (Pattern):  ^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$
 ```
 
 ```text
 ✓  2026-06-17
 ✓  2000-01-31
-✗  2026-13-01  (invalid month)
-✗  2026-06-32  (invalid day)
-✗  26-06-17    (2-digit year)
-```
-
-### Hex Color Code
-
-```text
-Pattern:  ^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$
-```
-
-```text
-✓  #fff
-✓  #FF5733
-✓  #00aabb
-✗  #12       (too short)
-✗  #1234567  (too long)
-✗  #xyz      (invalid characters)
-```
-
-### HTML Tags
-
-**Match opening tags:**
-
-```text
-Pattern:  <([a-z][\w-]*)(\s[^>]*)?>
-```
-
-```text
-✓  <div>
-✓  <a href="https://example.com">
-✓  <input type="text" />
-✓  <my-component class="active">
-```
-
-**Match a specific tag with content:**
-
-```text
-Pattern:  <h[1-6][^>]*>(.*?)</h[1-6]>
-Text:     "<h1>Welcome</h1>"
-Match:    "<h1>Welcome</h1>"
-Group 1:  "Welcome"
-```
-
-> **Warning:** Don't parse complex HTML with regex. Use a proper parser (DOMParser, BeautifulSoup, cheerio). Regex is fine for simple search/replace in known, simple HTML structures.
-
-### Slug (URL-Friendly String)
-
-```text
-Pattern:  ^[a-z0-9]+(?:-[a-z0-9]+)*$
-```
-
-```text
-✓  hello-world
-✓  my-blog-post-2026
-✓  regex
-✗  Hello-World  (uppercase)
-✗  -leading     (starts with dash)
-✗  trailing-    (ends with dash)
-```
-
-### Semantic Version
-
-```text
-Pattern:  ^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([\w.-]+))?(?:\+([\w.-]+))?$
-```
-
-```text
-✓  1.0.0
-✓  v2.3.1
-✓  1.0.0-beta.1
-✓  1.0.0-alpha+build.123
-✗  1.0        (missing patch)
-✗  01.0.0     (leading zero)
-```
-
-### Log Line Parser
-
-```text
-Pattern:  ^\[(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})\]\s\[(\w+)\]\s(.+)$
-```
-
-```text
-Text:     "[2026-06-17 14:30:45] [ERROR] Database connection timeout after 30s"
-Group 1:  "2026-06-17 14:30:45"  (timestamp)
-Group 2:  "ERROR"                (level)
-Group 3:  "Database connection timeout after 30s"  (message)
-```
-
-### UUID
-
-```text
-Pattern:  ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-```
-
-```text
-✓  550e8400-e29b-41d4-a716-446655440000
-✗  550e8400e29b41d4a716446655440000  (no dashes)
+✗  2026-13-01  (bulan tidak valid)
+✗  2026-06-32  (tanggal tidak valid)
 ```
 
 ---
 
-## Regex in JavaScript
+## Regex di JavaScript
 
-JavaScript regex uses the `/pattern/flags` literal syntax or the `RegExp` constructor.
+JavaScript menggunakan sintaks `/pola/flag` secara literal atau class constructor `RegExp`.
 
-### Creating Regex
+### Membuat Objek Regex
 
 ```javascript
-// Literal syntax (preferred when pattern is static)
+// Menggunakan sintaks literal (lebih disukai kalau polanya statis)
 const pattern = /\d{3}-\d{4}/g;
 
-// Constructor (use when pattern is dynamic)
+// Menggunakan constructor (dipakai kalau polanya dinamis dari input user)
 const userInput = "error";
 const pattern = new RegExp(`\\b${userInput}\\b`, "gi");
-// Note: double backslash needed in strings
+// Catatan: butuh double backslash '\\' di dalam string biasa
 ```
 
-### `test()` — Check if a Pattern Matches
+### Method `test()` — Cek Kecocokan
 
-Returns `true` or `false`:
+Menghasilkan `true` atau `false`:
 
 ```javascript
 const emailRegex = /^[\w.+-]+@[\w-]+\.[\w.-]+$/;
 
 emailRegex.test("user@example.com");     // true
-emailRegex.test("not-an-email");          // false
-
-// Validate before processing
-const input = "admin@company.org";
-if (emailRegex.test(input)) {
-  sendVerificationEmail(input);
-}
+emailRegex.test("bukan-email");          // false
 ```
 
-### `match()` — Find Matches
+### Method `match()` — Cari Hasil Cocok
 
-Returns an array of matches (with `g` flag) or match details (without `g`):
+Menghasilkan array isi kecocokan (jika pakai flag `g`) atau detail kecocokan (tanpa `g`):
 
 ```javascript
-// All matches
-const text = "Errors on lines 42, 87, and 156";
+// Semua hasil cocok
+const text = "Error ada di baris 42, 87, dan 156";
 const numbers = text.match(/\d+/g);
 // ["42", "87", "156"]
 
-// Single match with details
-const logLine = "[2026-06-17] ERROR: Connection refused";
+// Hasil cocok tunggal dengan detail grup tangkapan
+const logLine = "[2026-06-17] ERROR: Koneksi ditolak";
 const result = logLine.match(/\[(\d{4}-\d{2}-\d{2})\]\s(\w+):\s(.+)/);
-// result[0] = "[2026-06-17] ERROR: Connection refused"
+// result[0] = "[2026-06-17] ERROR: Koneksi ditolak"
 // result[1] = "2026-06-17"
 // result[2] = "ERROR"
-// result[3] = "Connection refused"
+// result[3] = "Koneksi ditolak"
 ```
 
-### `matchAll()` — Iterate All Matches with Groups
-
-Returns an iterator of all matches, each with group info:
+### Method `replace()` — Ganti Teks
 
 ```javascript
-const text = 'import { useState } from "react"; import { useEffect } from "react";';
-const importRegex = /import\s+{([^}]+)}\s+from\s+"([^"]+)"/g;
+// Membersihkan spasi double
+const cleaned = "  halo   dunia  ".replace(/\s+/g, " ").trim();
+// "halo dunia"
 
-for (const match of text.matchAll(importRegex)) {
-  console.log(`Module: ${match[2]}, Imports: ${match[1].trim()}`);
-}
-// Module: react, Imports: useState
-// Module: react, Imports: useEffect
-```
-
-### `replace()` — Search and Replace
-
-```javascript
-// Simple replacement
-const cleaned = "  hello   world  ".replace(/\s+/g, " ").trim();
-// "hello world"
-
-// Using capture groups
+// Menggunakan capture groups untuk tukar format tanggal
 const isoDate = "2026-06-17";
 const usDate = isoDate.replace(/(\d{4})-(\d{2})-(\d{2})/, "$2/$3/$1");
 // "06/17/2026"
 
-// Using named groups
-const formatted = isoDate.replace(
-  /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/,
-  "$<month>/$<day>/$<year>"
-);
-// "06/17/2026"
-
-// Using a function for complex replacements
-const template = "Hello {name}, you have {count} messages";
+// Menggunakan fungsi callback untuk penggantian dinamis
+const template = "Halo {name}, kamu punya {count} pesan baru";
 const data = { name: "Alice", count: 5 };
 const result = template.replace(/\{(\w+)\}/g, (match, key) => data[key] ?? match);
-// "Hello Alice, you have 5 messages"
+// "Halo Alice, kamu punya 5 pesan baru"
 ```
 
-### `replaceAll()` — Replace All Occurrences
+### Method `split()` — Potong String
 
 ```javascript
-// replaceAll with string (no regex needed for simple cases)
-"a.b.c".replaceAll(".", "/");  // "a/b/c"
-
-// replaceAll with regex (must use g flag)
-"CamelCase".replaceAll(/([A-Z])/g, "_$1").toLowerCase().slice(1);
-// "camel_case"
-```
-
-### `split()` — Split by Pattern
-
-```javascript
-// Split CSV with varying whitespace
+// Potong string CSV dengan spasi tidak teratur
 const line = "Alice,  Bob, Charlie ,  Dave";
 const names = line.split(/\s*,\s*/);
 // ["Alice", "Bob", "Charlie", "Dave"]
-
-// Split on multiple delimiters
-const path = "src/components\\Header\\index.js";
-const parts = path.split(/[/\\]/);
-// ["src", "components", "Header", "index.js"]
-
-// Split but keep delimiters (using capturing group)
-const sentence = "Hello! How are you? I'm fine.";
-const segments = sentence.split(/([.!?])\s*/);
-// ["Hello", "!", "How are you", "?", "I'm fine", ".", ""]
 ```
-
-### `exec()` — Stateful Iteration
-
-```javascript
-const regex = /TODO:\s*(.+)/g;
-const source = `
-  // TODO: Fix memory leak
-  // TODO: Add error handling
-  // TODO: Write tests
-`;
-
-let match;
-while ((match = regex.exec(source)) !== null) {
-  console.log(`Found: ${match[1]} at index ${match.index}`);
-}
-// Found: Fix memory leak at index 5
-// Found: Add error handling at index 34
-// Found: Write tests at index 63
-```
-
-> **Tip:** Prefer `matchAll()` over `exec()` in modern code — it's cleaner and avoids the statefulness pitfalls of `exec()`.
 
 ---
 
-## Regex in Python
+## Regex di Python
 
-Python uses the `re` module (or the third-party `regex` module for advanced features).
+Python menggunakan module bawaan `re`.
 
-### Import and Basic Usage
+### Penggunaan Dasar
 
 ```python
 import re
 
-# Search anywhere in the string
-result = re.search(r"\d+", "Order #12345 confirmed")
+# Cari di mana saja di dalam teks
+result = re.search(r"\d+", "Order #12345 berhasil")
 if result:
     print(result.group())   # "12345"
     print(result.start())   # 7
     print(result.end())     # 12
 
-# Match only at the start
-result = re.match(r"\d+", "12345 confirmed")
+# Cari khusus di awal string saja
+result = re.match(r"\d+", "12345 berhasil")
 if result:
     print(result.group())   # "12345"
-
-re.match(r"\d+", "Order #12345")  # None (doesn't start with digits)
 ```
 
-### `findall()` — All Matches
+### Fungsi `findall()` — Ambil Semua Hasil
 
 ```python
-text = "Temperatures: 72°F, 68°F, 75°F"
+text = "Suhu saat ini: 72°F, 68°F, 75°F"
 temps = re.findall(r"\d+(?=°F)", text)
 # ['72', '68', '75']
-
-# With groups, returns a list of tuples
-log = "[ERROR] 404 Not Found\n[WARN] 301 Redirect"
-entries = re.findall(r"\[(\w+)\]\s(\d+)\s(.+)", log)
-# [('ERROR', '404', 'Not Found'), ('WARN', '301', 'Redirect')]
 ```
 
-### `finditer()` — Match Objects Iterator
+### Fungsi `sub()` — Cari dan Ganti
 
 ```python
-text = "Call 555-1234 or 555-5678 for support"
-for match in re.finditer(r"\d{3}-\d{4}", text):
-    print(f"Found {match.group()} at position {match.start()}")
-# Found 555-1234 at position 5
-# Found 555-5678 at position 18
-```
-
-### `sub()` — Search and Replace
-
-```python
-# Clean up whitespace
-text = "too   many    spaces"
-clean = re.sub(r"\s+", " ", text)
-# "too many spaces"
-
-# Using backreferences
-text = "John Smith, Jane Doe"
+text = "Nama saya John Smith"
 swapped = re.sub(r"(\w+)\s(\w+)", r"\2 \1", text)
-# "Smith John, Doe Jane"
-
-# Using named groups
-date = "2026-06-17"
-formatted = re.sub(
-    r"(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})",
-    r"\g<m>/\g<d>/\g<y>",
-    date
-)
-# "06/17/2026"
-
-# Using a function
-def censor(match):
-    word = match.group()
-    return word[0] + "*" * (len(word) - 1)
-
-text = "Contact admin@secret.com for help"
-censored = re.sub(r"\S+@\S+", censor, text)
-# "Contact a**************** for help"
-```
-
-### `split()` — Split by Pattern
-
-```python
-# Split on varying delimiters
-text = "apple, banana;  cherry| date"
-fruits = re.split(r"[,;|]\s*", text)
-# ['apple', 'banana', 'cherry', 'date']
-
-# Limit splits
-text = "one:two:three:four:five"
-parts = re.split(r":", text, maxsplit=2)
-# ['one', 'two', 'three:four:five']
-```
-
-### Compiled Patterns
-
-Compile patterns you use repeatedly for better performance:
-
-```python
-import re
-
-# Compile once
-IP_PATTERN = re.compile(
-    r"(?P<ip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"
-    r"\s-\s-\s"
-    r"\[(?P<timestamp>[^\]]+)\]"
-    r'\s"(?P<method>\w+)\s(?P<path>\S+)\sHTTP/[\d.]+"'
-    r"\s(?P<status>\d{3})"
-    r"\s(?P<size>\d+)"
-)
-
-# Use many times
-with open("/var/log/nginx/access.log") as f:
-    for line in f:
-        match = IP_PATTERN.search(line)
-        if match:
-            print(f"{match.group('ip')} - {match.group('status')} - {match.group('path')}")
-```
-
-### Verbose Mode
-
-Write readable patterns with `re.VERBOSE`:
-
-```python
-email_pattern = re.compile(r"""
-    ^                   # start of string
-    [\w.+-]+            # username: word chars, dots, plus, hyphen
-    @                   # literal @
-    [\w-]+              # domain name
-    \.                  # literal dot
-    [\w.-]+             # TLD (and potential subdomains)
-    $                   # end of string
-""", re.VERBOSE | re.IGNORECASE)
-
-email_pattern.match("user@example.com")  # Match
+# "Nama saya Smith John"
 ```
 
 ---
 
-## Regex in Vim
+## Regex di Vim
 
-Vim has its own regex dialect that differs from PCRE. The biggest difference: many special characters need to be escaped in Vim's default "magic" mode, which is the opposite of what you're used to.
+Vim punya dialek regex sendiri. Perbedaan terbesarnya: secara default, banyak karakter khusus yang harus di-escape agar bisa berfungsi (kebalikan dari PCRE).
 
-### Magic Modes
+### Opsi Magic Mode Vim
 
-Vim has four magic modes that control which characters are "special":
-
-| Mode | Prefix | Behavior |
+| Mode | Awalan | Efek / Perilaku |
 |------|--------|----------|
-| `\v` (very magic) | `\v` | Closest to PCRE — `+`, `(`, `)`, `{`, `}`, `|` are special |
-| `\m` (magic) | `\m` | Default — `.`, `*`, `^`, `$`, `[` are special; must escape `+`, `(`, `{` |
-| `\M` (nomagic) | `\M` | Almost everything is literal |
-| `\V` (very nomagic) | `\V` | Everything is literal except `\` |
+| `\v` (very magic) | `\v` | Paling mirip PCRE — `+`, `(`, `)`, `{`, `}`, `|` otomatis dianggap karakter khusus |
+| `\m` (magic) | `\m` | Default Vim — `.`, `*`, `^`, `$`, `[` khusus; tapi `+`, `(`, `{` wajib di-escape |
+| `\M` (nomagic) | `\M` | Hampir semua dianggap karakter literal biasa |
+| `\V` (very nomagic) | `\V` | Semua literal kecuali simbol `\` |
 
-**Recommendation:** Use `\v` (very magic) to get PCRE-like behavior and avoid escape headaches.
-
-### Default Magic Mode vs. Very Magic
-
-Here's the same pattern in default magic and very magic:
+**Rekomendasi:** Selalu pakai awalan `\v` (very magic) di awal pencarian Vim agar perilakunya mirip regex modern pada umumnya.
 
 ```vim
-" Default magic — need to escape +, (, ), {, }, |
+" Mode magic bawaan Vim — wajib escape kurung, tambah, dll
 /\(error\|warning\)\+
-:%s/\(\w\+\)\s\+\(\w\+\)/\2 \1/g
 
-" Very magic — like PCRE, cleaner
+" Mode very magic (\v) — bersih dan gampang dibaca seperti PCRE
 /\v(error|warning)+
-:%s/\v(\w+)\s+(\w+)/\2 \1/g
 ```
 
-The very magic versions are much more readable. Always prefer `\v`.
-
-### Basic Search
+### Pencarian di Vim
 
 ```vim
-" Search forward
-/pattern
+" Cari ke arah depan (very magic)
+/\v pola_cari
 
-" Search backward
-?pattern
+" Cari ke arah belakang
+?\v pola_cari
 
-" Search with very magic (recommended)
-/\v pattern
-
-" Next match
+" Lompat ke kecocokan berikutnya
 n
 
-" Previous match
+" Lompat ke kecocokan sebelumnya
 N
 
-" Clear search highlighting
+" Bersihkan highlight pencarian aktif
 :noh
 ```
 
-### Case Sensitivity in Search
+### Sensitivitas Kapital saat Mencari di Vim
 
 ```vim
-" Force case-insensitive
-/\cpattern
-/\cerror        " matches error, Error, ERROR
+" Cari tanpa sensitif kapital (ignorecase)
+/\cpola
+/\cerror        " bakal cocok dengan error, Error, ERROR
 
-" Force case-sensitive
-/\Cpattern
-/\CError        " matches only Error
-
-" Smart case (with 'ignorecase' and 'smartcase' set):
-/error          " case-insensitive (all lowercase)
-/Error          " case-sensitive (has uppercase)
+" Cari sensitif kapital
+/\Cpola
 ```
 
-### Useful Search Patterns
+### Cari dan Ganti di Vim (Substitute)
+
+Sintaks dasar:
 
 ```vim
-" Find function definitions (JavaScript/TypeScript)
-/\vfunction\s+\w+\s*\(
-/\v(const|let|var)\s+\w+\s*\=\s*(async\s+)?\(
-
-" Find TODO/FIXME comments
-/\v(TODO|FIXME|HACK|XXX):?\s+.+
-
-" Find trailing whitespace
-/\s\+$
-
-" Find empty lines
-/^$
-
-" Find lines longer than 80 characters
-/\v^.{81,}$
-
-" Find duplicate words
-/\v<(\w+)\s+\1>
-
-" Find import statements
-/\v^import\s+.+\s+from\s+
-
-" Find console.log statements
-/\vconsole\.(log|warn|error|debug)\(
-
-" Find hex colors
-/\v#[0-9a-fA-F]{3,8}
-
-" Find IP addresses
-/\v\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}
+:%s/pola/pengganti/flag
 ```
 
-### Search and Replace (Substitute)
-
-The substitute command is one of the most powerful features in Vim:
+Contoh kasus substitute:
 
 ```vim
-" Basic syntax
-:%s/pattern/replacement/flags
+" Ganti semua kata di satu file penuh
+:%s/fungsiLama/fungsiBaru/g
 
-" Common flags
-" g — replace all occurrences on each line (not just the first)
-" c — confirm each replacement
-" i — case-insensitive
-" I — case-sensitive
-" n — count matches without replacing
-" e — suppress errors when pattern not found
-```
+" Ganti disertai konfirmasi satu per satu
+:%s/namaLama/namaBaru/gc
+" ketik y = ya, n = lewati, a = ganti semua sisa, q = batalkan
 
-### Substitute Examples
+" Ganti hanya pada baris visual yang diblok saja
+:'<,'>s/lama/baru/g
 
-```vim
-" Replace all occurrences in the file
-:%s/oldFunction/newFunction/g
-
-" Replace with confirmation
-:%s/oldName/newName/gc
-" y = yes, n = no, a = all remaining, q = quit, l = last (replace and quit)
-
-" Replace only in lines 10-50
-:10,50s/error/warning/g
-
-" Replace in visual selection (select first, then type :)
-:'<,'>s/old/new/g
-
-" Replace only in current line
-:s/old/new/g
-
-" Using very magic
+" Ganti nama menggunakan very magic (\v)
 :%s/\v(\w+)\.length/\1.size/g
-" "array.length" → "array.size"
+" "array.length" menjadi "array.size"
 
-" Case-insensitive replace
-:%s/error/warning/gi
-
-" Count matches without replacing
-:%s/TODO//gn
-" → "42 matches on 30 lines"
-```
-
-### Capture Groups in Substitute
-
-```vim
-" Swap first and last names (very magic)
-:%s/\v(\w+)\s+(\w+)/\2 \1/g
-" "John Smith" → "Smith John"
-
-" Add quotes around unquoted attribute values
-:%s/\v(\w+)\=([^ >]+)/\1="\2"/g
-" class=active → class="active"
-
-" Convert snake_case to camelCase
-:%s/\v_([a-z])/\u\1/g
-" "user_name" → "userName"
-" "get_all_items" → "getAllItems"
-
-" Convert camelCase to snake_case
-:%s/\v([a-z])([A-Z])/\1_\l\2/g
-" "userName" → "user_name"
-" "getAllItems" → "get_all_items"
-
-" Wrap a word in a function call
-:%s/\v<(\d{4}-\d{2}-\d{2})>/parseDate("\1")/g
-" 2026-06-17 → parseDate("2026-06-17")
-
-" Add semicolons to lines that don't have them
-:%s/\v([^;{}\s])\s*$/\1;/
-
-" Remove trailing whitespace
+" Menghapus spasi di akhir baris
 :%s/\s\+$//e
-
-" Convert double quotes to single quotes
-:%s/"/'/g
-
-" Remove HTML tags
-:%s/<[^>]*>//g
 ```
 
-### Special Replacement Sequences
+### Simbol Pengganti Spesifik di Vim
 
-| Sequence | Meaning |
+| Simbol | Arti |
 |----------|---------|
-| `\1`, `\2` | Captured group 1, 2, etc. |
-| `\0` or `&` | Entire match |
-| `\u` | Uppercase next character |
-| `\l` | Lowercase next character |
-| `\U` | Uppercase until `\E` or end |
-| `\L` | Lowercase until `\E` or end |
-| `\E` | End case change |
-| `\r` | Newline (in replacement) |
-| `\t` | Tab (in replacement) |
+| `\1`, `\2` | Hasil tangkapan grup 1, 2, dll |
+| `\0` atau `&` | Seluruh teks yang cocok |
+| `\u` | Ubah satu karakter berikutnya jadi huruf besar |
+| `\l` | Ubah satu karakter berikutnya jadi huruf kecil |
+| `\U` | Ubah seluruh teks setelahnya jadi huruf besar sampai ketemu `\E` |
+| `\L` | Ubah seluruh teks setelahnya jadi huruf kecil sampai ketemu `\E` |
+| `\E` | Batas akhir pengubahan huruf |
+| `\r` | Membuat baris baru (newline) pada teks pengganti |
+
+Contoh penggunaan:
 
 ```vim
-" Uppercase the first letter of each word
+" Mengubah huruf pertama kata menjadi kapital (Title Case)
 :%s/\v<(\w)/\u\1/g
 " "hello world" → "Hello World"
-
-" Uppercase entire match
-:%s/\v<(error|warning)>/\U\1/g
-" "error" → "ERROR", "warning" → "WARNING"
-
-" Insert a newline after each comma
-:%s/,\s*/,\r/g
-
-" Wrap each line in <li> tags
-:%s/\v^(.+)$/<li>\1<\/li>/
 ```
 
-### The Global Command `:g`
+### Karakter Khusus Unik Vim Regex
 
-Execute a command on all lines matching a pattern:
-
-```vim
-" Delete all lines containing 'console.log'
-:g/console\.log/d
-
-" Delete all blank lines
-:g/^$/d
-
-" Delete all comments (// style)
-:g/\v^\s*\/\//d
-
-" Move all TODO comments to end of file
-:g/TODO/m$
-
-" Copy all lines with 'import' to register a
-:let @a="" | g/\v^import/y A
-
-" Execute normal mode command on matching lines
-" — add semicolons to all lines containing 'return'
-:g/return/normal A;
-
-" Reverse: execute on lines NOT matching pattern
-:v/error/d
-" (deletes all lines NOT containing 'error' — keeps only error lines)
-
-" Print all matches with line numbers
-:g/pattern/p
-
-" Sort all lines containing a pattern
-:g/TODO/m0
-```
-
-### Vim Regex Special Atoms
-
-Vim has some unique regex atoms not found in PCRE:
-
-| Atom | Meaning |
+| Simbol | Arti |
 |------|---------|
-| `\<` | Start of word (like `\b` before word) |
-| `\>` | End of word (like `\b` after word) |
-| `\zs` | Set start of match (like `\K` in PCRE) |
-| `\ze` | Set end of match |
-| `\%V` | Match inside visual selection |
-| `\%l` | Match at specific line |
-| `\%c` | Match at specific column |
-| `\_s` | Whitespace including newline |
-| `\_.` | Any character including newline |
-| `\{-}` | Non-greedy match (like `*?` in PCRE) |
+| `\<` | Batas awal kata |
+| `\>` | Batas akhir kata |
+| `\zs` | Penentu awal kecocokan (memotong teks sebelum simbol ini dari output) |
+| `\ze` | Penentu akhir kecocokan |
+| `\_s` | Karakter spasi termasuk baris baru |
+| `\{-}` | Quantifier non-greedy (seperti `*?` pada PCRE) |
 
 ```vim
-" Match word boundaries
-/\<error\>
-" Same as PCRE \berror\b
-
-" Match a function name but not the parentheses
-/\vgetData\ze\(
-" In "getData()" — matches "getData" only
-
-" Match arguments inside parentheses only
-/\v\(\zs[^)]+\ze\)
-" In "func(arg1, arg2)" — matches "arg1, arg2"
-
-" Non-greedy matching in Vim uses \{-} instead of *?
+" Mencocokkan tag HTML secara non-greedy di Vim:
 /\v<.{-}>
-" Matches individual tags: <div>, </div>
-" (Vim equivalent of <.+?> in PCRE)
+" (Setara dengan <.+?> di PCRE)
 
-" Match across multiple lines
-/\v\_s+
-" Matches whitespace including newlines
-```
-
-### Searching in Files (vimgrep)
-
-```vim
-" Search all JavaScript files in the project
-:vimgrep /\vconsole\.log/ **/*.js
-
-" Search and populate quickfix list
-:vimgrep /TODO/ **/*.{js,ts,py}
-
-" Navigate results
-:cnext      " next match
-:cprev      " previous match
-:copen      " open quickfix window
-:cclose     " close quickfix window
+" Mencocokkan isi argumen di dalam kurung saja
+/\v\(\zs[^)]+\ze\)
+" Pada "hitung(a, b)" → mencocokkan "a, b"
 ```
 
 ---
 
-## Regex in Shell
+## Regex di Terminal (Shell)
 
-### grep — Search Files
+### grep — Mencari di File
 
 ```bash
-# Basic search
+# Pencarian dasar
 grep "error" /var/log/syslog
 
-# Case-insensitive
+# Abaikan huruf kapital
 grep -i "error" server.log
 
-# Extended regex (ERE) — same as egrep
+# Gunakan Extended Regex (ERE) — mendukung |, +, () tanpa escape
 grep -E "(error|warning|critical)" server.log
 
-# Perl-compatible regex (PCRE) — supports lookaheads, etc.
-grep -P "(?<=\[)\d{3}(?=\])" server.log
-
-# Show line numbers
+# Tampilkan nomor baris hasil cocok
 grep -n "TODO" src/*.js
 
-# Show only the matched text (not the entire line)
-grep -o "\d\+\.\d\+\.\d\+" package.json
+# Hanya tampilkan teks yang cocok saja (bukan seluruh baris)
+grep -o "[0-9]\+\.[0-9]\+" package.json
 
-# Count matches
-grep -c "404" access.log
-
-# Recursive search in directory
-grep -rn "deprecated" src/
-
-# Invert match (show lines that DON'T match)
-grep -v "^#" config.conf     # skip comment lines
-
-# Show context (lines before/after match)
-grep -B 2 -A 2 "error" app.log   # 2 lines before and after
-
-# Multiple patterns
-grep -E "^(import|from|require)" app.js
-
-# Match whole words only
-grep -w "port" config.yml     # won't match "transport"
-```
-
-### grep Practical Examples
-
-```bash
-# Find all IP addresses in a log file
-grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" access.log
-
-# Find all email addresses
-grep -oEi "[a-z0-9.+-]+@[a-z0-9.-]+\.[a-z]{2,}" contacts.txt
-
-# Find processes listening on a port
-netstat -tlnp | grep -E ":80\b"
-
-# Find files containing a pattern
-grep -rl "API_KEY" --include="*.env" .
-
-# Find TODO comments with the author
-grep -rnE "TODO\((\w+)\)" src/
-
-# Find non-ASCII characters in source files
-grep -P "[^\x00-\x7F]" src/*.js
-
-# Find lines that are longer than 120 characters
-grep -nE "^.{121,}$" src/*.py
-
-# Count unique HTTP status codes
-grep -oE "HTTP/[0-9.]+ [0-9]{3}" access.log | sort | uniq -c | sort -rn
-```
-
-### sed — Stream Editor
-
-```bash
-# Basic replacement (first occurrence per line)
-sed 's/old/new/' file.txt
-
-# Replace all occurrences
-sed 's/old/new/g' file.txt
-
-# In-place editing (modify the file directly)
-sed -i '' 's/old/new/g' file.txt          # macOS (BSD sed)
-sed -i 's/old/new/g' file.txt             # Linux (GNU sed)
-
-# Using extended regex
-sed -E 's/([0-9]{4})-([0-9]{2})-([0-9]{2})/\2\/\3\/\1/g' dates.txt
-# "2026-06-17" → "06/17/2026"
-
-# Delete lines matching a pattern
-sed '/^#/d' config.conf          # remove comment lines
-sed '/^$/d' file.txt             # remove empty lines
-
-# Delete lines between two patterns
-sed '/START/,/END/d' file.txt
-
-# Print only matching lines (like grep)
-sed -n '/error/p' log.txt
-
-# Replace only on specific lines
-sed '5s/old/new/' file.txt       # only line 5
-sed '10,20s/old/new/g' file.txt  # lines 10-20
-
-# Multiple replacements
-sed -e 's/foo/bar/g' -e 's/baz/qux/g' file.txt
-
-# Insert text before/after a line
-sed '/pattern/i\new line before' file.txt    # GNU sed
-sed '/pattern/a\new line after' file.txt     # GNU sed
-```
-
-### sed Practical Examples
-
-```bash
-# Remove trailing whitespace
-sed -E 's/[[:space:]]+$//' file.txt
-
-# Convert tabs to spaces
-sed 's/\t/    /g' file.txt
-
-# Add line numbers
-sed = file.txt | sed 'N;s/\n/\t/'
-
-# Extract values from key=value pairs
-sed -nE 's/^DB_HOST=(.+)/\1/p' .env
-# From DB_HOST=localhost → outputs "localhost"
-
-# Remove ANSI color codes
-sed -E 's/\x1b\[[0-9;]*m//g' colored_output.txt
-
-# Wrap each line in quotes
-sed 's/.*/"&"/' file.txt
-
-# Replace content between markers
-sed '/<!-- START -->/,/<!-- END -->/c\<!-- START -->\nNew Content\n<!-- END -->' index.html
+# Tampilkan log baris sebelum dan sesudah hasil cocok
+grep -B 2 -A 2 "error" app.log   # 2 baris sebelum (before) dan sesudah (after)
 ```
 
 ---
 
-## Common Mistakes and Gotchas
+## Kesalahan Umum & Solusinya
 
-### 1. Forgetting to Escape Dots
-
-```text
-Wrong:   192.168.0.1     → matches "192x168y0z1" too
-Right:   192\.168\.0\.1  → matches only "192.168.0.1"
-```
-
-The dot `.` matches **any** character. Always escape it when matching literal dots in IPs, URLs, filenames.
-
-### 2. Greedy Matching Surprises
+### 1. Lupa Meng-escape Titik `.`
 
 ```text
-Wrong:   <.+>
-Text:    <b>Bold</b>
-Match:   <b>Bold</b>     ← matches the entire thing
-
-Right:   <.+?>           ← lazy, matches <b> and </b> separately
-Better:  <[^>]+>         ← negated class, no backtracking needed
+Salah:   192.168.0.1     → juga bakal cocok dengan "192x168y0z1"
+Benar:   192\.168\.0\.1  → hanya cocok dengan "192.168.0.1"
 ```
 
-The negated character class approach `[^>]+` is actually better than lazy quantifiers because it's more explicit and avoids backtracking.
+Karena titik `.` di regex berarti karakter apa saja. Selalu escape titik jika ingin mendeteksi karakter titik literal.
 
-### 3. `^` and `$` Without Multiline Flag
+### 2. Terjebak Masalah Greedy (Rakus)
 
 ```text
-Pattern:  ^error$
-Text:     "line 1\nerror\nline 3"
+Salah:   <.+>
+Teks:    <b>Tebal</b>
+Cocok:   <b>Tebal</b>     ← memakan seluruh baris tag
 
-Without m flag: No match (^ matches start of ENTIRE string)
-With m flag:    Matches "error" on line 2
+Benar:   <.+?>           ← bersifat lazy (malas), memisahkan <b> dan </b>
+Lebih Oke: <[^>]+>        ← kelas karakter negasi, tidak butuh backtracking
 ```
 
-### 4. Backslash Escaping in Strings
-
-In most languages, you need to double-escape backslashes in regular strings:
-
-```python
-# Wrong — \b is interpreted as backspace character
-pattern = "\berror\b"
-
-# Right — raw string, backslash is preserved
-pattern = r"\berror\b"
-```
-
-```javascript
-// Wrong — \d is not a recognized escape, works by accident
-const pattern = new RegExp("\d+");
-
-// Right — escaped backslash
-const pattern = new RegExp("\\d+");
-
-// Best — use regex literal when possible
-const pattern = /\d+/;
-```
-
-### 5. Forgetting the Global Flag
-
-```javascript
-// Only replaces the first occurrence
-"aaa".replace(/a/, "b");      // "baa"
-
-// Replaces all occurrences
-"aaa".replace(/a/g, "b");     // "bbb"
-```
-
-### 6. Using `.*` When You Don't Need It
+### 3. Tidak Memasang Anchor Saat Validasi
 
 ```text
-Pattern:  .*error.*
-```
+Salah:   \d{5}
+Teks:    "KODE POS: 90210-1234"
+Hasil:   Mendeteksi "90210" di dalam string panjang tersebut
 
-This is almost always unnecessary. Just search for `error` — regex already searches anywhere in the string. The `.*` at both ends just wastes cycles.
-
-The exception is when you need `^` and `$` anchors and want to match lines containing a word:
-
-```text
-Pattern:  ^.*error.*$    (with m flag — match entire lines containing "error")
-```
-
-### 7. Alternation Precedence
-
-```text
-Wrong:   ^cat|dog$
-Means:   (^cat) | (dog$)  ← "cat" at start OR "dog" at end
-
-Right:   ^(cat|dog)$
-Means:   Entire string is exactly "cat" or "dog"
-```
-
-### 8. Character Class vs. Alternation
-
-For single characters, use character classes — they're faster:
-
-```text
-Slow:    (a|b|c|d|e)
-Fast:    [abcde]
-```
-
-Character classes are optimized internally (often using lookup tables), while alternation requires trying each option.
-
-### 9. Catastrophic Backtracking Patterns
-
-```text
-Dangerous:  (a+)+
-Text:       "aaaaaaaaaaaaaaaaX"
-```
-
-The regex engine tries exponentially many ways to split the "a" characters between the inner `a+` and outer `(...)+`. This can take seconds or crash the engine.
-
-### 10. Not Anchoring Validation Patterns
-
-```text
-Wrong:   \d{5}
-Text:    "ZIP: 90210-1234"
-Match:   "90210"          ← also matches inside longer strings!
-
-Right:   ^\d{5}$          ← matches ONLY a 5-digit string
+Benar:   ^\d{5}$          ← memaksa string harus tepat berisi 5 digit saja
 ```
 
 ---
 
-## Performance Tips
+## Tips Performa Regex
 
-### 1. Be Specific — Avoid Greedy `.*`
-
-```text
-Slow:    ".*"           → backtracks from end of string
-Fast:    "[^"]*"        → stops at first quote, no backtracking
-```
-
-The negated character class `[^"]*` tells the engine exactly which characters are valid, eliminating backtracking.
-
-### 2. Use Anchors When Possible
-
-```text
-Slow:    \d{10}         → engine tries at every position in the string
-Fast:    ^\d{10}$       → engine tries once from the start, fails fast
-```
-
-### 3. Avoid Catastrophic Backtracking
-
-Patterns with nested quantifiers on overlapping character sets can cause exponential backtracking:
-
-```text
-Dangerous patterns:
-  (a+)+
-  (a|a)+
-  (.*a){10}
-  (\w+\s*)+
-
-Safe alternatives:
-  a+           → flatten nested quantifiers
-  a+           → remove redundant alternation
-  [^a]*a){10}  → use negated class
-  [\w\s]+      → merge into one class
-```
-
-### 4. Use Atomic Groups or Possessive Quantifiers
-
-When supported, atomic groups `(?>...)` and possessive quantifiers `*+`, `++` prevent backtracking:
-
-```text
-Standard:    \w+\.txt         → backtracks if no match
-Possessive:  \w++\.txt        → fails immediately if \w+ consumes the dot
-Atomic:      (?>\w+)\.txt     → same effect as possessive
-```
-
-### 5. Put Common Alternatives First
-
-```text
-Slow:    (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)
-Fast:    (Oct|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep)
-         ← If most dates are Oct-Dec, put them first
-```
-
-In practice, the engine tries alternatives left to right. Putting common matches first reduces average comparisons.
-
-### 6. Compile Patterns You Reuse
-
-```python
-# Slow — recompiles on every call
-for line in huge_file:
-    if re.search(r"\d{4}-\d{2}-\d{2}", line):
-        process(line)
-
-# Fast — compile once
-date_pattern = re.compile(r"\d{4}-\d{2}-\d{2}")
-for line in huge_file:
-    if date_pattern.search(line):
-        process(line)
-```
-
-### 7. Use Non-Capturing Groups
-
-Capturing groups store match data. If you don't need it, use `(?:...)`:
-
-```text
-Capturing:      (https?|ftp)://     → stores "https" in group 1
-Non-capturing:  (?:https?|ftp)://   → no storage overhead
-```
-
-### 8. Fail Fast with Anchors and Literal Prefixes
-
-The engine can use literal string prefixes to quickly skip non-matching positions:
-
-```text
-Slow:    .*error_code=\d+       → tries at every position
-Fast:    error_code=\d+          → can skip to "error_code" quickly
-Fastest: ^.*?error_code=(\d+)   → explicit anchor, lazy quantifier
-```
+1. **Hindari Greedy `.*` jika bisa**: Gunakan kelas karakter negasi. Misalnya, mencari teks di dalam kutip dua, gunakan `"[^"]*"` daripada `".*?"`. Ini jauh lebih cepat dan mencegah backtracking berlebih.
+2. **Compile Pola yang Dipakai Berulang**: Pada Python atau JS (constructor), lakukan compile regex sekali di luar perulangan (loop) agar tidak membebani memori compiler berkali-kali.
+3. **Gunakan Non-Capturing Group `(?:...)`**: Jika kamu hanya butuh mengelompokkan pilihan (ATAU) tanpa berniat memakai isi teksnya di kemudian waktu, non-capturing group menghemat penggunaan alokasi memori.
 
 ---
 
-## Mini Cheat Table
+## Tabel Rangkuman Cepat
 
-A quick-reference card for the patterns you'll use every day.
+### Sintaks Utama
 
-### Syntax Quick Reference
-
-| Pattern | Meaning |
+| Pola | Arti |
 |---------|---------|
-| `.` | Any character (except newline) |
-| `\d` | Digit `[0-9]` |
-| `\w` | Word character `[a-zA-Z0-9_]` |
-| `\s` | Whitespace `[ \t\r\n]` |
-| `\D`, `\W`, `\S` | Negated versions of above |
-| `[abc]` | Any of a, b, or c |
-| `[^abc]` | Not a, b, or c |
-| `[a-z]` | Range: a through z |
-| `*` | 0 or more |
-| `+` | 1 or more |
-| `?` | 0 or 1 |
-| `{n}` | Exactly n |
-| `{n,m}` | Between n and m |
-| `*?`, `+?` | Lazy versions |
-| `^` | Start of line/string |
-| `$` | End of line/string |
-| `\b` | Word boundary |
-| `(...)` | Capture group |
+| `.` | Karakter apa saja (kecuali baris baru) |
+| `\d` | Digit angka `[0-9]` |
+| `\w` | Karakter kata (huruf, angka, `_`) |
+| `\s` | Karakter spasi |
+| `[abc]` | Salah satu dari a, b, atau c |
+| `[^abc]` | Selain dari a, b, atau c |
+| `*` | 0 kali atau lebih |
+| `+` | 1 kali atau lebih |
+| `?` | 0 atau 1 kali |
+| `{n,m}` | Antara n sampai m kali |
+| `*?` | Versi lazy (non-greedy) dari `*` |
+| `^`, `$` | Awal / akhir baris |
+| `\b` | Batas kata (word boundary) |
+| `(...)` | Capturing group |
 | `(?:...)` | Non-capturing group |
-| `\1` | Backreference to group 1 |
-| `a\|b` | a or b |
-| `(?=...)` | Positive lookahead |
-| `(?!...)` | Negative lookahead |
-| `(?<=...)` | Positive lookbehind |
-| `(?<!...)` | Negative lookbehind |
+| `(?=...)` | Lookahead positif |
+| `(?!...)` | Lookahead negatif |
 
-### Common Patterns Quick Reference
+### Referensi Cepat Pola Umum
 
-| What | Pattern |
+| Target | Pola |
 |------|---------|
-| Email (simple) | `[\w.+-]+@[\w-]+\.[\w.-]+` |
-| URL | `https?://[\w.-]+(?:/[\w./?%&=#-]*)?` |
-| IPv4 | `\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}` |
-| Date (ISO) | `\d{4}-\d{2}-\d{2}` |
-| Time (24h) | `[01]?\d|2[0-3]):[0-5]\d` |
-| Hex color | `#[0-9a-fA-F]{3,6}` |
-| Phone (US) | `\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}` |
-| Slug | `[a-z0-9]+(?:-[a-z0-9]+)*` |
-| UUID | `[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}` |
-| Semver | `v?\d+\.\d+\.\d+` |
-| Blank lines | `^\s*$` |
-| Trailing spaces | `\s+$` |
-| Repeated words | `\b(\w+)\s+\1\b` |
-| HTML tag | `<[^>]+>` |
-
-### Vim Regex Quick Reference
-
-| PCRE | Vim (magic) | Vim (very magic `\v`) |
-|------|-------------|----------------------|
-| `(group)` | `\(group\)` | `(group)` |
-| `one\|two` | `one\|two` | `one\|two` |
-| `\d+` | `\d\+` | `\d+` |
-| `\w{3,5}` | `\w\{3,5}` | `\w{3,5}` |
-| `.*?` (lazy) | `.\{-}` | `.{-}` |
-| `\b` | `\<` / `\>` | `<` / `>` |
-| `\K` (reset match start) | `\zs` | `\zs` |
-
-### Flags Quick Reference
-
-| Flag | JS | Python | Vim | grep | Meaning |
-|------|----|--------|-----|------|---------|
-| Case-insensitive | `/i` | `re.IGNORECASE` | `\c` | `-i` | Ignore case |
-| Global | `/g` | N/A (default) | `g` flag in `:s` | N/A | All matches |
-| Multiline | `/m` | `re.MULTILINE` | N/A (default) | N/A | `^$` per line |
-| Dotall | `/s` | `re.DOTALL` | `\_. ` | N/A | `.` matches `\n` |
-| Verbose | N/A | `re.VERBOSE` | N/A | N/A | Commented regex |
+| Tanggal (ISO) | `\d{4}-\d{2}-\d{2}` |
+| Alamat IPv4 | `\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}` |
+| Kode Warna Hex | `#[0-9a-fA-F]{3,6}` |
+| Baris Kosong | `^\s*$` |
+| Spasi di Akhir | `\s+$` |
+| Tag HTML | `<[^>]+>` |
 
 ---
 
-## Resources
+## Sumber Belajar Lainnya
 
-- [regex101.com](https://regex101.com) — Interactive regex tester with explanation (supports PCRE, JS, Python, Go)
-- [regexr.com](https://regexr.com) — Another excellent visual tester
-- [Vim regex documentation](https://vimhelp.org/pattern.txt.html) — Official Vim pattern reference
-- [Regular-Expressions.info](https://www.regular-expressions.info) — The most comprehensive regex tutorial
-- [MDN RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) — JavaScript regex reference
-- [Python re docs](https://docs.python.org/3/library/re.html) — Python regex module docs
-
----
-
-*Regex is a powerful tool, but remember: if you can solve the problem with a simple string method (includes, startsWith, endsWith, split), do that instead. Reach for regex when you need pattern matching, not just string matching.*
+- [regex101.com](https://regex101.com) — Tester regex interaktif yang memberikan penjelasan detail per karakter pola (mendukung PCRE, JS, Python).
+- [regexr.com](https://regexr.com) — Tester visual regex yang juga sangat bagus dan interaktif.
+- [Regular-Expressions.info](https://www.regular-expressions.info) — Situs tutorial dan panduan regex terlengkap di internet.
