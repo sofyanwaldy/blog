@@ -15,27 +15,6 @@ This cheatsheet is designed as a daily reference — not just a list of syntax, 
 
 ---
 
-## Table of Contents
-
-- [What is Regex](#what-is-regex)
-- [Basic Matching](#basic-matching)
-- [Metacharacters](#metacharacters)
-- [Character Classes](#character-classes)
-- [Quantifiers](#quantifiers)
-- [Anchors](#anchors)
-- [Groups and Capturing](#groups-and-capturing)
-- [Alternation](#alternation)
-- [Lookahead and Lookbehind](#lookahead-and-lookbehind)
-- [Common Flags](#common-flags)
-- [Practical Patterns](#practical-patterns)
-- [Regex in JavaScript](#regex-in-javascript)
-- [Regex in Python](#regex-in-python)
-- [Regex in Vim](#regex-in-vim)
-- [Regex in Shell](#regex-in-shell)
-- [Common Mistakes and Gotchas](#common-mistakes-and-gotchas)
-- [Performance Tips](#performance-tips)
-- [Mini Cheat Table](#mini-cheat-table)
-
 ---
 
 ## What is Regex

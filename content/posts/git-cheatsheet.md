@@ -15,27 +15,6 @@ This cheatsheet is designed for daily development work — a reference you'd act
 
 ---
 
-## Table of Contents
-
-- [Core Concepts](#core-concepts)
-- [Configuration](#configuration)
-- [Basic Workflow](#basic-workflow)
-- [Branching](#branching)
-- [Merging](#merging)
-- [Rebasing](#rebasing)
-- [Remote Repositories](#remote-repositories)
-- [Stashing](#stashing)
-- [Logging and History](#logging-and-history)
-- [Undoing Things](#undoing-things)
-- [Cherry-pick](#cherry-pick)
-- [Tags](#tags)
-- [Git Diff](#git-diff)
-- [.gitignore Patterns](#gitignore-patterns)
-- [Worktrees](#worktrees)
-- [Bisect](#bisect)
-- [Practical Workflows](#practical-workflows)
-- [Mini Cheat Table](#mini-cheat-table)
-
 ---
 
 ## Core Concepts
