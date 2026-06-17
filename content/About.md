@@ -4,14 +4,14 @@ layout = "single"
 url = "/about"
 +++
 
-Hi, I’m Sofyan Waldy, a technology enthusiast who enjoy coding, writing, and continuous learning. I currently work at Sociolla, where I am actively involved in the development and operation of software development.
+Hi, I'm Sofyan Waldy — a self-taught software engineer.
 
-In my professional journey, I have dived into various technologies and frameworks. My first programming language was C++, a challenging yet rewarding language that I am still learning to master it. Currently, I'm also delving into more low-level programming languages like C and C++ to deepen my understanding of computer systems and enhance my programming skills.
+I think a lot but don't talk much, so I write instead. This blog is where I share things I've learned, ideas I find interesting, and occasional thoughts on how things work under the hood.
 
-I enjoy working with JavaScript, though it is not my favorite language, and have also explored Node.js, React.js, with a growing interest in Go.
+I started programming with C++, and that early experience gave me a lasting curiosity for how things work at a lower level. These days I work mostly with JavaScript and Node.js, but I'm drawn to Go and enjoy exploring systems programming with C when I get the chance.
 
-In my free time, I enjoy reading, sports, and spending quality time with loved ones. I believe in balancing work with personal interests to maintain a healthy and fulfilling life.
+I'm also into Neovim — I like shaping my tools to fit how I think, and there's something satisfying about a workflow that feels truly yours.
 
-To reach me, write to [sofyanwaldy@gmail.com](mailto:sofyanwaldy@gmail.com)
+Outside of code, I read a lot, enjoy sports, and spend time with the people I care about.
 
-Thank you for visiting, and feel free to connect with me for any collaborations or discussions!
+If you want to reach me: [sofyanwaldy@gmail.com](mailto:sofyanwaldy@gmail.com)
