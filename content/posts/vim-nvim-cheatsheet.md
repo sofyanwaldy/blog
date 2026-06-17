@@ -3,6 +3,7 @@ title: "Vim / Neovim Complete Cheatsheet"
 description: "A practical Vim and Neovim cheatsheet for daily coding, navigation, editing, buffers, windows, macros, search, LSP, terminal, and productivity workflows."
 date: 2026-06-17
 tags: ["vim", "neovim", "nvim", "cheatsheet", "developer-tools"]
+url: /vim
 draft: false
 ---
 
