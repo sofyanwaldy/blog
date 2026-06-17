@@ -1,5 +1,5 @@
 ---
-title: "Search"
+title: "Cari"
 layout: "search"
-placeholder: "Search posts, cheatsheets..."
+placeholder: "Cari artikel, cheatsheet..."
 ---

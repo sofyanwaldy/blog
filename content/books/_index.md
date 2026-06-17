@@ -1,4 +1,4 @@
 +++
-title = "Books"
-summary = "Reviewed books"
+title = "Buku"
+summary = "Review buku yang kubaca"
 +++

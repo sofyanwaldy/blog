@@ -111,13 +111,13 @@ ini merupakan murni pengalaman dan pendapat pribadi, bukan ajakan.&lt;/p&gt;
 &lt;p&gt;namun, dikarekan sering berselancar di internet, kemudian sering ketemu dengan artikel yang berasal dari medium.com, tau sendiri kalau buka artikel yang ada label member-only akan sering muncul popup untuk subscribe, dan begitulah kejadiannya aku subrek ini medium.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>About Me</title>
+      <title>Tentang Saya</title>
       <link>https://waldy.id/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://waldy.id/about/</guid>
-      <description>&lt;p&gt;Hi, I&amp;rsquo;m Sofyan Waldy — a self-taught software engineer.&lt;/p&gt;
-&lt;p&gt;I think a lot but don&amp;rsquo;t talk much, so I write instead. This blog is where I share things I&amp;rsquo;ve learned, ideas I find interesting, and occasional thoughts on how things work under the hood.&lt;/p&gt;
-&lt;p&gt;I started programming with C++, and that early experience gave me a lasting curiosity for how things work at a lower level. These days I work mostly with JavaScript and Node.js, but I&amp;rsquo;m drawn to Go and enjoy exploring systems programming with C when I get the chance.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Halo, aku Sofyan Waldy — seorang software engineer otodidak.&lt;/p&gt;
+&lt;p&gt;Aku banyak berpikir tapi jarang bicara, makanya aku menulis. Blog ini adalah tempatku membagikan hal-hal yang kupelajari, ide-ide menarik, dan kadang-kadang pemikiranku tentang bagaimana sesuatu bekerja di balik layar.&lt;/p&gt;
+&lt;p&gt;Aku mulai belajar pemrograman lewat C++, dan pengalaman awal itu membuatku selalu penasaran tentang bagaimana sistem bekerja di tingkat yang lebih rendah (low-level). Saat ini aku lebih banyak bekerja dengan JavaScript dan Node.js, tapi aku juga sangat tertarik dengan Go dan suka mengeksplorasi pemrograman sistem menggunakan C kalau ada kesempatan.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

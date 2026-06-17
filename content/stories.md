@@ -1,6 +1,6 @@
 +++
-title = "Stories"
+title = "Cerita"
 layout = "archives"
 url = "/stories/"
-summary = "Stories"
+summary = "Cerita"
 +++
