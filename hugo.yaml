@@ -1,5 +1,5 @@
 baseURL: https://waldy.id/
-languageCode: en-us
+languageCode: id
 title: Waldy's blog
 theme: "PaperMod"
 
@@ -36,6 +36,7 @@ params:
   comments: false
   author: Me
   ShowShareButton: true
+  ShowCodeCopyButtons: true
   ShowReadingTime: true
   ShowBreadCrumbs: true
   ShowToc: true
