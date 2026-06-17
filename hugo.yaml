@@ -29,7 +29,7 @@ markup:
       unsafe: true
 
 params:
-  env: development # to enable google analytics, opengraph, twitter-cards and schema.
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Sofyan waldy's blog
   description: welcome to waldy's personal blog, Where I share about my personal insights, ideas and thoughts on technology.
   keyword: [personal blog, tech blog, portfolio]

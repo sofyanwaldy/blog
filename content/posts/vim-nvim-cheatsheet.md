@@ -7,8 +7,6 @@ url: /vim
 draft: false
 ---
 
-# Cheatsheet Lengkap Vim / Neovim
-
 Vim dan Neovim itu editor modal. Jadi alih-alih pakai mouse untuk semua hal, kamu bakal mengombinasikan **mode**, **motion**, **operator**, dan **text object** buat edit teks dengan cepat.
 
 Cheatsheet ini didesain buat kerjaan development sehari-hari — panduan praktis yang bisa kamu bookmark dan buka lagi kapan saja.

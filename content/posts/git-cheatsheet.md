@@ -7,8 +7,6 @@ url: /git
 draft: false
 ---
 
-# Cheatsheet Lengkap Git
-
 Git itu melacak **snapshot** dari project kamu, bukan sekadar perbedaan baris kode (diff). Setiap commit adalah gambaran utuh dari seluruh project kamu pada momen tersebut. Memahami konsep ini bakal mengubah cara kamu berpikir tentang branching, merging, dan history.
 
 Cheatsheet ini didesain buat kerjaan development sehari-hari — tipe panduan yang bakal benar-benar kamu bookmark dan buka lagi terus-menerus.

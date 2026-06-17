@@ -7,8 +7,6 @@ url: /regex
 draft: false
 ---
 
-# Cheatsheet Lengkap Regex
-
 Regular Expressions (regex) itu alat pencocokan pola (pattern-matching) yang ada di hampir semua bahasa pemrograman, text editor, dan command-line tool. Regex membantumu mencari, memvalidasi, mengekstrak, dan mengubah teks dengan bahasa pola yang ringkas.
 
 Cheatsheet ini didesain sebagai referensi harian kamu — tidak cuma berisi daftar sintaks, tapi juga contoh-contoh praktis yang bakal benar-benar kamu pakai saat memparsing log, memvalidasi input, merefaktorkan kode, atau mencari teks di dalam codebase.
