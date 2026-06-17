@@ -2,17 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://waldy.id/posts/bukuin-vibe-coding/</loc>
-    <lastmod>2026-05-01T23:30:00+07:00</lastmod>
+    <loc>https://waldy.id/tags/cheatsheet/</loc>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/tags/developer-tools/</loc>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/tags/neovim/</loc>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/tags/nvim/</loc>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://waldy.id/posts/</loc>
-    <lastmod>2026-05-01T23:30:00+07:00</lastmod>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/tags/</loc>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/tags/vim/</loc>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/vim/</loc>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://waldy.id/</loc>
-    <lastmod>2026-05-01T23:30:00+07:00</lastmod>
+    <lastmod>2026-06-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://waldy.id/books/</loc>
-    <lastmod>2025-08-24T16:04:41+07:00</lastmod>
+    <lastmod>2026-05-30T23:00:00+07:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/books/agatha-christie/</loc>
+    <lastmod>2026-05-30T23:00:00+07:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/books/dee-lestari/</loc>
+    <lastmod>2026-05-30T23:00:00+07:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/books/keigo-higashino/</loc>
+    <lastmod>2026-05-30T23:00:00+07:00</lastmod>
+  </url><url>
+    <loc>https://waldy.id/posts/bukuin-vibe-coding/</loc>
+    <lastmod>2026-05-01T23:30:00+07:00</lastmod>
   </url><url>
     <loc>https://waldy.id/books/range/</loc>
     <lastmod>2025-08-24T16:04:41+07:00</lastmod>
@@ -31,7 +61,5 @@
     <loc>https://waldy.id/categories/</loc>
   </url><url>
     <loc>https://waldy.id/stories/</loc>
-  </url><url>
-    <loc>https://waldy.id/tags/</loc>
   </url>
 </urlset>

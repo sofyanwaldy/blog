@@ -1,0 +1,133 @@
+/* =============================================================
+   Sidebar Table of Contents — PaperMod Override
+   Shows TOC as a sticky left sidebar on wide screens,
+   falls back to default inline TOC on narrow screens.
+   ============================================================= */
+
+/* --- Layout wrapper --- */
+.post-content-wrapper.has-sidebar-toc {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: calc(var(--main-width) + 280px + 2rem);
+  position: relative;
+}
+
+/* --- Sidebar TOC --- */
+.sidebar-toc {
+  display: none; /* hidden on mobile by default */
+}
+
+/* --- Desktop: show sidebar --- */
+@media (min-width: 1200px) {
+  /* Widen the main container to make room */
+  body:has(.has-sidebar-toc) .main {
+    max-width: calc(var(--main-width) + 280px + var(--gap) * 2 + 2rem);
+  }
+
+  .sidebar-toc {
+    display: block;
+    position: sticky;
+    top: calc(var(--header-height, 60px) + 1.5rem);
+    width: 260px;
+    min-width: 260px;
+    max-height: calc(100vh - var(--header-height, 60px) - 3rem);
+    overflow-y: auto;
+    order: -1; /* place on the left */
+    flex-shrink: 0;
+    padding-right: 1rem;
+  }
+
+  /* Remove the collapsible <details> behavior on desktop — always open */
+  .sidebar-toc .toc {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-right: 2px solid var(--border);
+    padding: 0 1rem 0 0;
+  }
+
+  .sidebar-toc .toc details {
+    pointer-events: none; /* prevent collapse */
+  }
+
+  .sidebar-toc .toc details > summary {
+    display: none; /* hide the "Table of Contents" toggle */
+  }
+
+  .sidebar-toc .toc details[open] > .inner {
+    display: block;
+  }
+
+  .sidebar-toc .toc details > .inner {
+    display: block; /* always show */
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar-toc .toc .inner ul {
+    padding-inline-start: 1rem;
+    margin: 0;
+  }
+
+  .sidebar-toc .toc .inner > ul {
+    padding-inline-start: 0;
+  }
+
+  .sidebar-toc .toc .inner li {
+    margin: 0.25rem 0;
+    list-style: none;
+  }
+
+  .sidebar-toc .toc .inner a {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--secondary);
+    text-decoration: none;
+    display: block;
+    padding: 0.15rem 0;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .sidebar-toc .toc .inner a:hover {
+    color: var(--primary);
+  }
+
+  /* Active state — will be set by JS */
+  .sidebar-toc .toc .inner a.toc-active {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* The post content takes remaining space */
+  .post-content-wrapper.has-sidebar-toc .post-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Scrollbar styling for the sidebar */
+  .sidebar-toc::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .sidebar-toc::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+  }
+}
+
+/* --- Mobile: use default PaperMod inline TOC --- */
+@media (max-width: 1199px) {
+  .post-content-wrapper.has-sidebar-toc {
+    display: block;
+  }
+
+  .sidebar-toc {
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-toc .toc {
+    /* keep PaperMod's default collapsible style */
+  }
+}

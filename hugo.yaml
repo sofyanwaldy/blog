@@ -32,6 +32,8 @@ params:
   ShowShareButton: true
   ShowReadingTime: true
   ShowBreadCrumbs: true
+  ShowToc: true
+  TocOpen: true
   mainSections: ["posts", "stories", "books"]
   contact:
     email: "sofyanwaldy@gmail.com"

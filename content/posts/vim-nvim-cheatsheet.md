@@ -15,50 +15,8 @@ This cheatsheet is designed for daily development work and can be published dire
 
 ---
 
-## Table of Contents
-
-- [Core Idea](#core-idea)
-- [Modes](#modes)
-- [Basic Movement](#basic-movement)
-- [Word Movement](#word-movement)
-- [Line Movement](#line-movement)
-- [Screen Movement](#screen-movement)
-- [Search Movement](#search-movement)
-- [Character Search: `f`, `F`, `t`, `T`](#character-search-f-f-t-t)
-- [Operators](#operators)
-- [Operator + Motion Examples](#operator--motion-examples)
-- [Text Objects](#text-objects)
-- [Insert Mode Shortcuts](#insert-mode-shortcuts)
-- [Editing Text](#editing-text)
-- [Copy, Cut, and Paste](#copy-cut-and-paste)
-- [Registers](#registers)
-- [Undo and Redo](#undo-and-redo)
-- [Visual Mode](#visual-mode)
-- [Indentation](#indentation)
-- [Comments](#comments)
-- [Search and Replace](#search-and-replace)
-- [Global Command](#global-command)
-- [Files](#files)
-- [Buffers](#buffers)
-- [Windows / Splits](#windows--splits)
-- [Tabs](#tabs)
-- [Marks](#marks)
-- [Jumps and Change List](#jumps-and-change-list)
-- [Macros](#macros)
-- [Folds](#folds)
-- [Quickfix and Location List](#quickfix-and-location-list)
-- [Diff Mode](#diff-mode)
-- [Spell Checking](#spell-checking)
-- [Formatting](#formatting)
-- [Terminal](#terminal)
-- [Neovim LSP](#neovim-lsp)
-- [Neovim Diagnostics](#neovim-diagnostics)
-- [Useful Ex Commands](#useful-ex-commands)
-- [Practical Workflows](#practical-workflows)
-- [Recommended Practice Plan](#recommended-practice-plan)
-- [Mini Cheat Table](#mini-cheat-table)
-
 ---
+
 
 ## Core Idea
 

@@ -1,0 +1,37 @@
+{{- /* Footer custom content area start */ -}}
+<script>
+// Scroll-spy: highlight active TOC link in sidebar
+(function () {
+  const tocLinks = document.querySelectorAll('.sidebar-toc .toc .inner a');
+  if (!tocLinks.length) return;
+
+  const headings = [];
+  tocLinks.forEach(function (link) {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      const el = document.getElementById(href.slice(1));
+      if (el) headings.push({ el: el, link: link });
+    }
+  });
+
+  if (!headings.length) return;
+
+  function onScroll() {
+    const scrollY = window.scrollY;
+    let active = headings[0];
+
+    for (let i = 0; i < headings.length; i++) {
+      if (headings[i].el.getBoundingClientRect().top <= 100) {
+        active = headings[i];
+      }
+    }
+
+    tocLinks.forEach(function (l) { l.classList.remove('toc-active'); });
+    if (active) active.link.classList.add('toc-active');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+{{- /* Footer custom content area end */ -}}
