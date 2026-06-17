@@ -36,9 +36,9 @@ params:
   comments: true
   giscus:
     repo: "sofyanwaldy/blog"
-    repoId: "YOUR_REPO_ID_HERE"
+    repoId: "R_kgDOMYE9UA"
     category: "Announcements" # default category, change if needed
-    categoryId: "YOUR_CATEGORY_ID_HERE"
+    categoryId: "DIC_kwDOMYE9UM4C_Um3"
   author: Me
   ShowShareButton: true
   ShowCodeCopyButtons: true
