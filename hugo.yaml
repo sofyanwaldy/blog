@@ -33,7 +33,12 @@ params:
   title: Sofyan waldy's blog
   description: welcome to waldy's personal blog, Where I share about my personal insights, ideas and thoughts on technology.
   keyword: [personal blog, tech blog, portfolio]
-  comments: false
+  comments: true
+  giscus:
+    repo: "sofyanwaldy/blog"
+    repoId: "YOUR_REPO_ID_HERE"
+    category: "Announcements" # default category, change if needed
+    categoryId: "YOUR_CATEGORY_ID_HERE"
   author: Me
   ShowShareButton: true
   ShowCodeCopyButtons: true
