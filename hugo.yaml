@@ -4,6 +4,12 @@ title: Waldy's blog
 theme: "PaperMod"
 
 enableRobotsTXT: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
 buildDrafts: false
 buildFuture: false
 buildExpired: false
@@ -53,6 +59,9 @@ params:
 
 menu:
   main:
+    - identifier: Search
+      name: Search
+      url: /search/
     - identifier: Stories
       name: Stories
       url: /stories/

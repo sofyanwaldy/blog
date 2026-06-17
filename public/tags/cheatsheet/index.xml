@@ -9,6 +9,20 @@
     <lastBuildDate>Wed, 17 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://waldy.id/tags/cheatsheet/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Git Complete Cheatsheet</title>
+      <link>https://waldy.id/git/</link>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://waldy.id/git/</guid>
+      <description>A practical Git cheatsheet for daily development — commands, branching, merging, rebasing, stashing, logging, undoing mistakes, and collaboration workflows.</description>
+    </item>
+    <item>
+      <title>Regex Complete Cheatsheet</title>
+      <link>https://waldy.id/regex/</link>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://waldy.id/regex/</guid>
+      <description>A practical regular expressions cheatsheet for daily coding — syntax, quantifiers, groups, lookahead, common patterns, and real-world examples in JavaScript, Python, and Vim.</description>
+    </item>
+    <item>
       <title>Vim / Neovim Complete Cheatsheet</title>
       <link>https://waldy.id/vim/</link>
       <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
