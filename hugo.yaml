@@ -50,8 +50,8 @@ params:
   contact:
     email: "sofyanwaldy@gmail.com"
   homeInfoParams:
-    Title: "Halo, aku Waldy👋"
-    Content: "Aku seorang software engineer otodidak. Aku banyak berpikir tapi jarang bicara, makanya aku bikin blog ini buat berbagi ide dan pemikiranku."
+    Title: "Hai, aku Waldy👋"
+    Content: "Di sini aku akan berbagi pengalaman, cerita seputar teknologi dan software engineering"
 
   socialIcons:
     - name: "mastodon"
