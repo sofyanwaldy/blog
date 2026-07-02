@@ -243,4 +243,4 @@ jobs:
 - **GitHub:** [@sofyanwaldy](https://github.com/sofyanwaldy)
 - **LinkedIn:** [Sopyan Waldy](https://www.linkedin.com/in/sopyan-waldy/)
 - **Mastodon:** [@swaldy@mastodon.social](https://mastodon.social/@swaldy)
-- **Email:** sofyanwaldy@gmail.com
+- **Email:** sofyan@waldy.id

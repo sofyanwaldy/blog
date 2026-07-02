@@ -16,4 +16,4 @@ Belakangan ini, aku juga banyak mengeksplorasi tentang AI, meskipun teknologi in
 
 Di luar urusan _coding_, aku banyak membaca buku, suka olahraga, dan menghabiskan waktu bersama orang-orang terdekat.
 
-Semoga tulisan-tulisan di sini bisa bermanfaat buat kamu. Kalau kamu ingin ngobrol atau sekadar menyapa, hubungi aku di: [sofyanwaldy@gmail.com](mailto:sofyanwaldy@gmail.com)
+Semoga tulisan-tulisan di sini bisa bermanfaat buat kamu. Kalau kamu ingin ngobrol atau sekadar menyapa, hubungi aku di: [sofyan@waldy.id](mailto:sofyan@waldy.id)
